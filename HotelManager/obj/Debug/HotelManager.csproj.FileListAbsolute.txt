@@ -1,0 +1,12 @@
+D:\SUBJECTS\Môn CNPM\HotelManager\HotelManager\obj\Debug\HotelManager.csproj.AssemblyReference.cache
+D:\SUBJECTS\Môn CNPM\HotelManager\HotelManager\obj\Debug\HotelManager.csproj.SuggestedBindingRedirects.cache
+D:\SUBJECTS\Môn CNPM\HotelManager\HotelManager\obj\Debug\HotelManager.Admin.QuanLy.resources
+D:\SUBJECTS\Môn CNPM\HotelManager\HotelManager\obj\Debug\HotelManager.Login.resources
+D:\SUBJECTS\Môn CNPM\HotelManager\HotelManager\obj\Debug\HotelManager.Properties.Resources.resources
+D:\SUBJECTS\Môn CNPM\HotelManager\HotelManager\obj\Debug\HotelManager.csproj.GenerateResource.cache
+D:\SUBJECTS\Môn CNPM\HotelManager\HotelManager\obj\Debug\HotelManager.csproj.CoreCompileInputs.cache
+D:\SUBJECTS\Môn CNPM\HotelManager\HotelManager\bin\Debug\HotelManager.exe.config
+D:\SUBJECTS\Môn CNPM\HotelManager\HotelManager\bin\Debug\HotelManager.exe
+D:\SUBJECTS\Môn CNPM\HotelManager\HotelManager\bin\Debug\HotelManager.pdb
+D:\SUBJECTS\Môn CNPM\HotelManager\HotelManager\obj\Debug\HotelManager.exe
+D:\SUBJECTS\Môn CNPM\HotelManager\HotelManager\obj\Debug\HotelManager.pdb
