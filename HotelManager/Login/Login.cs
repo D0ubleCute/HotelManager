@@ -11,6 +11,7 @@ using System.Windows.Forms;
 using HotelManager.Controller;
 using HotelManager.DAO;
 using HotelManager.Admin;
+using HotelManager.NhanVien;
 
 namespace HotelManager
 {
@@ -83,17 +84,19 @@ namespace HotelManager
                 if (loginAccount.type == 1) //admin
                 {
                     QuanLy frm = new QuanLy(loginAccount.userName);
+                    MessageBox.Show("Đăng nhập thành công. Chào mừng Admin", "Thông báo");
                     this.Hide();
                     frm.ShowDialog();
                     this.Show();
                 }
-                //else if (loginAccount.type == 2 && loginAccount.isLocked = false) //staff
-                //{
-                //    HotelManager.Staff.NhanVien frm = new HotelManager.Staff(loginAccount.userName);
-                //    this.Hide();
-                //    frm.ShowDialog();
-                //    Show();
-                //}
+                else if (loginAccount.type == 2 && loginAccount.isLocked == false) //staff
+                {
+                    NV frm = new NV(loginAccount.userName);
+                    MessageBox.Show("Đăng nhập thành công. Chào mừng " + loginAccount.displayName, "Thông báo");
+                    this.Hide();
+                    frm.ShowDialog();
+                    Show();
+                }
                 else if (loginAccount.isLocked == true)
                 {
                     MessageBox.Show("Tài khoản của bạn đã bị khoá, liên hệ quản lý để biết thêm chi tiết", "Thông báo");
@@ -101,17 +104,19 @@ namespace HotelManager
             }
             else 
             {
+                bool getLocked = AccountController.DecreaseAttempsOrLockAccount(username);
                 Account loginAccount = AccountController.GetAccountByUsername(username);
-                if (loginAccount.attempts == 0)
+
+                if (getLocked && loginAccount.isLocked == false)
                 {
-                    loginAccount.isLocked = true;
-                    return;
-                } else
-                {
-                    loginAccount.attempts -= 1;
                     MessageBox.Show("Sai tên tài khoản hoặc mật khẩu, bạn còn " + loginAccount.attempts + " lần thử", "Thông báo");
                     return;
-                }                                             
+                }
+                else if (getLocked && loginAccount.isLocked == true)
+                {
+                    MessageBox.Show("Tài khoản của bạn đã bị khoá, liên hệ quản lý để biết thêm chi tiết", "Thông báo");
+                    return;
+                }
             }
         }
 

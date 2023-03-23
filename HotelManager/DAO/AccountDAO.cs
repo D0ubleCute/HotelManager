@@ -4,6 +4,7 @@ using System.Linq;
 using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace HotelManager.DAO
 {
@@ -37,6 +38,40 @@ namespace HotelManager.DAO
                             select tk;
 
                 return query.FirstOrDefault();
+            }
+        }
+
+        public static bool DecreaseAttempsOrLockAccount(string userName)
+        {
+            using (HotelDataContext db = new HotelDataContext())
+            {
+                try
+                {
+                    db.USP_DecreaseAttempsOrLockAccount(userName);
+                    return true;
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show(e.Message);
+                    return false;
+                }
+            }
+        }
+
+        public static bool ResetAttempsOrUnlockAccount(string userName)
+        {
+            using (HotelDataContext db = new HotelDataContext())
+            {
+                try
+                {
+                    db.USP_ResetAttempsOrUnlockAccount(userName);
+                    return true;
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show(e.Message);
+                    return false;
+                }
             }
         }
 

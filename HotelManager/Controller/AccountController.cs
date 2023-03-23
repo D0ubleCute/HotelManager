@@ -28,6 +28,11 @@ namespace HotelManager.Controller
             }
             return false;
         }
+
+        public static bool DecreaseAttempsOrLockAccount(string userName)
+        {
+            return AccountDAO.DecreaseAttempsOrLockAccount(userName);
+        }
     }
 }
 

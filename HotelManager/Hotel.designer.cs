@@ -94,6 +94,20 @@ namespace HotelManager
 				return this.GetTable<Staff>();
 			}
 		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.USP_ResetAttempsOrUnlockAccount")]
+		public int USP_ResetAttempsOrUnlockAccount([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(30)")] string username)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), username);
+			return ((int)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.USP_DecreaseAttempsOrLockAccount")]
+		public int USP_DecreaseAttempsOrLockAccount([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(30)")] string username)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), username);
+			return ((int)(result.ReturnValue));
+		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Account")]

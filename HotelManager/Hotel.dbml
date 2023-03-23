@@ -37,4 +37,12 @@
       <Association Name="Account_Staff" Member="Account" ThisKey="userName" OtherKey="userName" Type="Account" IsForeignKey="true" />
     </Type>
   </Table>
+  <Function Name="dbo.USP_ResetAttempsOrUnlockAccount" Method="USP_ResetAttempsOrUnlockAccount">
+    <Parameter Name="username" Type="System.String" DbType="VarChar(30)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.USP_DecreaseAttempsOrLockAccount" Method="USP_DecreaseAttempsOrLockAccount">
+    <Parameter Name="username" Type="System.String" DbType="VarChar(30)" />
+    <Return Type="System.Int32" />
+  </Function>
 </Database>
