@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="Hotel" Class="HotelDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="AppSettings" ConnectionString="Data Source=QOOBAO;Initial Catalog=Hotel;Integrated Security=True" SettingsObjectName="HotelManager.Properties.Settings" SettingsPropertyName="HotelConnectionString" Provider="System.Data.SqlClient" />
+  <Connection Mode="AppSettings" ConnectionString="Data Source=KIENTRAN;Initial Catalog=Hotel;Integrated Security=True" SettingsObjectName="HotelManager.Properties.Settings" SettingsPropertyName="HotelConnectionString1" Provider="System.Data.SqlClient" />
   <Table Name="dbo.Account" Member="Accounts">
     <Type Name="Account">
       <Column Name="userName" Type="System.String" DbType="VarChar(30) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
@@ -22,6 +22,7 @@
       <Column Name="cmnd" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
       <Column Name="points" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="idRankingAcc" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Association Name="Customer_Reservation" Member="Reservations" ThisKey="id" OtherKey="idCustomer" Type="Reservation" />
     </Type>
   </Table>
   <Table Name="dbo.Staff" Member="Staffs">
@@ -34,7 +35,91 @@
       <Column Name="cmnd" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
       <Column Name="avatar" Type="System.String" DbType="VarChar(60)" CanBeNull="true" />
       <Column Name="userName" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Association Name="Staff_Reservation" Member="Reservations" ThisKey="id" OtherKey="idStaff" Type="Reservation" />
       <Association Name="Account_Staff" Member="Account" ThisKey="userName" OtherKey="userName" Type="Account" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Janitor" Member="Janitors">
+    <Type Name="Janitor">
+      <Column Name="idJanitor" Type="System.String" DbType="VarChar(20) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="fullName" Type="System.String" DbType="NVarChar(60) NOT NULL" CanBeNull="false" />
+      <Column Name="dob" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Column Name="address" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="phone" Type="System.String" DbType="VarChar(12) NOT NULL" CanBeNull="false" />
+      <Column Name="cmnd" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Association Name="Janitor_RoomCleanByJanitor" Member="RoomCleanByJanitors" ThisKey="idJanitor" OtherKey="idJanitor" Type="RoomCleanByJanitor" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Reservation" Member="Reservations">
+    <Type Name="Reservation">
+      <Column Name="idReservation" Type="System.String" DbType="VarChar(20) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="roomNum" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="idServiceIm" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="checkinDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="checkoutDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="idCustomer" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="idStaff" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="totalPrice" Type="System.Decimal" DbType="Decimal(18,0) NOT NULL" CanBeNull="false" />
+      <Column Name="paymentInfo" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Association Name="Customer_Reservation" Member="Customer" ThisKey="idCustomer" OtherKey="id" Type="Customer" IsForeignKey="true" />
+      <Association Name="Staff_Reservation" Member="Staff" ThisKey="idStaff" OtherKey="id" Type="Staff" IsForeignKey="true" />
+      <Association Name="Room_Reservation" Member="Room" ThisKey="roomNum" OtherKey="roomNum" Type="Room" IsForeignKey="true" />
+      <Association Name="RoomExtraByRoom_Reservation" Member="RoomExtraByRoom" ThisKey="idServiceIm" OtherKey="idServiceIm" Type="RoomExtraByRoom" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Room" Member="Rooms">
+    <Type Name="Room">
+      <Column Name="roomNum" Type="System.Int16" DbType="SmallInt NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="roomName" Type="System.String" DbType="NVarChar(60) NOT NULL" CanBeNull="false" />
+      <Column Name="roomImage" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="idType" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="typeName" Type="System.String" DbType="NVarChar(60) NOT NULL" CanBeNull="false" />
+      <Column Name="area" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="isClean" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="isOccupied" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="idRateByType" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Association Name="Room_Reservation" Member="Reservations" ThisKey="roomNum" OtherKey="roomNum" Type="Reservation" />
+      <Association Name="Room_RoomCleanByJanitor" Member="RoomCleanByJanitors" ThisKey="roomNum" OtherKey="roomNum" Type="RoomCleanByJanitor" />
+      <Association Name="Room_RoomExtraByRoom" Member="RoomExtraByRooms" ThisKey="roomNum" OtherKey="roomNum" Type="RoomExtraByRoom" />
+      <Association Name="RoomPrice_Room" Member="RoomPrice" ThisKey="idRateByType" OtherKey="idRateByType" Type="RoomPrice" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.RoomCleanByJanitor" Member="RoomCleanByJanitors">
+    <Type Name="RoomCleanByJanitor">
+      <Column Name="idCleaning" Type="System.String" DbType="VarChar(20) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="idJanitor" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="roomNum" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Association Name="Janitor_RoomCleanByJanitor" Member="Janitor" ThisKey="idJanitor" OtherKey="idJanitor" Type="Janitor" IsForeignKey="true" />
+      <Association Name="Room_RoomCleanByJanitor" Member="Room" ThisKey="roomNum" OtherKey="roomNum" Type="Room" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.RoomExtra" Member="RoomExtras">
+    <Type Name="RoomExtra">
+      <Column Name="idService" Type="System.String" DbType="VarChar(20) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="nameService" Type="System.String" DbType="NVarChar(60) NOT NULL" CanBeNull="false" />
+      <Column Name="priceService" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="RoomExtra_RoomExtraByRoom" Member="RoomExtraByRooms" ThisKey="idService" OtherKey="idService" Type="RoomExtraByRoom" />
+    </Type>
+  </Table>
+  <Table Name="dbo.RoomExtraByRoom" Member="RoomExtraByRooms">
+    <Type Name="RoomExtraByRoom">
+      <Column Name="idServiceIm" Type="System.String" DbType="VarChar(20) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="idService" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="roomNum" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Association Name="RoomExtraByRoom_Reservation" Member="Reservations" ThisKey="idServiceIm" OtherKey="idServiceIm" Type="Reservation" />
+      <Association Name="RoomExtra_RoomExtraByRoom" Member="RoomExtra" ThisKey="idService" OtherKey="idService" Type="RoomExtra" IsForeignKey="true" />
+      <Association Name="Room_RoomExtraByRoom" Member="Room" ThisKey="roomNum" OtherKey="roomNum" Type="Room" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.RoomPrice" Member="RoomPrices">
+    <Type Name="RoomPrice">
+      <Column Name="idRateByType" Type="System.String" DbType="VarChar(20) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="baseForHour" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="rateForHour" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="baseForNight" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="baseForDay" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="rateForDay" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="RoomPrice_Room" Member="Rooms" ThisKey="idRateByType" OtherKey="idRateByType" Type="Room" />
     </Type>
   </Table>
   <Function Name="dbo.USP_ResetAttempsOrUnlockAccount" Method="USP_ResetAttempsOrUnlockAccount">

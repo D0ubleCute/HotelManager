@@ -1,4 +1,4 @@
-create database Hotel
+﻿create database Hotel
 go
 
 use Hotel
@@ -77,7 +77,10 @@ create table Room (
 )
 
 insert into Room values 
-(101, 'Phong Deluxe Double' , '', 1)
+(101, 'Phong Deluxe Double' , '', 1, 'Deluxe/Twin', 36, 1, 0, 'DLX')
+insert into Room values
+(201, 'Phong Superior Double' , '', 2, 'Superior', 44, 1, 0, 'SUPER')
+select * from Room
 
 create table RoomPrice (
 	idRateByType varchar(20) not null primary key,
@@ -88,11 +91,22 @@ create table RoomPrice (
 	rateForDay int null,
 )
 
+insert into RoomPrice values 
+('DLX', 100000, 40000, 220000, 330000, 140000),
+('SUPER', 140000, 50000, 280000, 360000, 180000)
+
 create table RoomExtra (
 	idService varchar(20) not null primary key,
 	nameService nvarchar(60) not null,
 	priceService int not null,
 )
+
+insert into RoomExtra values 
+('massage-01', N'Massage thư giãn, chỉnh đốt sống', 200000),
+('massage-02', N'Massage thư giãn, chỉnh đốt sống, đắp than', 280000),
+('bath', N'Bồn tắm', 40000)
+
+--RoomFacility
 
 create table RoomCleanByJanitor(
 	idCleaning varchar(20) not null primary key,
@@ -110,6 +124,11 @@ create table RoomExtraByRoom (
 	FOREIGN KEY (roomNum) REFERENCES Room(roomNum)
 )
 
+insert into RoomExtraByRoom values 
+('Ser-001', 'massage-01', 101)
+insert into RoomExtraByRoom values 
+('Ser-002', 'massage-01', 201)
+
 create table Reservation (
 	idReservation varchar(20) not null primary key,
 	roomNum smallint not null,
@@ -125,9 +144,26 @@ create table Reservation (
 	FOREIGN KEY (idCustomer) REFERENCES Customer(id),
 	FOREIGN KEY (idStaff) REFERENCES Staff(id)
 )
+
+insert into Reservation values 
+('Res-001', 101, 'Ser-001', '2023-03-24 09:00:00', '2023-03-24 14:00:00', '001', '001', 460000, '')
+insert into Reservation values 
+('Res-002', 201, 'Ser-002', '2023-03-24 09:00:00', '2023-03-24 14:00:00', '001', '001', 460000, '')
+
 ------------------------------FUNCTION------------------------------
+create or alter function DBO.CalculateTotalByHour(@roomNum smallint, @checkinDate datetime, @checkoutDate datetime)
+Returns decimal(18,3)
+as
+begin
+	DECLARE @IDRate VARCHAR(20), @total decimal(18,3)
+	select @IDRate = (select idRateByType from Room where roomNum = @roomNum)
+	Select @total = (select (RoomPrice.baseForHour + RoomPrice.rateForHour*(DATEDIFF(hh, @checkinDate, @checkoutDate)-1)) 
+							from RoomPrice where idRateByType = @IDRate)
+	return @total
+end
+go
 
-
+print DBO.CalculateTotalByHour(201, '2023-03-24 09:00:00', '2023-03-24 14:30:00')
 
 ------------------------------END FUNCTION------------------------------
 

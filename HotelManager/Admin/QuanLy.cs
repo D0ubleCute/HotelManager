@@ -16,5 +16,6 @@ namespace HotelManager.Admin
         {
             InitializeComponent();
         }
+
     }
 }

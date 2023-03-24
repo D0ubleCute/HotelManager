@@ -32,5 +32,15 @@ namespace HotelManager.Properties {
                 return ((string)(this["HotelConnectionString"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=KIENTRAN;Initial Catalog=Hotel;Integrated Security=True")]
+        public string HotelConnectionString1 {
+            get {
+                return ((string)(this["HotelConnectionString1"]));
+            }
+        }
     }
 }
