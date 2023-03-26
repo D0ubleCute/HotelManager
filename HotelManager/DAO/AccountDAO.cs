@@ -10,7 +10,7 @@ namespace HotelManager.DAO
 {
     public class AccountDAO
     {
-        private AccountDAO() { }
+        public AccountDAO() { }
 
         public static List<Account> GetAccounts()
         {

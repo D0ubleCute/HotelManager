@@ -34,6 +34,7 @@ create table Staff (
 )
 
 insert into Staff values 
+('002', N'Khuong Thuy Sau', '2019-09-09', N'47 HVN', '0973310235', '079202034222', '', 'sau'),
 ('001', N'Bicpeo', '2002-09-29', N'25 TNV', '0973310071', '079202034567', '', 'bao')
 
 create table Customer (
@@ -151,6 +152,7 @@ insert into Reservation values
 ('Res-002', 201, 'Ser-002', '2023-03-24 09:00:00', '2023-03-24 14:00:00', '001', '001', 460000, '')
 
 ------------------------------FUNCTION------------------------------
+--chua hoan thien
 create or alter function DBO.CalculateTotalByHour(@roomNum smallint, @checkinDate datetime, @checkoutDate datetime)
 Returns decimal(18,3)
 as
@@ -163,7 +165,39 @@ begin
 end
 go
 
-print DBO.CalculateTotalByHour(201, '2023-03-24 09:00:00', '2023-03-24 14:30:00')
+--1. idReceipt 
+CREATE OR ALTER FUNCTION DBO.AUTO_idReservation(@createdAt DATETIME)
+RETURNS varchar(20)
+AS
+BEGIN
+	DECLARE @CUSTOM_ID VARCHAR(20), @CUSTOM_ID_TIME VARCHAR(20), @COUNT SmallINT
+	SELECT @COUNT = (SELECT COUNT(*) FROM Reservation WHERE checkinDate = @createdAt)
+	SET @CUSTOM_ID = REPLACE(CONVERT(VARCHAR(20), @createdAt, 103), '/', '')
+	SET @CUSTOM_ID_TIME = REPLACE(CONVERT(VARCHAR(20), @createdAt, 108), ':', '')
+	RETURN CONCAT(@CUSTOM_ID, @CUSTOM_ID_TIME) + '#' + REPLICATE('0', 2) + CAST(@COUNT + 1 AS VARCHAR(5))
+END
+
+
+--2. idStaff
+CREATE OR ALTER FUNCTION DBO.AUTO_idStaff(@dob DATE)
+RETURNS varchar(20)
+AS
+BEGIN
+	DECLARE @CUSTOM_ID VARCHAR(20), @COUNT SmallINT
+	SELECT @COUNT = (SELECT COUNT(*) FROM Staff WHERE dob = @dob)
+	SET @CUSTOM_ID = REPLACE(CONVERT(VARCHAR(20), @dob, 103), '/', '')
+	RETURN CONCAT('NV.', @CUSTOM_ID) + '#' + REPLICATE('0', 2) + CAST(@COUNT + 1 AS VARCHAR(5))
+END
+
+--3. idCustomer
+CREATE OR ALTER FUNCTION DBO.AUTO_idCustomer(@phone varchar(12))
+RETURNS varchar(20)
+AS
+BEGIN
+	DECLARE @CUSTOM_ID VARCHAR(20), @COUNT SmallINT
+	SELECT @COUNT = (SELECT COUNT(*) FROM Reservation, Customer WHERE Reservation.idCustomer = Customer.id and customer.phone = @phone)
+	RETURN CONCAT('KH.', @phone) + '#' + REPLICATE('0', 2) + CAST(@COUNT + 1 AS VARCHAR(5))
+END
 
 ------------------------------END FUNCTION------------------------------
 
@@ -194,8 +228,30 @@ as
 		UPDATE Account SET attempts = 3 where userName = @username
 go
 
-exec USP_DecreaseAttempsOrLockAccount 'sau'
-exec USP_ResetAttempsOrUnlockAccount 'sau'
-select * from account
+--1 PROC List Staff
+create or alter proc USP_GetStaff
+as
+	select *, Account.isLocked from Staff, Account where Staff.userName = Account.userName
+go
+
+select * from staff
+--1. PROC Them NV
+CREATE or alter proc USP_InsertStaff 
+	@fullname nvarchar(60),
+	@dob date,
+	@address nvarchar(100),
+	@phone varchar(12),
+	@cmnd varchar(20)
+AS
+	insert into Account values (@cmnd, 'NhanVien', '123', 2, 0, 3)
+	insert into Staff values (DBO.AUTO_idStaff(@dob), @fullname, @dob, @address, @phone, @cmnd, '', @cmnd)
+go
+
+--2. PROC Tim kiem NV
+CREATE proc USP_SearchStaff 
+	@name nvarchar(60)
+as
+	select * from staff where fullname = @name
+go
 
 ------------------------------END PROC------------------------------

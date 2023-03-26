@@ -32,6 +32,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>logo.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -54,7 +57,15 @@
       <DependentUpon>QuanLy.cs</DependentUpon>
     </Compile>
     <Compile Include="Controller\AccountController.cs" />
+    <Compile Include="Controller\StaffController.cs" />
     <Compile Include="DAO\AccountDAO.cs" />
+    <Compile Include="DAO\CustomerDAO.cs" />
+    <Compile Include="DAO\ReservationDAO.cs" />
+    <Compile Include="DAO\RevenueDAO.cs" />
+    <Compile Include="DAO\StaffDAO.cs" />
+    <Compile Include="Hotel.cs">
+      <DependentUpon>Hotel.dbml</DependentUpon>
+    </Compile>
     <Compile Include="Hotel.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -88,6 +99,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="Hotel.dbml">
       <Generator>MSLinqToSQLGenerator</Generator>
@@ -112,6 +124,14 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\quanlynhansu.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\Wood_BG.jpg" />
+    <Content Include="logo.ico" />
+    <None Include="Resources\logo_transparent.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

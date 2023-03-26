@@ -63,7 +63,7 @@ namespace HotelManager
     #endregion
 		
 		public HotelDataContext() : 
-				base(global::HotelManager.Properties.Settings.Default.HotelConnectionString1, mappingSource)
+				base(global::HotelManager.Properties.Settings.Default.HotelConnectionString, mappingSource)
 		{
 			OnCreated();
 		}
@@ -184,6 +184,45 @@ namespace HotelManager
 		{
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), username);
 			return ((int)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.USP_InsertStaff")]
+		public int USP_InsertStaff([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="NVarChar(60)")] string fullname, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Date")] System.Nullable<System.DateTime> dob, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="NVarChar(100)")] string address, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(12)")] string phone, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(20)")] string cmnd)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), fullname, dob, address, phone, cmnd);
+			return ((int)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.AUTO_idCustomer", IsComposable=true)]
+		public string AUTO_idCustomer([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(12)")] string phone)
+		{
+			return ((string)(this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), phone).ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.AUTO_idReservation", IsComposable=true)]
+		public string AUTO_idReservation([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="DateTime")] System.Nullable<System.DateTime> createdAt)
+		{
+			return ((string)(this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), createdAt).ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.AUTO_idStaff", IsComposable=true)]
+		public string AUTO_idStaff([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Date")] System.Nullable<System.DateTime> dob)
+		{
+			return ((string)(this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), dob).ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.USP_SearchStaff")]
+		public ISingleResult<USP_SearchStaffResult> USP_SearchStaff([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="NVarChar(60)")] string name)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), name);
+			return ((ISingleResult<USP_SearchStaffResult>)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.USP_GetStaff")]
+		public ISingleResult<USP_GetStaffResult> USP_GetStaff()
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())));
+			return ((ISingleResult<USP_GetStaffResult>)(result.ReturnValue));
 		}
 	}
 	
@@ -2742,6 +2781,436 @@ namespace HotelManager
 		{
 			this.SendPropertyChanging();
 			entity.RoomPrice = null;
+		}
+	}
+	
+	public partial class USP_SearchStaffResult
+	{
+		
+		private string _id;
+		
+		private string _fullName;
+		
+		private System.DateTime _dob;
+		
+		private string _address;
+		
+		private string _phone;
+		
+		private string _cmnd;
+		
+		private string _avatar;
+		
+		private string _userName;
+		
+		public USP_SearchStaffResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", DbType="VarChar(20) NOT NULL", CanBeNull=false)]
+		public string id
+		{
+			get
+			{
+				return this._id;
+			}
+			set
+			{
+				if ((this._id != value))
+				{
+					this._id = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_fullName", DbType="NVarChar(60) NOT NULL", CanBeNull=false)]
+		public string fullName
+		{
+			get
+			{
+				return this._fullName;
+			}
+			set
+			{
+				if ((this._fullName != value))
+				{
+					this._fullName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_dob", DbType="Date NOT NULL")]
+		public System.DateTime dob
+		{
+			get
+			{
+				return this._dob;
+			}
+			set
+			{
+				if ((this._dob != value))
+				{
+					this._dob = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_address", DbType="NVarChar(100)")]
+		public string address
+		{
+			get
+			{
+				return this._address;
+			}
+			set
+			{
+				if ((this._address != value))
+				{
+					this._address = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_phone", DbType="Char(12) NOT NULL", CanBeNull=false)]
+		public string phone
+		{
+			get
+			{
+				return this._phone;
+			}
+			set
+			{
+				if ((this._phone != value))
+				{
+					this._phone = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_cmnd", DbType="VarChar(20) NOT NULL", CanBeNull=false)]
+		public string cmnd
+		{
+			get
+			{
+				return this._cmnd;
+			}
+			set
+			{
+				if ((this._cmnd != value))
+				{
+					this._cmnd = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_avatar", DbType="VarChar(60)")]
+		public string avatar
+		{
+			get
+			{
+				return this._avatar;
+			}
+			set
+			{
+				if ((this._avatar != value))
+				{
+					this._avatar = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_userName", DbType="VarChar(30) NOT NULL", CanBeNull=false)]
+		public string userName
+		{
+			get
+			{
+				return this._userName;
+			}
+			set
+			{
+				if ((this._userName != value))
+				{
+					this._userName = value;
+				}
+			}
+		}
+	}
+	
+	public partial class USP_GetStaffResult
+	{
+		
+		private string _id;
+		
+		private string _fullName;
+		
+		private System.DateTime _dob;
+		
+		private string _address;
+		
+		private string _phone;
+		
+		private string _cmnd;
+		
+		private string _avatar;
+		
+		private string _userName;
+		
+		private string _userName1;
+		
+		private string _password;
+		
+		private string _displayName;
+		
+		private short _type;
+		
+		private bool _isLocked;
+		
+		private short _attempts;
+		
+		private bool _isLocked1;
+		
+		public USP_GetStaffResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", DbType="VarChar(20) NOT NULL", CanBeNull=false)]
+		public string id
+		{
+			get
+			{
+				return this._id;
+			}
+			set
+			{
+				if ((this._id != value))
+				{
+					this._id = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_fullName", DbType="NVarChar(60) NOT NULL", CanBeNull=false)]
+		public string fullName
+		{
+			get
+			{
+				return this._fullName;
+			}
+			set
+			{
+				if ((this._fullName != value))
+				{
+					this._fullName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_dob", DbType="Date NOT NULL")]
+		public System.DateTime dob
+		{
+			get
+			{
+				return this._dob;
+			}
+			set
+			{
+				if ((this._dob != value))
+				{
+					this._dob = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_address", DbType="NVarChar(100)")]
+		public string address
+		{
+			get
+			{
+				return this._address;
+			}
+			set
+			{
+				if ((this._address != value))
+				{
+					this._address = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_phone", DbType="Char(12) NOT NULL", CanBeNull=false)]
+		public string phone
+		{
+			get
+			{
+				return this._phone;
+			}
+			set
+			{
+				if ((this._phone != value))
+				{
+					this._phone = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_cmnd", DbType="VarChar(20) NOT NULL", CanBeNull=false)]
+		public string cmnd
+		{
+			get
+			{
+				return this._cmnd;
+			}
+			set
+			{
+				if ((this._cmnd != value))
+				{
+					this._cmnd = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_avatar", DbType="VarChar(60)")]
+		public string avatar
+		{
+			get
+			{
+				return this._avatar;
+			}
+			set
+			{
+				if ((this._avatar != value))
+				{
+					this._avatar = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_userName", DbType="VarChar(30) NOT NULL", CanBeNull=false)]
+		public string userName
+		{
+			get
+			{
+				return this._userName;
+			}
+			set
+			{
+				if ((this._userName != value))
+				{
+					this._userName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_userName1", DbType="VarChar(30) NOT NULL", CanBeNull=false)]
+		public string userName1
+		{
+			get
+			{
+				return this._userName1;
+			}
+			set
+			{
+				if ((this._userName1 != value))
+				{
+					this._userName1 = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_password", DbType="VarChar(MAX) NOT NULL", CanBeNull=false)]
+		public string password
+		{
+			get
+			{
+				return this._password;
+			}
+			set
+			{
+				if ((this._password != value))
+				{
+					this._password = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_displayName", DbType="NVarChar(60) NOT NULL", CanBeNull=false)]
+		public string displayName
+		{
+			get
+			{
+				return this._displayName;
+			}
+			set
+			{
+				if ((this._displayName != value))
+				{
+					this._displayName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_type", DbType="SmallInt NOT NULL")]
+		public short type
+		{
+			get
+			{
+				return this._type;
+			}
+			set
+			{
+				if ((this._type != value))
+				{
+					this._type = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_isLocked", DbType="Bit NOT NULL")]
+		public bool isLocked
+		{
+			get
+			{
+				return this._isLocked;
+			}
+			set
+			{
+				if ((this._isLocked != value))
+				{
+					this._isLocked = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_attempts", DbType="SmallInt NOT NULL")]
+		public short attempts
+		{
+			get
+			{
+				return this._attempts;
+			}
+			set
+			{
+				if ((this._attempts != value))
+				{
+					this._attempts = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_isLocked1", DbType="Bit NOT NULL")]
+		public bool isLocked1
+		{
+			get
+			{
+				return this._isLocked1;
+			}
+			set
+			{
+				if ((this._isLocked1 != value))
+				{
+					this._isLocked1 = value;
+				}
+			}
 		}
 	}
 }
