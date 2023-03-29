@@ -172,13 +172,6 @@ namespace HotelManager
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.USP_ResetAttempsOrUnlockAccount")]
-		public int USP_ResetAttempsOrUnlockAccount([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(30)")] string username)
-		{
-			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), username);
-			return ((int)(result.ReturnValue));
-		}
-		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.USP_DecreaseAttempsOrLockAccount")]
 		public int USP_DecreaseAttempsOrLockAccount([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(30)")] string username)
 		{
@@ -223,6 +216,27 @@ namespace HotelManager
 		{
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())));
 			return ((ISingleResult<USP_GetStaffResult>)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.USP_ResetAttempsOrUnlockAccount")]
+		public int USP_ResetAttempsOrUnlockAccount([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(30)")] string username)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), username);
+			return ((int)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.USP_LockWantedAccount")]
+		public int USP_LockWantedAccount([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(30)")] string username)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), username);
+			return ((int)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.USP_GetRoom")]
+		public ISingleResult<USP_GetRoomResult> USP_GetRoom()
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())));
+			return ((ISingleResult<USP_GetRoomResult>)(result.ReturnValue));
 		}
 	}
 	
@@ -1699,9 +1713,12 @@ namespace HotelManager
     partial void OnisOccupiedChanged();
     partial void OnidRateByTypeChanging(string value);
     partial void OnidRateByTypeChanged();
-    #endregion
-		
-		public Room()
+        #endregion
+        public Room()
+        {
+            OnCreated();
+        }
+        public Room(USP_GetRoomResult item)
 		{
 			this._Reservations = new EntitySet<Reservation>(new Action<Reservation>(this.attach_Reservations), new Action<Reservation>(this.detach_Reservations));
 			this._RoomCleanByJanitors = new EntitySet<RoomCleanByJanitor>(new Action<RoomCleanByJanitor>(this.attach_RoomCleanByJanitors), new Action<RoomCleanByJanitor>(this.detach_RoomCleanByJanitors));
@@ -3209,6 +3226,176 @@ namespace HotelManager
 				if ((this._isLocked1 != value))
 				{
 					this._isLocked1 = value;
+				}
+			}
+		}
+	}
+	
+	public partial class USP_GetRoomResult
+	{
+		
+		private short _roomNum;
+		
+		private string _roomName;
+		
+		private string _roomImage;
+		
+		private string _idType;
+		
+		private string _typeName;
+		
+		private bool _isClean;
+		
+		private bool _isOccupied;
+		
+		private string _idRateByType;
+		
+		private short _area;
+		
+		public USP_GetRoomResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_roomNum", DbType="SmallInt NOT NULL")]
+		public short roomNum
+		{
+			get
+			{
+				return this._roomNum;
+			}
+			set
+			{
+				if ((this._roomNum != value))
+				{
+					this._roomNum = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_roomName", DbType="NVarChar(60) NOT NULL", CanBeNull=false)]
+		public string roomName
+		{
+			get
+			{
+				return this._roomName;
+			}
+			set
+			{
+				if ((this._roomName != value))
+				{
+					this._roomName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_roomImage", DbType="VarChar(255)")]
+		public string roomImage
+		{
+			get
+			{
+				return this._roomImage;
+			}
+			set
+			{
+				if ((this._roomImage != value))
+				{
+					this._roomImage = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_idType", DbType="VarChar(20) NOT NULL", CanBeNull=false)]
+		public string idType
+		{
+			get
+			{
+				return this._idType;
+			}
+			set
+			{
+				if ((this._idType != value))
+				{
+					this._idType = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_typeName", DbType="NVarChar(60) NOT NULL", CanBeNull=false)]
+		public string typeName
+		{
+			get
+			{
+				return this._typeName;
+			}
+			set
+			{
+				if ((this._typeName != value))
+				{
+					this._typeName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_isClean", DbType="Bit NOT NULL")]
+		public bool isClean
+		{
+			get
+			{
+				return this._isClean;
+			}
+			set
+			{
+				if ((this._isClean != value))
+				{
+					this._isClean = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_isOccupied", DbType="Bit NOT NULL")]
+		public bool isOccupied
+		{
+			get
+			{
+				return this._isOccupied;
+			}
+			set
+			{
+				if ((this._isOccupied != value))
+				{
+					this._isOccupied = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_idRateByType", DbType="VarChar(20) NOT NULL", CanBeNull=false)]
+		public string idRateByType
+		{
+			get
+			{
+				return this._idRateByType;
+			}
+			set
+			{
+				if ((this._idRateByType != value))
+				{
+					this._idRateByType = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_area", DbType="SmallInt NOT NULL")]
+		public short area
+		{
+			get
+			{
+				return this._area;
+			}
+			set
+			{
+				if ((this._area != value))
+				{
+					this._area = value;
 				}
 			}
 		}

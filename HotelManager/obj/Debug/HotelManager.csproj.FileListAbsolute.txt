@@ -10,3 +10,4 @@ D:\SUBJECTS\Môn CNPM\HotelManager\HotelManager\bin\Debug\HotelManager.exe
 D:\SUBJECTS\Môn CNPM\HotelManager\HotelManager\bin\Debug\HotelManager.pdb
 D:\SUBJECTS\Môn CNPM\HotelManager\HotelManager\obj\Debug\HotelManager.exe
 D:\SUBJECTS\Môn CNPM\HotelManager\HotelManager\obj\Debug\HotelManager.pdb
+D:\SUBJECTS\Môn CNPM\HotelManager\HotelManager\obj\Debug\HotelManager.Admin.InsertStaffForm.resources

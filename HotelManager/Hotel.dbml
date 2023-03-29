@@ -122,10 +122,6 @@
       <Association Name="RoomPrice_Room" Member="Rooms" ThisKey="idRateByType" OtherKey="idRateByType" Type="Room" />
     </Type>
   </Table>
-  <Function Name="dbo.USP_ResetAttempsOrUnlockAccount" Method="USP_ResetAttempsOrUnlockAccount">
-    <Parameter Name="username" Type="System.String" DbType="VarChar(30)" />
-    <Return Type="System.Int32" />
-  </Function>
   <Function Name="dbo.USP_DecreaseAttempsOrLockAccount" Method="USP_DecreaseAttempsOrLockAccount">
     <Parameter Name="username" Type="System.String" DbType="VarChar(30)" />
     <Return Type="System.Int32" />
@@ -180,6 +176,27 @@
       <Column Name="isLocked" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
       <Column Name="attempts" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
       <Column Name="isLocked1" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.USP_ResetAttempsOrUnlockAccount" Method="USP_ResetAttempsOrUnlockAccount">
+    <Parameter Name="username" Type="System.String" DbType="VarChar(30)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.USP_LockWantedAccount" Method="USP_LockWantedAccount">
+    <Parameter Name="username" Type="System.String" DbType="VarChar(30)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.USP_GetRoom" Method="USP_GetRoom">
+    <ElementType Name="USP_GetRoomResult">
+      <Column Name="roomNum" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="roomName" Type="System.String" DbType="NVarChar(60) NOT NULL" CanBeNull="false" />
+      <Column Name="roomImage" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="idType" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="typeName" Type="System.String" DbType="NVarChar(60) NOT NULL" CanBeNull="false" />
+      <Column Name="isClean" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="isOccupied" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="idRateByType" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="area" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
     </ElementType>
   </Function>
 </Database>

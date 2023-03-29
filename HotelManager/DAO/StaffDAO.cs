@@ -2,11 +2,14 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml.Linq;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace HotelManager.DAO
 {
@@ -36,7 +39,7 @@ namespace HotelManager.DAO
 
                 dt.Columns.Add("Mã nhân viên", typeof(string));
                 dt.Columns.Add("Họ tên", typeof(string));
-                dt.Columns.Add("Ngày sinh", typeof(DateTime));
+                dt.Columns.Add("Ngày sinh", typeof(string));
                 dt.Columns.Add("Địa chỉ", typeof(string));
                 dt.Columns.Add("SĐT", typeof(string));
                 dt.Columns.Add("CMND", typeof(string));
@@ -56,14 +59,14 @@ namespace HotelManager.DAO
                     {
                         if (item2.isLocked == true)
                         {
-                            dt.Rows.Add(item.id, item.fullName, item.dob, item.address, item.phone, item.cmnd, item.userName, "Đã khoá");
+                            dt.Rows.Add(item.id, item.fullName, item.dob.ToString("dd/MM/yyyy", CultureInfo.InvariantCulture), item.address, item.phone, item.cmnd, item.userName, "Đã khoá");
                             break;
                         }
                         else
                         {
 
                         }
-                        dt.Rows.Add(item.id, item.fullName, item.dob, item.address, item.phone, item.cmnd, item.userName, "Hoạt động");
+                        dt.Rows.Add(item.id, item.fullName, item.dob.ToString("dd/MM/yyyy", CultureInfo.InvariantCulture), item.address, item.phone, item.cmnd, item.userName, "Hoạt động");
                         break;
                     }
                 }
@@ -126,7 +129,18 @@ namespace HotelManager.DAO
                     var query = (from staff in db.Staffs
                                  where staff.id.Equals(userName)
                                  select staff).First();
+
                     db.Staffs.DeleteOnSubmit(query);
+
+                    var item = query.userName;
+                    {
+                        var query2 = (from acc in db.Accounts
+                                      where acc.userName.Equals(item)
+                                      select acc).First();
+
+                    db.Accounts.DeleteOnSubmit(query2);
+                    }   
+
                     //ask the datacontext to save all the changes
                     try
                     {
@@ -140,7 +154,6 @@ namespace HotelManager.DAO
                     }
                 }
             }
-
             public static DataTable SearchStaffByName(string name)
             {
                 DataTable dt = new DataTable();
@@ -162,8 +175,93 @@ namespace HotelManager.DAO
                         dt.Rows.Add(item.id, item.fullName, item.dob, item.address, item.phone.Trim(), item.cmnd.Trim(), item.userName);
                     }
                 }
-
                 return dt;
             }
+        //public static bool UnlockStaffAccount(string username)
+        //{
+        //    using (HotelDataContext db = new HotelDataContext())
+        //    {
+        //        try
+        //        {
+        //            var query = (from staff in db.Staffs
+        //                         where staff.id.Equals(username)
+        //                         select staff);
+                    
+        //            foreach (var item in query)
+        //            {
+        //                db.USP_ResetAttempsOrUnlockAccount(item.userName); 
+        //            }
+        //            return true;
+        //        }
+        //        catch (Exception e)
+        //        {
+        //            MessageBox.Show(e.Message);
+        //            return false;
+        //        }
+        //    }
+        //}
+
+        //public static bool LockStaffAccount(string username)
+        //{
+        //    using (HotelDataContext db = new HotelDataContext())
+        //    {
+        //        try
+        //        {
+        //            var query = (from staff in db.Staffs
+        //                         where staff.id.Equals(username)
+        //                         select staff);
+
+        //            foreach (var item in query)
+        //            {
+        //                db.USP_LockWantedAccount(item.userName);
+        //            }
+        //            return true;
+        //        }
+        //        catch (Exception e)
+        //        {
+        //            MessageBox.Show(e.Message);
+        //            return false;
+        //        }
+        //    }
+        //}
+
+        public static bool LockOrUnLockStaffAccount(string username)
+        {
+            using (HotelDataContext db = new HotelDataContext())
+            {
+                try
+                {
+                    var query = (from staff in db.Staffs
+                                 where staff.id.Equals(username)
+                                 select staff);
+
+                    foreach (var item in query)
+                    {
+                        var query_2 = (from acc in db.Accounts
+                                       where acc.userName.Equals(item.userName)
+                                       select acc);
+                        foreach (var item_2 in query_2)
+                        {
+                            if (item_2.isLocked)
+                            {
+                                db.USP_ResetAttempsOrUnlockAccount(item_2.userName);
+                            } else
+                            {
+                                db.USP_LockWantedAccount(item_2.userName);
+                            }
+                        }
+                        return true;
+                    }
+                    return true;
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show(e.Message);
+                    return false;
+                }
+            }
         }
+
+    }
+
 }

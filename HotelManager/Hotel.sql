@@ -28,7 +28,7 @@ create table Staff (
 	address nvarchar(100),
 	phone char(12) not null,
 	cmnd varchar(20) not null,
-	avatar varchar(60),
+	avatar image,
 	userName varchar(30) not null,
 	FOREIGN KEY (userName) REFERENCES Account(userName)
 )
@@ -70,18 +70,25 @@ create table Room (
 	roomImage varchar(255) null,
 	idType varchar(20) not null,
 	typeName nvarchar(60) not null,
-	area smallint not null,
 	isClean bit not null,
 	isOccupied bit not null,	
 	idRateByType varchar(20) not null,
+	area smallint not null,
 	FOREIGN KEY (idRateByType) REFERENCES RoomPrice(idRateByType)
 )
 
 insert into Room values 
-(101, 'Phong Deluxe Double' , '', 1, 'Deluxe/Twin', 36, 1, 0, 'DLX')
-insert into Room values
-(201, 'Phong Superior Double' , '', 2, 'Superior', 44, 1, 0, 'SUPER')
-select * from Room
+(101, 'Phong Deluxe Double' , '', 1, 'Deluxe/Twin', 1, 0, 'DLX', 36),
+(201, 'Phong Superior Double' , '', 2, 'Superior', 1, 0, 'SUPER', 44),
+(102, 'Phong Deluxe Double' , '', 1, 'Deluxe/Twin', 1, 0, 'DLX', 36),
+(103, 'Phong Deluxe Double' , '', 1, 'Deluxe/Twin', 1, 0, 'DLX', 36),
+(202, 'Phong Superior Double' , '', 2, 'Superior', 1, 0, 'SUPER', 44),
+(203, 'Phong Superior Double' , '', 2, 'Superior', 1, 0, 'SUPER', 44),
+(301, 'Phong Suite King', '', 3, 'Suite', 1, 0, 'SUT', 52),
+(302, 'Phong Suite King', '', 3, 'Suite', 1, 0, 'SUT', 52),
+(303, 'Phong Suite King', '', 3, 'Suite', 1, 0, 'SUT', 52)
+
+select * from RoomPrice
 
 create table RoomPrice (
 	idRateByType varchar(20) not null primary key,
@@ -95,6 +102,8 @@ create table RoomPrice (
 insert into RoomPrice values 
 ('DLX', 100000, 40000, 220000, 330000, 140000),
 ('SUPER', 140000, 50000, 280000, 360000, 180000)
+insert into RoomPrice values 
+('SUT', 200000, 120000, 460000, 630000, 340000)
 
 create table RoomExtra (
 	idService varchar(20) not null primary key,
@@ -226,6 +235,16 @@ as
 	if @attempts < 1
 		UPDATE Account SET isLocked = 0 where userName = @username
 		UPDATE Account SET attempts = 3 where userName = @username
+	if @attempts >= 1
+		UPDATE Account SET isLocked = 0 where userName = @username
+go
+
+-- PROC lock acc on purpose
+create or alter PROC USP_LockWantedAccount
+	@username varchar(30)
+as
+		UPDATE Account SET isLocked = 1 where userName = @username
+		UPDATE Account SET attempts = 0 where userName = @username
 go
 
 --1 PROC List Staff
@@ -253,5 +272,18 @@ CREATE proc USP_SearchStaff
 as
 	select * from staff where fullname = @name
 go
+
+--3. PROC Load Room
+CREATE or alter proc USP_GetRoom
+as
+	select * from room
+go
+
+exec USP_GetRoom
+
+update Room set isOccupied = 1 where roomNum=102
+
+select * from Account
+select * from Staff
 
 ------------------------------END PROC------------------------------

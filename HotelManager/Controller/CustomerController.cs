@@ -1,24 +1,20 @@
-﻿using HotelManager.DAO;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using HotelManager.DAO;
 
 namespace HotelManager.Controller
 {
-    public class StaffController
+    public class CustomerController
     {
-        public static DataTable GetStaffList()
+        public static DataTable GetCustomerList()
         {
-            DataTable staffs = StaffDAO.GetListStaff();
+            DataTable customerList = CustomerDAO.GetCustomerList();
 
-            return staffs;
-        }
-        public static bool InsertStaff(string hoTen, DateTime ngaySinh, string diaChi, string sdt, string cmnd)
-        {
-            return StaffDAO.InsertStaff(hoTen, ngaySinh, diaChi, sdt, cmnd);
+            return customerList;
         }
 
         public static bool UpdateStaff(string id, string hoTen, DateTime ngaySinh, string diaChi, string sdt, string cmnd)
@@ -38,10 +34,9 @@ namespace HotelManager.Controller
             return searchStaffList;
         }
 
-        public static bool LockOrUnLockStaffAccount(string userName)
-        {
-            return StaffDAO.LockOrUnLockStaffAccount(userName);
-        }
-
+        //public static NhanVien GetStaffById(string staffId)
+        //{
+        //    return StaffDAO.GetStaffByID(staffId);
+        //}
     }
 }
