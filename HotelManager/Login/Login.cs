@@ -20,6 +20,7 @@ namespace HotelManager
         public Login()
         {
             InitializeComponent();
+            this.ActiveControl = txtUserID;
         }
 
         private void txtUserID_Enter(object sender, EventArgs e)
@@ -78,12 +79,21 @@ namespace HotelManager
             string password = txtPassword.Text;
 
             bool result = AccountController.Login(username, password);
+
+            Account test = AccountController.GetAccountByUsername(username);
+            if (test == null)
+            {
+                MessageBox.Show("Tài khoản này không tồn tại", "Thông báo");
+                return;
+            }
+
             if (result)
             {
                 Account loginAccount = AccountController.GetAccountByUsername(username);
                 if (loginAccount.type == 1) //admin
                 {
                     QuanLy frm = new QuanLy(loginAccount.userName);
+                    AccountController.ResetAttempsOrUnlockAccount(username);
                     MessageBox.Show("Đăng nhập thành công. Chào mừng Admin", "Thông báo");
                     this.Hide();
                     frm.ShowDialog();
@@ -92,6 +102,7 @@ namespace HotelManager
                 else if (loginAccount.type == 2 && loginAccount.isLocked == false) //staff
                 {
                     NV frm = new NV(loginAccount.userName);
+                    AccountController.ResetAttempsOrUnlockAccount(username);
                     MessageBox.Show("Đăng nhập thành công. Chào mừng " + loginAccount.displayName, "Thông báo");
                     this.Hide();
                     frm.ShowDialog();
@@ -101,9 +112,13 @@ namespace HotelManager
                 {
                     MessageBox.Show("Tài khoản của bạn đã bị khoá, liên hệ quản lý để biết thêm chi tiết", "Thông báo");
                 }
-            }
-            else 
-            {
+                else
+                {
+                    MessageBox.Show("Tài khoản này không tồn tại", "Thông báo");
+                }
+
+            
+            } else {
                 bool getLocked = AccountController.DecreaseAttempsOrLockAccount(username);
                 Account loginAccount = AccountController.GetAccountByUsername(username);
 

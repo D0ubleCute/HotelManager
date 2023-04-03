@@ -16,6 +16,12 @@ namespace HotelManager.Controller
 
             return staffs;
         }
+
+        public static Staff GetStaffById(string staffID)
+        {
+            return StaffDAO.GetStaffById(staffID);
+        }
+
         public static bool InsertStaff(string hoTen, DateTime ngaySinh, string diaChi, string sdt, string cmnd)
         {
             return StaffDAO.InsertStaff(hoTen, ngaySinh, diaChi, sdt, cmnd);

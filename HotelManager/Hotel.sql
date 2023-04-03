@@ -49,8 +49,19 @@ create table Customer (
 	idRankingAcc varchar(20) not null,
 )
 
-insert into Customer values 
-('001', 'Nguyen Anh Vu', 'anhvu@gmail.com', '', '', '0933411234', '079202034551', 235, '0933411234')
+insert into Customer values ('001', 'Nguyen Anh Vu', 'anhvu@gmail.com', '', '', '0933411234', '079202034551', 235, '0933411234')
+insert into Customer values ('002', 'Nguyen Bay Kha', 'Kha7@gmail.com', '', '', '0933411568', '079202039683', 120, '0933411568')
+
+create table ThanhVien (
+	idRankingAcc varchar(20) not null primary key,
+	points int not null,
+	rankingTitle nvarchar(20) not null,
+	idCustomer varchar(20) not null,
+	FOREIGN KEY (idCustomer) REFERENCES Customer(id),
+)
+
+insert into ThanhVien values ('0933411234', 235, N'Thường', '001')
+insert into ThanhVien values ('0933411568', 120, N'Thường', '002')
 
 create table Janitor (
 	idJanitor varchar(20) not null primary key,
@@ -114,9 +125,57 @@ create table RoomExtra (
 insert into RoomExtra values 
 ('massage-01', N'Massage thư giãn, chỉnh đốt sống', 200000),
 ('massage-02', N'Massage thư giãn, chỉnh đốt sống, đắp than', 280000),
-('bath', N'Bồn tắm', 40000)
+('BF-01', N'Bữa sáng tại giường SET 1', 80000),
+('BF-02', N'Bữa sáng tại giường SET 2', 180000),
+('BF-03', N'Bữa sáng tại giường SET 3', 260000)
+
+select * from RoomExtra
+
+create table RoomExtraByRoom (
+	idServiceIm varchar(20) not null primary key,
+	idService varchar(20) not null,
+	roomNum smallint not null,
+	idReservation varchar(20) not null,
+	FOREIGN KEY (idService) REFERENCES RoomExtra(idService),
+	FOREIGN KEY (roomNum) REFERENCES Room(roomNum),
+	FOREIGN KEY (idReservation) REFERENCES Reservation(idReservation)
+)
+insert into RoomExtraByRoom values 
+('Ser-001', 'massage-01', 101, 'Res-001')
+insert into RoomExtraByRoom values 
+('Ser-002', 'massage-01', 201, 'Res-002')
+insert into RoomExtraByRoom values 
+('Ser-003', 'BF-01', 201, 'Res-002')
+
+select * from RoomExtraByRoom
 
 --RoomFacility
+create table RoomFacility (
+	idFacility int not null, 
+	nameFacility nvarchar(60) not null,
+	roomNum smallint not null,
+	FOREIGN KEY (roomNum) REFERENCES Room(roomNum) 
+)
+
+insert into RoomFacility values (1, N'Bồn tắm', 201)
+insert into RoomFacility values (2, N'Bồn tắm', 202)
+insert into RoomFacility values (3, N'Bồn tắm', 203)
+insert into RoomFacility values (4, N'Két sắt nhỏ', 101)
+insert into RoomFacility values (5, N'Két sắt nhỏ', 102)
+insert into RoomFacility values (6, N'Két sắt nhỏ', 103)
+insert into RoomFacility values (7, N'Ban công', 301)
+insert into RoomFacility values (8, N'Ban công', 302)
+insert into RoomFacility values (9, N'Ban công', 303)
+insert into RoomFacility values (10, N'Két sắt vừa', 201)
+insert into RoomFacility values (11, N'Két sắt vừa', 202)
+insert into RoomFacility values (12, N'Két sắt vừa', 203)
+insert into RoomFacility values (13, N'Két sắt vừa', 301)
+insert into RoomFacility values (14, N'Két sắt vừa', 302)
+insert into RoomFacility values (15, N'Két sắt vừa', 303)
+insert into RoomFacility values (16, N'Bồn tắm Massage', 301)
+insert into RoomFacility values (17, N'Bồn tắm Massage', 302)
+insert into RoomFacility values (18, N'Bồn tắm Massage', 303)
+
 
 create table RoomCleanByJanitor(
 	idCleaning varchar(20) not null primary key,
@@ -126,40 +185,34 @@ create table RoomCleanByJanitor(
 	FOREIGN KEY (idJanitor) REFERENCES Janitor(idJanitor)
 )
 
-create table RoomExtraByRoom (
-	idServiceIm varchar(20) not null primary key,
-	idService varchar(20) not null,
-	roomNum smallint not null,
-	FOREIGN KEY (idService) REFERENCES RoomExtra(idService),
-	FOREIGN KEY (roomNum) REFERENCES Room(roomNum)
-)
-
-insert into RoomExtraByRoom values 
-('Ser-001', 'massage-01', 101)
-insert into RoomExtraByRoom values 
-('Ser-002', 'massage-01', 201)
-
 create table Reservation (
 	idReservation varchar(20) not null primary key,
 	roomNum smallint not null,
-	idServiceIm varchar(20) not null,
+	--Service co numRoom de cong tien,
+	accomodationType smallint not null,
+	--1 = hour, 2=night, 3=day
 	checkinDate datetime not null,
-	checkoutDate datetime not null,
+	checkoutDate datetime null,
 	idCustomer varchar(20) not null,
 	idStaff varchar(20) not null,
 	totalPrice decimal(18,0) not null,
+	paymentStatus bit not null,
+	-- 0= processing, 1=complete
 	paymentInfo varchar(20) null,
 	FOREIGN KEY (roomNum) REFERENCES Room(roomNum),
-	FOREIGN KEY (idServiceIm) REFERENCES RoomExtraByRoom(idServiceIm),
 	FOREIGN KEY (idCustomer) REFERENCES Customer(id),
-	FOREIGN KEY (idStaff) REFERENCES Staff(id)
+	FOREIGN KEY (idStaff) REFERENCES Staff(id),
 )
 
 insert into Reservation values 
-('Res-001', 101, 'Ser-001', '2023-03-24 09:00:00', '2023-03-24 14:00:00', '001', '001', 460000, '')
+('Res-001', 101, 1, '2023-03-24 09:00:00', '2023-03-24 14:00:00', '001', '001', DBO.CalculateTotalByHour(101, '2023-03-24 09:00:00', '2023-03-24 14:00:00'), 1, ''),
+('Res-002', 201, 2, '2023-03-24 22:00:00', '2023-03-25 12:00:00', '001', '001', DBO.CalculateTotalByHour(201, '2023-03-24 22:00:00', '2023-03-25 12:00:00'), 1, '')
 insert into Reservation values 
-('Res-002', 201, 'Ser-002', '2023-03-24 09:00:00', '2023-03-24 14:00:00', '001', '001', 460000, '')
+('Res-003', 301, 2, '2023-03-24 22:30:00', null, '001', '001', 930000, 0, '')
+insert into Reservation values('Res-004', 302, 2, '2023-03-26 22:30:00', null, '001', '001', 930000, 0, '')
 
+drop table Reservation
+select * from Reservation
 ------------------------------FUNCTION------------------------------
 --chua hoan thien
 create or alter function DBO.CalculateTotalByHour(@roomNum smallint, @checkinDate datetime, @checkoutDate datetime)
@@ -207,6 +260,19 @@ BEGIN
 	SELECT @COUNT = (SELECT COUNT(*) FROM Reservation, Customer WHERE Reservation.idCustomer = Customer.id and customer.phone = @phone)
 	RETURN CONCAT('KH.', @phone) + '#' + REPLICATE('0', 2) + CAST(@COUNT + 1 AS VARCHAR(5))
 END
+
+--4. idRooomService
+CREATE OR ALTER FUNCTION DBO.AUTO_idRooomService(@roomNum smallint)
+RETURNS varchar(20)
+AS
+BEGIN
+	DECLARE @CUSTOM_ID VARCHAR(20), @COUNT SmallINT
+	SELECT @COUNT = (SELECT COUNT(*) FROM Reservation WHERE roomNum = @roomNum)
+	SET @CUSTOM_ID = REPLACE(CONVERT(VARCHAR(20), @roomNum, 103), '/', '')
+	RETURN CONCAT('SV', @CUSTOM_ID) + '#' + REPLACE(CONVERT(VARCHAR(20), GETDATE(), 103), '/', '') + '.' + REPLICATE('0', 2) + CAST(@COUNT + 1 AS VARCHAR(5))
+END
+
+print DBO.AUTO_idRooomService(203)
 
 ------------------------------END FUNCTION------------------------------
 
@@ -279,11 +345,26 @@ as
 	select * from room
 go
 
-exec USP_GetRoom
+--4. PROC Lay doanhthu theo ngay
+CREATE or alter proc USP_GetReportRevenueByDate
+	@fromDate date,
+	@toDate date
+as
+	select * from Reservation where checkinDate > @fromDate and checkinDate < @toDate and paymentStatus = 1
+go
 
-update Room set isOccupied = 1 where roomNum=102
+--5. PROC lay 3 bang service
+create or alter proc USP_GetRoomExtraPriceByReservation
+	@idReservation varchar(20)
+as
+	select * from RoomExtraByRoom rB, RoomExtra ex where rB.idReservation = @idReservation and rB.idService = ex.idService
+go
 
 select * from Account
 select * from Staff
+select * from Reservation
+exec USP_GetReportRevenueByDate '2023-03-24', '2023-03-25'
+
+
 
 ------------------------------END PROC------------------------------

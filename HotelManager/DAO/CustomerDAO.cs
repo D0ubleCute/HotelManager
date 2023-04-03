@@ -55,7 +55,21 @@ namespace HotelManager.DAO
             return dt;
         }
 
-        public static bool UpdateStaff(string id, string hoTen, DateTime ngaySinh, string diaChi, string sdt, string cmnd)
+        public static Customer GetCustomerById(string cusId)
+        {
+            List<Customer> customerList = CustomerDAO.GetCustomer();
+
+            foreach (var item in customerList)
+            {
+                if (item.id.Equals(cusId))
+                {
+                    return item;
+                }
+            }
+            return null;
+        }
+
+        public static bool UpdateCustomer(string id, string hoTen, DateTime ngaySinh, string diaChi, string sdt, string cmnd)
         {
             using (HotelDataContext db = new HotelDataContext())
             {
@@ -82,31 +96,6 @@ namespace HotelManager.DAO
                 }
             }
         }
-
-
-        //public static DataTable SearchStaffByName(string name)
-        //{
-        //    DataTable dt = new DataTable();
-
-        //    dt.Columns.Add("Mã nhân viên", typeof(string));
-        //    dt.Columns.Add("Họ tên", typeof(string));
-        //    dt.Columns.Add("Ngày sinh", typeof(DateTime));
-        //    dt.Columns.Add("Địa chỉ", typeof(string));
-        //    dt.Columns.Add("SĐT", typeof(string));
-        //    dt.Columns.Add("CMND", typeof(string));
-        //    dt.Columns.Add("Tài khoản", typeof(string));
-
-        //    using (HotelDataContext db = new HotelDataContext())
-        //    {
-        //        var query = db.USP_SearchStaff(name);
-
-        //        foreach (var item in query)
-        //        {
-        //            dt.Rows.Add(item.id, item.fullName, item.dob, item.address, item.phone.Trim(), item.cmnd.Trim(), item.userName);
-        //        }
-        //    }
-
-        //    return dt;
-        //}
+      
     }
 }

@@ -130,6 +130,7 @@
             this.Controls.Add(this.lbLogin);
             this.Controls.Add(this.pictureBox1);
             this.Name = "Login";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Đăng nhập";
             this.Load += new System.EventHandler(this.Login_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();

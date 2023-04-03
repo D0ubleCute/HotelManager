@@ -16,5 +16,21 @@ namespace HotelManager.Controller
 
             return rooms;
         }
+
+        public static Room loadRoombyRoomNum(int roomNum) { 
+            Room room = RoomDAO.loadRoomByRoomNum(roomNum);
+            return room;
+        }
+
+        public static List<RoomFacility> getRoomFacility(int roomNum)
+        {
+            return RoomDAO.getRoomFacility(roomNum); 
+        }
+
+        public static string loadRoomFacility(int roomNum)
+        {
+            return RoomDAO.loadRoomFacility(roomNum);   
+        }
+        
     }
 }

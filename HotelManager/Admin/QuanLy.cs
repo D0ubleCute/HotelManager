@@ -3,16 +3,11 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using HotelManager.DAO;
 using HotelManager.Controller;
-using System.Globalization;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using Button = System.Windows.Forms.Button;
+using System.Globalization;
 
 namespace HotelManager.Admin
 {
@@ -22,7 +17,7 @@ namespace HotelManager.Admin
 
         BindingSource staffList = new BindingSource();
         BindingSource customerList = new BindingSource();
-        BindingSource productList = new BindingSource();
+        BindingSource reservationList = new BindingSource();
         BindingSource receiptList = new BindingSource();
 
         public QuanLy(string userName)
@@ -31,11 +26,14 @@ namespace HotelManager.Admin
 
             this.staffUserName = userName;
 
+            LoadRevenue();
             LoadStaff();
             LoadCustomer();
             LoadRoom();
+            LoadReservation();
 
             lbUserName.Text = userName + " (Admin)";
+            lbRoomFacility.Visible = false;
 
             tabControl1.SelectedTab = tpStaff;
             tabControl1.Appearance = TabAppearance.FlatButtons;
@@ -298,7 +296,17 @@ namespace HotelManager.Admin
             LockOrUnlockAccount();
             LoadStaff();
         }
- 
+
+        private void dataGVStaff_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            foreach (DataGridViewRow Myrow in dataGVStaff.Rows)
+            {            //Here 2 cell is target value and 1 cell is Volume
+                if (Convert.ToString(Myrow.Cells[7].Value).Equals("Đã khoá"))// Or your condition 
+                {
+                    Myrow.DefaultCellStyle.BackColor = Color.Tomato;
+                }
+            }
+        }
 
         //----------end staff module----------
 
@@ -341,25 +349,163 @@ namespace HotelManager.Admin
 
         //----------end customer module----------
 
+
+        //----------begin room module----------
         void LoadRoom()
         {
             List<Room> list = RoomController.GetRoomList();
             foreach (Room room in list)
             {
                 Button btn = new Button() { Width = RoomDAO.RoomBtnWidth, Height = RoomDAO.RoomBtnHeight };
+                btn.Click += Btn_Click;
+                btn.Tag = room;
                 switch (room.isOccupied)
                 {
                     case false:
-                        btn.BackColor = Color.Azure;
+                        btn.BackColor = Color.Aqua;
+                        btn.Font = new Font(btn.Font.FontFamily, 14);
                         btn.Text = "Phòng " + room.roomNum + Environment.NewLine + "Trống";
                         break;
                     default:
                         btn.BackColor = Color.AntiqueWhite;
+                        btn.Font = new Font(btn.Font.FontFamily, 14);
                         btn.Text = "Phòng " + room.roomNum + Environment.NewLine + "Đã đặt";
                         break;
                 }
                 flowLayoutPanel1.Controls.Add(btn);
             }
         }
+
+        void showRoomInfo(int roomNum)
+        {
+            Room room = RoomController.loadRoombyRoomNum(roomNum);
+            string roomFacility = RoomController.loadRoomFacility(roomNum);
+
+            txtRoomNum.Text = room.roomNum.ToString();
+            txtRoomName.Text = room.roomName.ToString();
+            txtRoomType.Text = room.typeName.ToString();
+            txtRoomArea.Text = room.area.ToString() + " m2";
+
+            lbRoomFacility.Visible = true;
+            lbRoomFacility.Font = new Font("Segoe UI", 12, FontStyle.Bold);
+            lbRoomFacility.Text = roomFacility;
+        }
+
+        void Btn_Click(object sender, EventArgs e)
+        {
+            int roomNum = ((sender as Button).Tag as Room).roomNum;
+            showRoomInfo(roomNum);
+        }
+
+
+        //----------end room module----------
+
+
+        //----------begin reservation module----------
+
+
+        void LoadReservation()
+        {
+            dataGVReservation.DataSource = reservationList;
+            dataGVReservation.AllowUserToAddRows = false;
+            loadReservationList();
+            AddReservationBinding();      
+        }
+
+        void loadReservationList()
+        {
+            DataTable reservations = ReservationController.GetReservationList();
+            reservationList.DataSource = reservations;
+        }
+
+        void AddReservationBinding()
+        {
+            txtReservationCustomerName.DataBindings.Clear();
+            txtReservationCustomerEmail.DataBindings.Clear();
+            txtReservationCustomerPhone.DataBindings.Clear();
+            txtReservationCustomerCMND.DataBindings.Clear();
+            txtReservationCustomerCheckin.DataBindings.Clear();
+            txtReservationCustomerCheckout.DataBindings.Clear();
+            txtStaffOrder.DataBindings.Clear();
+            lblMoney.DataBindings.Clear();
+
+            CultureInfo culture = new CultureInfo("vi-VN");
+
+            txtReservationCustomerName.DataBindings.Add("Text", dataGVReservation.DataSource, "Khách hàng", true, DataSourceUpdateMode.Never);
+            //txtReservationCustomerEmail.DataBindings.Add("Text", dataGVReservation.DataSource, "Họ tên", true, DataSourceUpdateMode.Never);
+            //txtReservationCustomerPhone.DataBindings.Add("Text", dataGVReservation.DataSource, "Ngày sinh", true, DataSourceUpdateMode.Never);
+            //txtReservationCustomerCMND.DataBindings.Add("Text", dataGVReservation.DataSource, "Email", true, DataSourceUpdateMode.Never);
+            //txtReservationCustomerCheckin.DataBindings.Add("Text", dataGVReservation.DataSource, "SĐT", true, DataSourceUpdateMode.Never);
+            //txtReservationCustomerCheckout.DataBindings.Add("Text", dataGVReservation.DataSource, "CMND", true, DataSourceUpdateMode.Never);
+            txtStaffOrder.DataBindings.Add("Text", dataGVReservation.DataSource, "Nhân viên", true, DataSourceUpdateMode.Never);
+            txtReservationCustomerCheckin.DataBindings.Add("Text", dataGVReservation.DataSource, "Check-in", true, DataSourceUpdateMode.Never);
+            txtReservationCustomerCheckout.DataBindings.Add("Text", dataGVReservation.DataSource, "Check-out", true, DataSourceUpdateMode.Never);
+            lblMoney.DataBindings.Add("Text", dataGVReservation.DataSource, "Tổng tiền", true, DataSourceUpdateMode.Never);
+
+            //decimal curr = Convert.ToDecimal(lblMoney.Text);
+            //lblMoney.Text = curr.ToString("c", culture);
+        }
+
+        private void dataGVReservation_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            foreach (DataGridViewRow Myrow in dataGVReservation.Rows)
+            {            //Here 2 cell is target value and 1 cell is Volume
+                if (Convert.ToString(Myrow.Cells[4].Value) == null || Convert.ToString(Myrow.Cells[4].Value).Equals(""))// Or your condition 
+                {
+                    Myrow.DefaultCellStyle.BackColor = Color.Aqua;
+                }
+                else
+                {
+                    Myrow.DefaultCellStyle.BackColor = Color.MediumSpringGreen;
+                }
+            }
+        }
+
+        private void btnReservationSort_Click(object sender, EventArgs e)
+        {
+            LoadReservation();
+        }
+
+        //----------end reservation module----------
+
+
+        //----------begin revenue module----------
+        void LoadRevenue()
+        {
+            LoadDateTimePickerRevenue();//Set "Từ ngày" & "Đến ngày ngày" về đầu tháng & cuối tháng
+            LoadRevenue(dtpFromDate.Value, dtpToDate.Value);
+        }
+
+        void loadRevenueList()
+        {
+            DataTable reservations = ReservationController.GetReservationList();
+            reservationList.DataSource = reservations;
+            dataGVRevenue.DataSource = reservationList;
+        }
+
+        void LoadDateTimePickerRevenue()
+        {
+            dtpFromDate.Value = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
+            dtpToDate.Value = dtpFromDate.Value.AddMonths(1).AddDays(-1);
+        }
+
+        void LoadRevenue(DateTime fromDate, DateTime toDate)
+        {
+            CultureInfo culture = new CultureInfo("vi-VN");
+            dataGVRevenue.DataSource = RevenueController.GetRevenueByDate(fromDate, toDate); ;
+            txtRevenueTotal.Text = GetSumRevenue().ToString("c", culture);
+        }
+
+        decimal GetSumRevenue()
+        {
+            return RevenueController.GetTotalRevenue(dataGVRevenue);
+        }
+
+        private void btnRevenueFilter_Click(object sender, EventArgs e)
+        {
+            LoadRevenue(dtpFromDate.Value, dtpToDate.Value);
+        }
+
+       
     }
 }

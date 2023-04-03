@@ -30,6 +30,17 @@
         {
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tpRevenue = new System.Windows.Forms.TabPage();
+            this.dtpFromDate = new System.Windows.Forms.DateTimePicker();
+            this.label19 = new System.Windows.Forms.Label();
+            this.txtRevenueTotal = new System.Windows.Forms.TextBox();
+            this.btnRevenueByYear = new System.Windows.Forms.Button();
+            this.btnRevenueByMonth = new System.Windows.Forms.Button();
+            this.btnRevenueByDate = new System.Windows.Forms.Button();
+            this.dtpToDate = new System.Windows.Forms.DateTimePicker();
+            this.label18 = new System.Windows.Forms.Label();
+            this.label17 = new System.Windows.Forms.Label();
+            this.dataGVRevenue = new System.Windows.Forms.DataGridView();
+            this.label16 = new System.Windows.Forms.Label();
             this.tpStaff = new System.Windows.Forms.TabPage();
             this.panel2 = new System.Windows.Forms.Panel();
             this.btnUnlockAccount = new System.Windows.Forms.Button();
@@ -42,6 +53,7 @@
             this.btnShowStaff = new System.Windows.Forms.Button();
             this.grpStaff = new System.Windows.Forms.GroupBox();
             this.dobStaff = new System.Windows.Forms.TextBox();
+            this.picStaff = new System.Windows.Forms.PictureBox();
             this.lblStaffID = new System.Windows.Forms.Label();
             this.txtStaffId = new System.Windows.Forms.TextBox();
             this.txtStaffAddress = new System.Windows.Forms.TextBox();
@@ -76,24 +88,47 @@
             this.txtCustomerINumber = new System.Windows.Forms.TextBox();
             this.lblCustomerName = new System.Windows.Forms.Label();
             this.tpFacility = new System.Windows.Forms.TabPage();
+            this.txtRoomArea = new System.Windows.Forms.TextBox();
+            this.txtRoomType = new System.Windows.Forms.TextBox();
+            this.txtRoomName = new System.Windows.Forms.TextBox();
+            this.lbRoomFacility = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.txtRoomNum = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.tpReservation = new System.Windows.Forms.TabPage();
+            this.lblMoney = new System.Windows.Forms.Label();
+            this.dateTimePicker2 = new System.Windows.Forms.DateTimePicker();
+            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
+            this.label15 = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
+            this.txtStaffOrder = new System.Windows.Forms.TextBox();
+            this.label = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
+            this.txtReservationCustomerCheckout = new System.Windows.Forms.TextBox();
+            this.label12 = new System.Windows.Forms.Label();
+            this.txtReservationCustomerCheckin = new System.Windows.Forms.TextBox();
+            this.label11 = new System.Windows.Forms.Label();
+            this.txtReservationCustomerCMND = new System.Windows.Forms.TextBox();
+            this.label10 = new System.Windows.Forms.Label();
+            this.txtReservationCustomerPhone = new System.Windows.Forms.TextBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.txtReservationCustomerEmail = new System.Windows.Forms.TextBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.btnReservationSort = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
+            this.txtReservationCustomerName = new System.Windows.Forms.TextBox();
+            this.dataGVReservation = new System.Windows.Forms.DataGridView();
+            this.lbFromDate = new System.Windows.Forms.Label();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.tabPage5 = new System.Windows.Forms.TabPage();
-            this.txtRoomNum = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
-            this.lbRoomFacility = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.picStaff = new System.Windows.Forms.PictureBox();
-            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.panelFunction = new System.Windows.Forms.Panel();
             this.btnReservation = new System.Windows.Forms.Button();
             this.btnFacility = new System.Windows.Forms.Button();
@@ -103,17 +138,20 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.lbUserName = new System.Windows.Forms.Label();
             this.picUser = new System.Windows.Forms.PictureBox();
-            this.panel3 = new System.Windows.Forms.Panel();
             this.tabControl1.SuspendLayout();
+            this.tpRevenue.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGVRevenue)).BeginInit();
             this.tpStaff.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGVStaff)).BeginInit();
             this.grpStaff.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picStaff)).BeginInit();
             this.tpCustomer.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGVCustomer)).BeginInit();
             this.grpCustomer.SuspendLayout();
             this.tpFacility.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.picStaff)).BeginInit();
+            this.tpReservation.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGVReservation)).BeginInit();
             this.panelFunction.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picUser)).BeginInit();
@@ -136,6 +174,17 @@
             // 
             // tpRevenue
             // 
+            this.tpRevenue.Controls.Add(this.dtpFromDate);
+            this.tpRevenue.Controls.Add(this.label19);
+            this.tpRevenue.Controls.Add(this.txtRevenueTotal);
+            this.tpRevenue.Controls.Add(this.btnRevenueByYear);
+            this.tpRevenue.Controls.Add(this.btnRevenueByMonth);
+            this.tpRevenue.Controls.Add(this.btnRevenueByDate);
+            this.tpRevenue.Controls.Add(this.dtpToDate);
+            this.tpRevenue.Controls.Add(this.label18);
+            this.tpRevenue.Controls.Add(this.label17);
+            this.tpRevenue.Controls.Add(this.dataGVRevenue);
+            this.tpRevenue.Controls.Add(this.label16);
             this.tpRevenue.Location = new System.Drawing.Point(4, 22);
             this.tpRevenue.Margin = new System.Windows.Forms.Padding(2);
             this.tpRevenue.Name = "tpRevenue";
@@ -143,6 +192,108 @@
             this.tpRevenue.TabIndex = 0;
             this.tpRevenue.Text = "Doanh thu";
             this.tpRevenue.UseVisualStyleBackColor = true;
+            // 
+            // dtpFromDate
+            // 
+            this.dtpFromDate.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dtpFromDate.Location = new System.Drawing.Point(50, 62);
+            this.dtpFromDate.Name = "dtpFromDate";
+            this.dtpFromDate.Size = new System.Drawing.Size(234, 25);
+            this.dtpFromDate.TabIndex = 13;
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label19.Location = new System.Drawing.Point(616, 173);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(161, 25);
+            this.label19.TabIndex = 12;
+            this.label19.Text = "Tổng doanh thu:";
+            // 
+            // txtRevenueTotal
+            // 
+            this.txtRevenueTotal.Font = new System.Drawing.Font("Segoe UI Semibold", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtRevenueTotal.Location = new System.Drawing.Point(621, 214);
+            this.txtRevenueTotal.Name = "txtRevenueTotal";
+            this.txtRevenueTotal.Size = new System.Drawing.Size(297, 33);
+            this.txtRevenueTotal.TabIndex = 11;
+            // 
+            // btnRevenueByYear
+            // 
+            this.btnRevenueByYear.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnRevenueByYear.Location = new System.Drawing.Point(621, 104);
+            this.btnRevenueByYear.Name = "btnRevenueByYear";
+            this.btnRevenueByYear.Size = new System.Drawing.Size(297, 35);
+            this.btnRevenueByYear.TabIndex = 10;
+            this.btnRevenueByYear.Text = "Theo năm";
+            this.btnRevenueByYear.UseVisualStyleBackColor = true;
+            // 
+            // btnRevenueByMonth
+            // 
+            this.btnRevenueByMonth.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnRevenueByMonth.Location = new System.Drawing.Point(621, 55);
+            this.btnRevenueByMonth.Name = "btnRevenueByMonth";
+            this.btnRevenueByMonth.Size = new System.Drawing.Size(297, 35);
+            this.btnRevenueByMonth.TabIndex = 9;
+            this.btnRevenueByMonth.Text = "Theo tháng";
+            this.btnRevenueByMonth.UseVisualStyleBackColor = true;
+            // 
+            // btnRevenueByDate
+            // 
+            this.btnRevenueByDate.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnRevenueByDate.Location = new System.Drawing.Point(621, 5);
+            this.btnRevenueByDate.Name = "btnRevenueByDate";
+            this.btnRevenueByDate.Size = new System.Drawing.Size(297, 35);
+            this.btnRevenueByDate.TabIndex = 8;
+            this.btnRevenueByDate.Text = "Theo ngày";
+            this.btnRevenueByDate.UseVisualStyleBackColor = true;
+            // 
+            // dtpToDate
+            // 
+            this.dtpToDate.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dtpToDate.Location = new System.Drawing.Point(349, 62);
+            this.dtpToDate.Name = "dtpToDate";
+            this.dtpToDate.Size = new System.Drawing.Size(234, 25);
+            this.dtpToDate.TabIndex = 6;
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label18.Location = new System.Drawing.Point(290, 62);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(53, 25);
+            this.label18.TabIndex = 5;
+            this.label18.Text = "Đến:";
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Font = new System.Drawing.Font("Segoe UI", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label17.Location = new System.Drawing.Point(171, 16);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(273, 37);
+            this.label17.TabIndex = 4;
+            this.label17.Text = "Doanh thu hệ thống";
+            // 
+            // dataGVRevenue
+            // 
+            this.dataGVRevenue.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGVRevenue.Location = new System.Drawing.Point(3, 104);
+            this.dataGVRevenue.Name = "dataGVRevenue";
+            this.dataGVRevenue.Size = new System.Drawing.Size(592, 368);
+            this.dataGVRevenue.TabIndex = 2;
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label16.Location = new System.Drawing.Point(3, 62);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(41, 25);
+            this.label16.TabIndex = 0;
+            this.label16.Text = "Từ:";
             // 
             // tpStaff
             // 
@@ -188,6 +339,7 @@
             this.dataGVStaff.RowHeadersWidth = 51;
             this.dataGVStaff.Size = new System.Drawing.Size(881, 255);
             this.dataGVStaff.TabIndex = 66;
+            this.dataGVStaff.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGVStaff_CellFormatting);
             // 
             // btnAddStaff
             // 
@@ -289,6 +441,14 @@
             this.dobStaff.Name = "dobStaff";
             this.dobStaff.Size = new System.Drawing.Size(224, 27);
             this.dobStaff.TabIndex = 9;
+            // 
+            // picStaff
+            // 
+            this.picStaff.Location = new System.Drawing.Point(37, 27);
+            this.picStaff.Name = "picStaff";
+            this.picStaff.Size = new System.Drawing.Size(111, 102);
+            this.picStaff.TabIndex = 8;
+            this.picStaff.TabStop = false;
             // 
             // lblStaffID
             // 
@@ -646,9 +806,9 @@
             // 
             // tpFacility
             // 
-            this.tpFacility.Controls.Add(this.textBox3);
-            this.tpFacility.Controls.Add(this.textBox2);
-            this.tpFacility.Controls.Add(this.textBox1);
+            this.tpFacility.Controls.Add(this.txtRoomArea);
+            this.tpFacility.Controls.Add(this.txtRoomType);
+            this.tpFacility.Controls.Add(this.txtRoomName);
             this.tpFacility.Controls.Add(this.lbRoomFacility);
             this.tpFacility.Controls.Add(this.label7);
             this.tpFacility.Controls.Add(this.label6);
@@ -656,14 +816,96 @@
             this.tpFacility.Controls.Add(this.label4);
             this.tpFacility.Controls.Add(this.txtRoomNum);
             this.tpFacility.Controls.Add(this.label3);
-            this.tpFacility.Controls.Add(this.flowLayoutPanel1);
             this.tpFacility.Controls.Add(this.panel3);
+            this.tpFacility.Controls.Add(this.flowLayoutPanel1);
             this.tpFacility.Location = new System.Drawing.Point(4, 22);
             this.tpFacility.Name = "tpFacility";
             this.tpFacility.Size = new System.Drawing.Size(935, 475);
             this.tpFacility.TabIndex = 3;
             this.tpFacility.Text = "Cơ sở vật chất";
             this.tpFacility.UseVisualStyleBackColor = true;
+            // 
+            // txtRoomArea
+            // 
+            this.txtRoomArea.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtRoomArea.Location = new System.Drawing.Point(650, 212);
+            this.txtRoomArea.Name = "txtRoomArea";
+            this.txtRoomArea.Size = new System.Drawing.Size(259, 29);
+            this.txtRoomArea.TabIndex = 11;
+            // 
+            // txtRoomType
+            // 
+            this.txtRoomType.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtRoomType.Location = new System.Drawing.Point(650, 154);
+            this.txtRoomType.Name = "txtRoomType";
+            this.txtRoomType.Size = new System.Drawing.Size(259, 29);
+            this.txtRoomType.TabIndex = 10;
+            // 
+            // txtRoomName
+            // 
+            this.txtRoomName.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtRoomName.Location = new System.Drawing.Point(650, 91);
+            this.txtRoomName.Name = "txtRoomName";
+            this.txtRoomName.Size = new System.Drawing.Size(259, 29);
+            this.txtRoomName.TabIndex = 9;
+            // 
+            // lbRoomFacility
+            // 
+            this.lbRoomFacility.AutoSize = true;
+            this.lbRoomFacility.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbRoomFacility.Location = new System.Drawing.Point(553, 295);
+            this.lbRoomFacility.Name = "lbRoomFacility";
+            this.lbRoomFacility.Size = new System.Drawing.Size(43, 17);
+            this.lbRoomFacility.TabIndex = 8;
+            this.lbRoomFacility.Text = "label8";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.Location = new System.Drawing.Point(544, 259);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(116, 21);
+            this.label7.TabIndex = 7;
+            this.label7.Text = "Cơ sở vật chất";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Location = new System.Drawing.Point(552, 212);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(79, 21);
+            this.label6.TabIndex = 6;
+            this.label6.Text = "Diện tích";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Location = new System.Drawing.Point(544, 154);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(96, 21);
+            this.label5.TabIndex = 5;
+            this.label5.Text = "Loại phòng";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(544, 91);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(91, 21);
+            this.label4.TabIndex = 4;
+            this.label4.Text = "Tên phòng";
+            // 
+            // txtRoomNum
+            // 
+            this.txtRoomNum.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtRoomNum.Location = new System.Drawing.Point(650, 27);
+            this.txtRoomNum.Name = "txtRoomNum";
+            this.txtRoomNum.Size = new System.Drawing.Size(259, 29);
+            this.txtRoomNum.TabIndex = 3;
             // 
             // label3
             // 
@@ -675,14 +917,270 @@
             this.label3.TabIndex = 2;
             this.label3.Text = "Số phòng";
             // 
+            // panel3
+            // 
+            this.panel3.BackColor = System.Drawing.Color.AntiqueWhite;
+            this.panel3.Location = new System.Drawing.Point(539, 19);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(384, 441);
+            this.panel3.TabIndex = 12;
+            // 
+            // flowLayoutPanel1
+            // 
+            this.flowLayoutPanel1.BackgroundImage = global::HotelManager.Properties.Resources.logo;
+            this.flowLayoutPanel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(14, 19);
+            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(519, 441);
+            this.flowLayoutPanel1.TabIndex = 0;
+            // 
             // tpReservation
             // 
+            this.tpReservation.Controls.Add(this.lblMoney);
+            this.tpReservation.Controls.Add(this.dateTimePicker2);
+            this.tpReservation.Controls.Add(this.dateTimePicker1);
+            this.tpReservation.Controls.Add(this.label15);
+            this.tpReservation.Controls.Add(this.label14);
+            this.tpReservation.Controls.Add(this.txtStaffOrder);
+            this.tpReservation.Controls.Add(this.label);
+            this.tpReservation.Controls.Add(this.label13);
+            this.tpReservation.Controls.Add(this.txtReservationCustomerCheckout);
+            this.tpReservation.Controls.Add(this.label12);
+            this.tpReservation.Controls.Add(this.txtReservationCustomerCheckin);
+            this.tpReservation.Controls.Add(this.label11);
+            this.tpReservation.Controls.Add(this.txtReservationCustomerCMND);
+            this.tpReservation.Controls.Add(this.label10);
+            this.tpReservation.Controls.Add(this.txtReservationCustomerPhone);
+            this.tpReservation.Controls.Add(this.label9);
+            this.tpReservation.Controls.Add(this.txtReservationCustomerEmail);
+            this.tpReservation.Controls.Add(this.label8);
+            this.tpReservation.Controls.Add(this.btnReservationSort);
+            this.tpReservation.Controls.Add(this.label2);
+            this.tpReservation.Controls.Add(this.txtReservationCustomerName);
+            this.tpReservation.Controls.Add(this.dataGVReservation);
+            this.tpReservation.Controls.Add(this.lbFromDate);
             this.tpReservation.Location = new System.Drawing.Point(4, 22);
             this.tpReservation.Name = "tpReservation";
             this.tpReservation.Size = new System.Drawing.Size(935, 475);
             this.tpReservation.TabIndex = 4;
             this.tpReservation.Text = "Thông tin đặt phòng";
             this.tpReservation.UseVisualStyleBackColor = true;
+            // 
+            // lblMoney
+            // 
+            this.lblMoney.AutoSize = true;
+            this.lblMoney.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblMoney.Location = new System.Drawing.Point(664, 433);
+            this.lblMoney.Name = "lblMoney";
+            this.lblMoney.Size = new System.Drawing.Size(84, 30);
+            this.lblMoney.TabIndex = 24;
+            this.lblMoney.Text = "label20";
+            // 
+            // dateTimePicker2
+            // 
+            this.dateTimePicker2.CalendarFont = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dateTimePicker2.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dateTimePicker2.Location = new System.Drawing.Point(302, 30);
+            this.dateTimePicker2.Name = "dateTimePicker2";
+            this.dateTimePicker2.Size = new System.Drawing.Size(175, 25);
+            this.dateTimePicker2.TabIndex = 23;
+            // 
+            // dateTimePicker1
+            // 
+            this.dateTimePicker1.CalendarFont = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dateTimePicker1.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dateTimePicker1.Location = new System.Drawing.Point(62, 30);
+            this.dateTimePicker1.Name = "dateTimePicker1";
+            this.dateTimePicker1.Size = new System.Drawing.Size(175, 25);
+            this.dateTimePicker1.TabIndex = 22;
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label15.ForeColor = System.Drawing.Color.IndianRed;
+            this.label15.Location = new System.Drawing.Point(576, 412);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(103, 25);
+            this.label15.TabIndex = 21;
+            this.label15.Text = "Tổng tiền:";
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label14.Location = new System.Drawing.Point(556, 376);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(103, 25);
+            this.label14.TabIndex = 20;
+            this.label14.Text = "Tổng tiền:";
+            // 
+            // txtStaffOrder
+            // 
+            this.txtStaffOrder.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtStaffOrder.Location = new System.Drawing.Point(685, 327);
+            this.txtStaffOrder.Name = "txtStaffOrder";
+            this.txtStaffOrder.Size = new System.Drawing.Size(234, 29);
+            this.txtStaffOrder.TabIndex = 19;
+            // 
+            // label
+            // 
+            this.label.AutoSize = true;
+            this.label.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label.Location = new System.Drawing.Point(550, 327);
+            this.label.Name = "label";
+            this.label.Size = new System.Drawing.Size(107, 25);
+            this.label.TabIndex = 18;
+            this.label.Text = "Nhân viên:";
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label13.Location = new System.Drawing.Point(552, 276);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(113, 25);
+            this.label13.TabIndex = 17;
+            this.label13.Text = "Check-out: ";
+            // 
+            // txtReservationCustomerCheckout
+            // 
+            this.txtReservationCustomerCheckout.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtReservationCustomerCheckout.Location = new System.Drawing.Point(685, 276);
+            this.txtReservationCustomerCheckout.Name = "txtReservationCustomerCheckout";
+            this.txtReservationCustomerCheckout.Size = new System.Drawing.Size(234, 29);
+            this.txtReservationCustomerCheckout.TabIndex = 16;
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label12.Location = new System.Drawing.Point(566, 241);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(99, 25);
+            this.label12.TabIndex = 15;
+            this.label12.Text = "Check-in: ";
+            // 
+            // txtReservationCustomerCheckin
+            // 
+            this.txtReservationCustomerCheckin.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtReservationCustomerCheckin.Location = new System.Drawing.Point(685, 241);
+            this.txtReservationCustomerCheckin.Name = "txtReservationCustomerCheckin";
+            this.txtReservationCustomerCheckin.Size = new System.Drawing.Size(234, 29);
+            this.txtReservationCustomerCheckin.TabIndex = 14;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label11.Location = new System.Drawing.Point(582, 190);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(81, 25);
+            this.label11.TabIndex = 13;
+            this.label11.Text = "CMND: ";
+            // 
+            // txtReservationCustomerCMND
+            // 
+            this.txtReservationCustomerCMND.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtReservationCustomerCMND.Location = new System.Drawing.Point(685, 186);
+            this.txtReservationCustomerCMND.Name = "txtReservationCustomerCMND";
+            this.txtReservationCustomerCMND.Size = new System.Drawing.Size(234, 29);
+            this.txtReservationCustomerCMND.TabIndex = 12;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label10.Location = new System.Drawing.Point(605, 132);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(58, 25);
+            this.label10.TabIndex = 11;
+            this.label10.Text = "SĐT: ";
+            // 
+            // txtReservationCustomerPhone
+            // 
+            this.txtReservationCustomerPhone.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtReservationCustomerPhone.Location = new System.Drawing.Point(685, 132);
+            this.txtReservationCustomerPhone.Name = "txtReservationCustomerPhone";
+            this.txtReservationCustomerPhone.Size = new System.Drawing.Size(234, 29);
+            this.txtReservationCustomerPhone.TabIndex = 10;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.Location = new System.Drawing.Point(564, 81);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(101, 25);
+            this.label9.TabIndex = 9;
+            this.label9.Text = "Email KH: ";
+            // 
+            // txtReservationCustomerEmail
+            // 
+            this.txtReservationCustomerEmail.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtReservationCustomerEmail.Location = new System.Drawing.Point(685, 81);
+            this.txtReservationCustomerEmail.Name = "txtReservationCustomerEmail";
+            this.txtReservationCustomerEmail.Size = new System.Drawing.Size(234, 29);
+            this.txtReservationCustomerEmail.TabIndex = 8;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.Location = new System.Drawing.Point(564, 30);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(115, 25);
+            this.label8.TabIndex = 7;
+            this.label8.Text = "Họ tên KH: ";
+            // 
+            // btnReservationSort
+            // 
+            this.btnReservationSort.BackColor = System.Drawing.Color.White;
+            this.btnReservationSort.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnReservationSort.Image = global::HotelManager.Properties.Resources.search;
+            this.btnReservationSort.Location = new System.Drawing.Point(483, 16);
+            this.btnReservationSort.Name = "btnReservationSort";
+            this.btnReservationSort.Size = new System.Drawing.Size(45, 52);
+            this.btnReservationSort.TabIndex = 6;
+            this.btnReservationSort.UseVisualStyleBackColor = false;
+            this.btnReservationSort.Click += new System.EventHandler(this.btnReservationSort_Click);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(243, 30);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(53, 25);
+            this.label2.TabIndex = 4;
+            this.label2.Text = "Đến:";
+            // 
+            // txtReservationCustomerName
+            // 
+            this.txtReservationCustomerName.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtReservationCustomerName.Location = new System.Drawing.Point(685, 30);
+            this.txtReservationCustomerName.Name = "txtReservationCustomerName";
+            this.txtReservationCustomerName.Size = new System.Drawing.Size(234, 29);
+            this.txtReservationCustomerName.TabIndex = 3;
+            // 
+            // dataGVReservation
+            // 
+            this.dataGVReservation.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGVReservation.Location = new System.Drawing.Point(13, 81);
+            this.dataGVReservation.Name = "dataGVReservation";
+            this.dataGVReservation.Size = new System.Drawing.Size(515, 382);
+            this.dataGVReservation.TabIndex = 2;
+            this.dataGVReservation.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGVReservation_CellFormatting);
+            // 
+            // lbFromDate
+            // 
+            this.lbFromDate.AutoSize = true;
+            this.lbFromDate.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbFromDate.Location = new System.Drawing.Point(10, 30);
+            this.lbFromDate.Name = "lbFromDate";
+            this.lbFromDate.Size = new System.Drawing.Size(46, 25);
+            this.lbFromDate.TabIndex = 1;
+            this.lbFromDate.Text = "Từ: ";
             // 
             // tabPage1
             // 
@@ -719,108 +1217,9 @@
             this.tabPage5.Size = new System.Drawing.Size(200, 100);
             this.tabPage5.TabIndex = 0;
             // 
-            // txtRoomNum
-            // 
-            this.txtRoomNum.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtRoomNum.Location = new System.Drawing.Point(650, 27);
-            this.txtRoomNum.Name = "txtRoomNum";
-            this.txtRoomNum.Size = new System.Drawing.Size(259, 29);
-            this.txtRoomNum.TabIndex = 3;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(544, 91);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(91, 21);
-            this.label4.TabIndex = 4;
-            this.label4.Text = "Tên phòng";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(544, 154);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(96, 21);
-            this.label5.TabIndex = 5;
-            this.label5.Text = "Loại phòng";
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(552, 212);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(79, 21);
-            this.label6.TabIndex = 6;
-            this.label6.Text = "Diện tích";
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(544, 259);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(116, 21);
-            this.label7.TabIndex = 7;
-            this.label7.Text = "Cơ sở vật chất";
-            // 
-            // lbRoomFacility
-            // 
-            this.lbRoomFacility.AutoSize = true;
-            this.lbRoomFacility.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbRoomFacility.Location = new System.Drawing.Point(553, 295);
-            this.lbRoomFacility.Name = "lbRoomFacility";
-            this.lbRoomFacility.Size = new System.Drawing.Size(43, 17);
-            this.lbRoomFacility.TabIndex = 8;
-            this.lbRoomFacility.Text = "label8";
-            // 
-            // textBox1
-            // 
-            this.textBox1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox1.Location = new System.Drawing.Point(650, 91);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(259, 29);
-            this.textBox1.TabIndex = 9;
-            // 
-            // textBox2
-            // 
-            this.textBox2.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox2.Location = new System.Drawing.Point(650, 154);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(259, 29);
-            this.textBox2.TabIndex = 10;
-            // 
-            // textBox3
-            // 
-            this.textBox3.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox3.Location = new System.Drawing.Point(650, 212);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(259, 29);
-            this.textBox3.TabIndex = 11;
-            // 
-            // picStaff
-            // 
-            this.picStaff.Location = new System.Drawing.Point(37, 27);
-            this.picStaff.Name = "picStaff";
-            this.picStaff.Size = new System.Drawing.Size(111, 102);
-            this.picStaff.TabIndex = 8;
-            this.picStaff.TabStop = false;
-            // 
-            // flowLayoutPanel1
-            // 
-            this.flowLayoutPanel1.BackgroundImage = global::HotelManager.Properties.Resources.logo;
-            this.flowLayoutPanel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(14, 19);
-            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(519, 441);
-            this.flowLayoutPanel1.TabIndex = 0;
-            // 
             // panelFunction
             // 
-            this.panelFunction.BackgroundImage = global::HotelManager.Properties.Resources.Wood_BG;
+            this.panelFunction.BackgroundImage = global::HotelManager.Properties.Resources.logo;
             this.panelFunction.Controls.Add(this.btnReservation);
             this.panelFunction.Controls.Add(this.btnFacility);
             this.panelFunction.Controls.Add(this.btnCustomer);
@@ -926,14 +1325,6 @@
             this.picUser.TabIndex = 4;
             this.picUser.TabStop = false;
             // 
-            // panel3
-            // 
-            this.panel3.BackColor = System.Drawing.Color.AntiqueWhite;
-            this.panel3.Location = new System.Drawing.Point(539, 19);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(384, 441);
-            this.panel3.TabIndex = 12;
-            // 
             // QuanLy
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -942,14 +1333,19 @@
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.panelFunction);
             this.Name = "QuanLy";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "QuanLy";
             this.tabControl1.ResumeLayout(false);
+            this.tpRevenue.ResumeLayout(false);
+            this.tpRevenue.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGVRevenue)).EndInit();
             this.tpStaff.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGVStaff)).EndInit();
             this.grpStaff.ResumeLayout(false);
             this.grpStaff.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picStaff)).EndInit();
             this.tpCustomer.ResumeLayout(false);
             this.tpCustomer.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGVCustomer)).EndInit();
@@ -957,7 +1353,9 @@
             this.grpCustomer.PerformLayout();
             this.tpFacility.ResumeLayout(false);
             this.tpFacility.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.picStaff)).EndInit();
+            this.tpReservation.ResumeLayout(false);
+            this.tpReservation.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGVReservation)).EndInit();
             this.panelFunction.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
@@ -1034,9 +1432,9 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
-        private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox txtRoomArea;
+        private System.Windows.Forms.TextBox txtRoomType;
+        private System.Windows.Forms.TextBox txtRoomName;
         private System.Windows.Forms.Label lbRoomFacility;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label6;
@@ -1044,5 +1442,39 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox txtRoomNum;
         private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.TextBox txtReservationCustomerCheckin;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.TextBox txtReservationCustomerCMND;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.TextBox txtReservationCustomerPhone;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.TextBox txtReservationCustomerEmail;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Button btnReservationSort;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TextBox txtReservationCustomerName;
+        private System.Windows.Forms.DataGridView dataGVReservation;
+        private System.Windows.Forms.Label lbFromDate;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.TextBox txtReservationCustomerCheckout;
+        private System.Windows.Forms.TextBox txtStaffOrder;
+        private System.Windows.Forms.Label label;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.DateTimePicker dateTimePicker2;
+        private System.Windows.Forms.DateTimePicker dateTimePicker1;
+        private System.Windows.Forms.DateTimePicker dtpToDate;
+        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.DataGridView dataGVRevenue;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.TextBox txtRevenueTotal;
+        private System.Windows.Forms.Button btnRevenueByYear;
+        private System.Windows.Forms.Button btnRevenueByMonth;
+        private System.Windows.Forms.Button btnRevenueByDate;
+        private System.Windows.Forms.Label lblMoney;
+        private System.Windows.Forms.DateTimePicker dtpFromDate;
     }
 }

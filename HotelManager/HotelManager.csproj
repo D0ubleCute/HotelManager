@@ -64,6 +64,8 @@
     </Compile>
     <Compile Include="Controller\AccountController.cs" />
     <Compile Include="Controller\CustomerController.cs" />
+    <Compile Include="Controller\ReservationController.cs" />
+    <Compile Include="Controller\RevenueController.cs" />
     <Compile Include="Controller\RoomController.cs" />
     <Compile Include="Controller\StaffController.cs" />
     <Compile Include="DAO\AccountDAO.cs" />
@@ -141,6 +143,7 @@
     <None Include="Resources\quanlynhansu.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\search.png" />
     <None Include="Images\Wood_BG.jpg" />
     <None Include="Images\Others\logo.png" />
     <Content Include="logo.ico" />

@@ -33,6 +33,11 @@ namespace HotelManager.Controller
         {
             return AccountDAO.DecreaseAttempsOrLockAccount(userName);
         }
+
+        public static bool ResetAttempsOrUnlockAccount(string userName)
+        {
+            return AccountDAO.ResetAttempsOrUnlockAccount(userName);
+        }
     }
 }
 
