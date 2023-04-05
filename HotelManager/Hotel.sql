@@ -90,7 +90,9 @@ create table Room (
 
 insert into Room values 
 (101, 'Phong Deluxe Double' , '', 1, 'Deluxe/Twin', 1, 0, 'DLX', 36),
-(201, 'Phong Superior Double' , '', 2, 'Superior', 1, 0, 'SUPER', 44),
+(201, 'Phong Superior Double' , '', 2, 'Superior', 1, 0, 'SUPER', 44)
+
+insert into Room values
 (102, 'Phong Deluxe Double' , '', 1, 'Deluxe/Twin', 1, 0, 'DLX', 36),
 (103, 'Phong Deluxe Double' , '', 1, 'Deluxe/Twin', 1, 0, 'DLX', 36),
 (202, 'Phong Superior Double' , '', 2, 'Superior', 1, 0, 'SUPER', 44),
@@ -98,6 +100,15 @@ insert into Room values
 (301, 'Phong Suite King', '', 3, 'Suite', 1, 0, 'SUT', 52),
 (302, 'Phong Suite King', '', 3, 'Suite', 1, 0, 'SUT', 52),
 (303, 'Phong Suite King', '', 3, 'Suite', 1, 0, 'SUT', 52)
+
+insert into Room values
+(401, 'Phong Suite King & Queen', '', 4, 'Suite/Double', 1, 0, 'SUT', 60),
+(402, 'Phong Suite King & Queen', '', 4, 'Suite/Double', 1, 0, 'SUT', 60),
+(403, 'Phong Suite King & Queen', '', 4, 'Suite/Double', 1, 0, 'SUT', 60)
+
+UPDATE Room
+SET isOccupied = 1
+WHERE roomNum = 102;
 
 select * from RoomPrice
 
@@ -210,7 +221,7 @@ insert into Reservation values
 insert into Reservation values 
 ('Res-003', 301, 2, '2023-03-24 22:30:00', null, '001', '001', 930000, 0, '')
 insert into Reservation values('Res-004', 302, 2, '2023-03-26 22:30:00', null, '001', '001', 930000, 0, '')
-
+select * from Room
 drop table Reservation
 select * from Reservation
 ------------------------------FUNCTION------------------------------

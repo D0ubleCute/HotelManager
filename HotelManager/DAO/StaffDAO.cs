@@ -62,10 +62,6 @@ namespace HotelManager.DAO
                             dt.Rows.Add(item.id, item.fullName, item.dob.ToString("dd/MM/yyyy", CultureInfo.InvariantCulture), item.address, item.phone, item.cmnd, item.userName, "Đã khoá");
                             break;
                         }
-                        else
-                        {
-
-                        }
                         dt.Rows.Add(item.id, item.fullName, item.dob.ToString("dd/MM/yyyy", CultureInfo.InvariantCulture), item.address, item.phone, item.cmnd, item.userName, "Hoạt động");
                         break;
                     }
