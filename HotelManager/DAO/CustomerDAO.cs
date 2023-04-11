@@ -55,47 +55,56 @@ namespace HotelManager.DAO
             return dt;
         }
 
-        public static Customer GetCustomerById(string cusId)
-        {
-            List<Customer> customerList = CustomerDAO.GetCustomer();
-
-            foreach (var item in customerList)
-            {
-                if (item.id.Equals(cusId))
-                {
-                    return item;
-                }
-            }
-            return null;
-        }
-
-        public static bool UpdateCustomer(string id, string hoTen, DateTime ngaySinh, string diaChi, string sdt, string cmnd)
+        public static Customer GetCustomerByPhone(string phone)
         {
             using (HotelDataContext db = new HotelDataContext())
             {
-                var nv = (from staff in db.Staffs
-                          where staff.id.Equals(id)
+                var nv = (from staff in db.Customers
+                          where staff.phone.Equals(phone)
                           select staff).First();
 
-                nv.fullName = hoTen;
-                nv.dob = ngaySinh;
-                nv.address = diaChi;
-                nv.phone = sdt;
-                nv.cmnd = cmnd;
-
-                //ask the datacontext to save all the changes
-                try
-                {
-                    db.SubmitChanges();
-                    return true;
-                }
-                catch (Exception e)
-                {
-                    MessageBox.Show(e.Message);
-                    return false;
-                }
+                return nv;
             }
         }
-      
+
+        public static Customer GetCustomerById(string cusID)
+        {
+            using (HotelDataContext db = new HotelDataContext())
+            {
+                var nv = (from staff in db.Customers
+                          where staff.id.Equals(cusID)
+                          select staff).First();
+
+                return nv;
+            }
+        }
+
+        public static bool UpdateCustomer(string id, string hoTen, DateTime ngaySinh, string diaChi, string sdt, string cmnd)
+            {
+                using (HotelDataContext db = new HotelDataContext())
+                {
+                    var nv = (from staff in db.Staffs
+                              where staff.id.Equals(id)
+                              select staff).First();
+
+                    nv.fullName = hoTen;
+                    nv.dob = ngaySinh;
+                    nv.address = diaChi;
+                    nv.phone = sdt;
+                    nv.cmnd = cmnd;
+
+                    //ask the datacontext to save all the changes
+                    try
+                    {
+                        db.SubmitChanges();
+                        return true;
+                    }
+                    catch (Exception e)
+                    {
+                        MessageBox.Show(e.Message);
+                        return false;
+                    }
+                }
+            }
     }
 }

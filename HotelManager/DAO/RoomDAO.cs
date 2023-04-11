@@ -67,7 +67,7 @@ namespace HotelManager.DAO
 
             foreach(RoomFacility item in facilityListPerRoom)
             {
-                listFacility += item.nameFacility.ToString() + " ";
+                listFacility += item.nameFacility.ToString() + "  ";
             }
             return listFacility;
         }

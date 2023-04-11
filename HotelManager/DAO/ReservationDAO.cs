@@ -37,8 +37,6 @@ namespace HotelManager.DAO
                             servicePayCheckSum += item2.priceService;
                         }
                         reservationPayCheckSum += item.totalPrice + servicePayCheckSum;
-                        Console.WriteLine(item.totalPrice);
-                        Console.WriteLine(reservationPayCheckSum);
                     }
                 }
             }
@@ -47,6 +45,24 @@ namespace HotelManager.DAO
         }
 
         public static List<Reservation> GetReservation()
+        {
+            List<Reservation> reservationList = new List<Reservation>();
+
+            using (HotelDataContext db = new HotelDataContext())
+            {
+                var query = from cus in db.Reservations
+                            select cus;
+
+                foreach (var item in query)
+                {
+                    reservationList.Add(item);
+                }
+            }
+
+            return reservationList;
+        }
+
+        public static List<Reservation> GetReservationByDate()
         {
             List<Reservation> reservationList = new List<Reservation>();
 
@@ -80,6 +96,8 @@ namespace HotelManager.DAO
 
             using (HotelDataContext db = new HotelDataContext())
             {
+                CultureInfo culture = new CultureInfo("vi-VN");
+
                 var query = from res in db.Reservations
                             join cus in db.Customers on res.idCustomer equals cus.id
                             join staff in db.Staffs on res.idStaff equals staff.id
@@ -99,30 +117,75 @@ namespace HotelManager.DAO
 
             foreach (var item in query)
                 {
-                    if (item.accomodationType == 1)
+                    switch (item.accomodationType)
                     {
-                        dt.Rows.Add(item.idReservation, item.roomNum, "GIỜ",
-                        item.checkinDate.ToString("dd/MM/yyyy hh:mm:ss", CultureInfo.InvariantCulture),
-                        item.checkoutDate,
-                        item.customerName, item.staffName, item.paymentStatus, item.totalPrice);
-                    }
-                    else if (item.accomodationType == 2)
-                    {
-                        dt.Rows.Add(item.idReservation, item.roomNum, "ĐÊM",
-                        item.checkinDate.ToString("dd/MM/yyyy hh:mm:ss", CultureInfo.InvariantCulture),
-                        item.checkoutDate,
-                        item.customerName, item.staffName, item.paymentStatus, item.totalPrice);
-                    }
-                    else
-                    {
-                        dt.Rows.Add(item.idReservation, item.roomNum, "NGÀY",
-                        item.checkinDate.ToString("dd/MM/yyyy hh:mm:ss", CultureInfo.InvariantCulture),
-                        item.checkoutDate,
-                        item.customerName, item.staffName, item.paymentStatus, item.totalPrice);
+                        case 1:
+                            if (item.paymentStatus == true)
+                            {
+                                dt.Rows.Add(item.idReservation, item.roomNum, "GIỜ",
+                                item.checkinDate.ToString("dd/MM/yyyy hh:mm:ss", CultureInfo.InvariantCulture),
+                                Convert.ToDateTime(item.checkoutDate).ToString("dd/MM/yyyy HH:mm:ss", CultureInfo.GetCultureInfo("en-US")),
+                                item.customerName, item.staffName, "Đã thanh toán", item.totalPrice);
+                            } else
+                            {
+                                dt.Rows.Add(item.idReservation, item.roomNum, "GIỜ",
+                                item.checkinDate.ToString("dd/MM/yyyy hh:mm:ss", CultureInfo.InvariantCulture),
+                                item.checkoutDate,
+                                item.customerName, item.staffName, "Đang sử dụng", item.totalPrice);
+                            }
+                            break;
+
+                        case 2:
+                            if (item.paymentStatus == true)
+                            {
+                                dt.Rows.Add(item.idReservation, item.roomNum, "ĐÊM",
+                                item.checkinDate.ToString("dd/MM/yyyy hh:mm:ss", CultureInfo.InvariantCulture),
+                                Convert.ToDateTime(item.checkoutDate).ToString("dd/MM/yyyy HH:mm:ss", CultureInfo.GetCultureInfo("vi-VN")),
+                                item.customerName, item.staffName, "Đã thanh toán", item.totalPrice);
+                            }
+                            else
+                            {
+                                dt.Rows.Add(item.idReservation, item.roomNum, "ĐÊM",
+                                Convert.ToDateTime(item.checkoutDate).ToString("dd/MM/yyyy HH:mm:ss", CultureInfo.GetCultureInfo("vi-VN")),
+                                item.checkoutDate,
+                                item.customerName, item.staffName, "Đang sử dụng", item.totalPrice);
+                            }
+                            break;
+
+                        case 3:
+                            if (item.paymentStatus == true)
+                            {
+                                dt.Rows.Add(item.idReservation, item.roomNum, "NGÀY",
+                                item.checkinDate.ToString("dd/MM/yyyy hh:mm:ss", CultureInfo.InvariantCulture),
+                                Convert.ToDateTime(item.checkoutDate).ToString("dd/MM/yyyy HH:mm:ss", CultureInfo.GetCultureInfo("vi-VN")),
+                                item.customerName, item.staffName, "Đã thanh toán", item.totalPrice);
+                            }
+                            else
+                            {
+                                dt.Rows.Add(item.idReservation, item.roomNum, "NGÀY",
+                                item.checkinDate.ToString("dd/MM/yyyy hh:mm:ss", CultureInfo.InvariantCulture),
+                                item.checkoutDate,
+                                item.customerName, item.staffName, "Đang sử dụng", item.totalPrice);
+                            }
+                            break;
                     }
                 }
                 return dt;
             }
-        }       
+        }
+
+        public static Reservation GetReservationById(string idRes)
+        {
+            List<Reservation> reservationList = GetReservation();
+
+            foreach (var item in reservationList)
+            {
+                if (item.idReservation.Equals(idRes))
+                {
+                    return item;
+                }
+            }
+            return null;
+        }
     }
 }

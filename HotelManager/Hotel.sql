@@ -75,6 +75,26 @@ create table Janitor (
 insert into Janitor values 
 ('001', 'Nguyen trac', '1996-07-08', '19 NHT', '1234567890', '079202034726')
 
+
+create table VatTu(
+	idVatTu varchar(20) not null primary key,
+	nameVatTu nvarchar(60) not null,
+	qtyVatTu int not null,
+	statusVatTu smallint --1 normal, 2 sap het, 0 la het
+)
+
+insert into VatTu values('VT-01', N'Gối đầu', 300, 1)
+insert into VatTu values('VT-02', N'Chăn', 300, 1)
+insert into VatTu values('VT-03', N'Drap Giường Nhỏ', 100, 1)
+insert into VatTu values('VT-04', N'Drap Giường Vừa', 100, 1)
+insert into VatTu values('VT-05', N'Drap Giường Lớn', 100, 1)
+insert into VatTu values('VT-06', N'Khăn tắm', 300, 1)
+insert into VatTu values('VT-07', N'Bàn chải', 300, 1)
+insert into VatTu values('VT-08', N'Thảm', 300, 1)
+insert into VatTu values('VT-09', N'Máy sấy', 63, 1)
+insert into VatTu values('VT-10', N'Giấy cuộn', 240, 1)
+
+
 create table Room (
 	roomNum smallint not null primary key,
 	roomName nvarchar(60) not null,
@@ -91,7 +111,6 @@ create table Room (
 insert into Room values 
 (101, 'Phong Deluxe Double' , '', 1, 'Deluxe/Twin', 1, 0, 'DLX', 36),
 (201, 'Phong Superior Double' , '', 2, 'Superior', 1, 0, 'SUPER', 44)
-
 insert into Room values
 (102, 'Phong Deluxe Double' , '', 1, 'Deluxe/Twin', 1, 0, 'DLX', 36),
 (103, 'Phong Deluxe Double' , '', 1, 'Deluxe/Twin', 1, 0, 'DLX', 36),
@@ -100,7 +119,6 @@ insert into Room values
 (301, 'Phong Suite King', '', 3, 'Suite', 1, 0, 'SUT', 52),
 (302, 'Phong Suite King', '', 3, 'Suite', 1, 0, 'SUT', 52),
 (303, 'Phong Suite King', '', 3, 'Suite', 1, 0, 'SUT', 52)
-
 insert into Room values
 (401, 'Phong Suite King & Queen', '', 4, 'Suite/Double', 1, 0, 'SUT', 60),
 (402, 'Phong Suite King & Queen', '', 4, 'Suite/Double', 1, 0, 'SUT', 60),
@@ -110,7 +128,25 @@ UPDATE Room
 SET isOccupied = 1
 WHERE roomNum = 102;
 
-select * from RoomPrice
+create table RoomThings (
+	id int not null primary key identity(1,1), 
+	roomNum smallint not null,
+	idVatTu varchar(20) not null,
+	qtyVatTuByRoom smallint not null
+	FOREIGN KEY (idVatTu) REFERENCES VatTu(idVatTu),
+)
+
+insert into RoomThings values(101, 'VT-01', 3)
+insert into RoomThings values(102, 'VT-01', 3)
+insert into RoomThings values(103, 'VT-01', 3)
+
+insert into RoomThings values(101, 'VT-07', 2)
+insert into RoomThings values(102, 'VT-07', 2)
+insert into RoomThings values(103, 'VT-07', 2)
+
+insert into RoomThings values(101, 'VT-10', 2)
+insert into RoomThings values(102, 'VT-10', 2)
+insert into RoomThings values(103, 'VT-10', 2)
 
 create table RoomPrice (
 	idRateByType varchar(20) not null primary key,
@@ -127,6 +163,9 @@ insert into RoomPrice values
 insert into RoomPrice values 
 ('SUT', 200000, 120000, 460000, 630000, 340000)
 
+select * from RoomPrice
+
+
 create table RoomExtra (
 	idService varchar(20) not null primary key,
 	nameService nvarchar(60) not null,
@@ -139,6 +178,10 @@ insert into RoomExtra values
 ('BF-01', N'Bữa sáng tại giường SET 1', 80000),
 ('BF-02', N'Bữa sáng tại giường SET 2', 180000),
 ('BF-03', N'Bữa sáng tại giường SET 3', 260000)
+insert into RoomExtra values('YEAH-1', N'Trang trí theo chủ đề SET 1', 300000)
+insert into RoomExtra values('YEAH-2', N'Trang trí theo chủ đề SET 2', 460000)
+insert into RoomExtra values('BAR', N'Bartender phục vụ', 810000)
+
 
 select * from RoomExtra
 
@@ -151,6 +194,7 @@ create table RoomExtraByRoom (
 	FOREIGN KEY (roomNum) REFERENCES Room(roomNum),
 	FOREIGN KEY (idReservation) REFERENCES Reservation(idReservation)
 )
+
 insert into RoomExtraByRoom values 
 ('Ser-001', 'massage-01', 101, 'Res-001')
 insert into RoomExtraByRoom values 
@@ -162,30 +206,39 @@ select * from RoomExtraByRoom
 
 --RoomFacility
 create table RoomFacility (
-	idFacility int not null, 
+	idFacility int not null primary key identity(1,1), 
 	nameFacility nvarchar(60) not null,
 	roomNum smallint not null,
 	FOREIGN KEY (roomNum) REFERENCES Room(roomNum) 
 )
 
-insert into RoomFacility values (1, N'Bồn tắm', 201)
-insert into RoomFacility values (2, N'Bồn tắm', 202)
-insert into RoomFacility values (3, N'Bồn tắm', 203)
-insert into RoomFacility values (4, N'Két sắt nhỏ', 101)
-insert into RoomFacility values (5, N'Két sắt nhỏ', 102)
-insert into RoomFacility values (6, N'Két sắt nhỏ', 103)
-insert into RoomFacility values (7, N'Ban công', 301)
-insert into RoomFacility values (8, N'Ban công', 302)
-insert into RoomFacility values (9, N'Ban công', 303)
-insert into RoomFacility values (10, N'Két sắt vừa', 201)
-insert into RoomFacility values (11, N'Két sắt vừa', 202)
-insert into RoomFacility values (12, N'Két sắt vừa', 203)
-insert into RoomFacility values (13, N'Két sắt vừa', 301)
-insert into RoomFacility values (14, N'Két sắt vừa', 302)
-insert into RoomFacility values (15, N'Két sắt vừa', 303)
-insert into RoomFacility values (16, N'Bồn tắm Massage', 301)
-insert into RoomFacility values (17, N'Bồn tắm Massage', 302)
-insert into RoomFacility values (18, N'Bồn tắm Massage', 303)
+insert into RoomFacility values (N'Bồn tắm', 201)
+insert into RoomFacility values (N'Bồn tắm', 202)
+insert into RoomFacility values (N'Bồn tắm', 203)
+insert into RoomFacility values (N'Két sắt nhỏ', 101)
+insert into RoomFacility values (N'Két sắt nhỏ', 102)
+insert into RoomFacility values (N'Két sắt nhỏ', 103)
+insert into RoomFacility values (N'Ban công', 301)
+insert into RoomFacility values (N'Ban công', 302)
+insert into RoomFacility values (N'Ban công', 303)
+insert into RoomFacility values (N'Két sắt vừa', 201)
+insert into RoomFacility values (N'Két sắt vừa', 202)
+insert into RoomFacility values (N'Két sắt vừa', 203)
+insert into RoomFacility values (N'Két sắt vừa', 301)
+insert into RoomFacility values (N'Két sắt vừa', 302)
+insert into RoomFacility values (N'Két sắt vừa', 303)
+insert into RoomFacility values (N'Bồn tắm Massage', 301)
+insert into RoomFacility values (N'Bồn tắm Massage', 302)
+insert into RoomFacility values (N'Bồn tắm Massage', 303)
+insert into RoomFacility values (N'TV', 101)
+insert into RoomFacility values (N'TV', 102)
+insert into RoomFacility values (N'TV', 103)
+insert into RoomFacility values (N'TV', 201)
+insert into RoomFacility values (N'TV', 202)
+insert into RoomFacility values (N'TV', 203)
+insert into RoomFacility values (N'TV', 301)
+insert into RoomFacility values (N'TV', 302)
+insert into RoomFacility values (N'TV', 303)
 
 
 create table RoomCleanByJanitor(
@@ -221,11 +274,21 @@ insert into Reservation values
 insert into Reservation values 
 ('Res-003', 301, 2, '2023-03-24 22:30:00', null, '001', '001', 930000, 0, '')
 insert into Reservation values('Res-004', 302, 2, '2023-03-26 22:30:00', null, '001', '001', 930000, 0, '')
+
+insert into Reservation values(DBO.AUTO_idReservation('2023-01-26 10:00:00'), 302, 1, '2023-01-26 10:00:00', '2023-01-26 14:00:00', '001', '001', DBO.CalculateTotalByHour(302, '2023-01-26 10:00:00', '2023-01-26 14:00:00'), 1, 'cash')
+
+insert into Reservation values(DBO.AUTO_idReservation('2022-12-24 22:00:00'), 202, 2, '2022-12-24 22:00:00', '2022-12-25 10:00:00', '001', '001', DBO.CalculateTotalByHour(202, '2022-12-24 22:00:00', '2022-12-25 10:00:00'), 1, 'cash')
+
+insert into Reservation values(DBO.AUTO_idReservation('2022-11-26 10:00:00'), 203, 3, '2023-01-26 14:00:00', '2023-01-29 12:00:00', '001', '001', DBO.CalculateTotalByHour(203, '2023-01-26 14:00:00', '2023-01-29 12:00:00'), 1, 'cash')
+
+insert into Reservation values(DBO.AUTO_idReservation('2023-02-14 19:00:00'), 102, 1, '2023-02-14 19:00:00', '2023-02-14 23:00:00', '001', '001', DBO.CalculateTotalByHour(102, '2023-02-14 19:00:00', '2023-02-14 23:00:00'), 1, 'cash')
+
+
 select * from Room
 drop table Reservation
 select * from Reservation
 ------------------------------FUNCTION------------------------------
---chua hoan thien
+--TINH TIEN PHONG GIO
 create or alter function DBO.CalculateTotalByHour(@roomNum smallint, @checkinDate datetime, @checkoutDate datetime)
 Returns decimal(18,3)
 as
@@ -238,6 +301,40 @@ begin
 end
 go
 
+--TINH TIEN PHONG DEM
+create or alter function DBO.CalculateTotalByNight(@roomNum smallint, @checkinDate datetime, @checkoutDate datetime)
+Returns decimal(18,3)
+as
+begin
+	DECLARE @IDRate VARCHAR(20), @total decimal(18,3), @initCheckoutDate datetime
+	select @initCheckoutDate = dateadd(HOUR, 12, @checkinDate)
+	select @IDRate = (select idRateByType from Room where roomNum = @roomNum)
+	Select @total = (select (RoomPrice.baseForNight + RoomPrice.rateForHour*(DATEDIFF(hh, @initCheckoutDate, @checkoutDate))) 
+							from RoomPrice where idRateByType = @IDRate)
+	return @total
+end
+go
+
+print DBO.CalculateTotalByNight(101, '2022-12-24 22:00:00', '2022-12-25 11:00:00')
+select * from RoomPrice
+
+--TINH TIEN PHONG NGAY --chua hoan thien
+create or alter function DBO.CalculateTotalByDay(@roomNum smallint, @checkinDate datetime, @initCheckoutDate datetime, @checkoutDate datetime)
+Returns decimal(18,3)
+as
+begin
+	DECLARE @IDRate VARCHAR(20), @total decimal(18,3), @tomorrowDate datetime
+	select @tomorrowDate = dateadd(HOUR, 22, @checkinDate)
+	select @IDRate = (select idRateByType from Room where roomNum = @roomNum)
+	Select @total = (select (RoomPrice.baseForDay + RoomPrice.rateForDay*(DATEDIFF(day, @initCheckoutDate, @checkinDate) - 1)
+											 + RoomPrice.rateForHour*(DATEDIFF(hh, @initCheckoutDate, @checkoutDate))) 
+							from RoomPrice where idRateByType = @IDRate)
+	return @total
+end
+go
+
+print DBO.CalculateTotalByDay(103, '2023-01-26 14:00:00', '2023-01-29 12:00:00', '2023-01-29 12:00:00')
+select * from RoomPrice
 --1. idReceipt 
 CREATE OR ALTER FUNCTION DBO.AUTO_idReservation(@createdAt DATETIME)
 RETURNS varchar(20)
@@ -343,38 +440,53 @@ AS
 	insert into Staff values (DBO.AUTO_idStaff(@dob), @fullname, @dob, @address, @phone, @cmnd, '', @cmnd)
 go
 
---2. PROC Tim kiem NV
+--2. PROC NHANVIEN
+--2.1 PROC Tim NV
 CREATE proc USP_SearchStaff 
 	@name nvarchar(60)
 as
 	select * from staff where fullname = @name
 go
 
+----------------------------------------------------------------------------------
 --3. PROC Load Room
 CREATE or alter proc USP_GetRoom
 as
 	select * from room
 go
 
---4. PROC Lay doanhthu theo ngay
+----------------------------------------------------------------------------------
+--4. PROC DOANH THU
+--4.1 Lay doanhthu theo ngay
 CREATE or alter proc USP_GetReportRevenueByDate
 	@fromDate date,
 	@toDate date
 as
-	select * from Reservation where checkinDate > @fromDate and checkinDate < @toDate and paymentStatus = 1
+	select * from Reservation where checkinDate >= @fromDate and checkinDate <= @toDate and paymentStatus = 1 ORDER BY checkinDate ASC
 go
 
---5. PROC lay 3 bang service
+--4.2 Lay doanhthu theo thang
+CREATE or alter proc USP_GetReportRevenueByMonth
+	@fromDate date,
+	@toDate date
+as
+	select * from Reservation where checkinDate >= (select month(@fromDate), year(@fromDate)) and checkinDate <= (select month(@toDate), year(@fromDate)) and paymentStatus = 1 ORDER BY checkinDate ASC
+go
+select * from Reservation ORDER BY checkinDate ASC
+----------------------------------------------------------------------------------
+--5. PROC SERVICE
+--5.1 lay 3 bang service
 create or alter proc USP_GetRoomExtraPriceByReservation
 	@idReservation varchar(20)
 as
-	select * from RoomExtraByRoom rB, RoomExtra ex where rB.idReservation = @idReservation and rB.idService = ex.idService
+	select rb.idServiceIm, rb.idService, rb.roomNum, rb.idReservation, ex.nameService, ex.priceService 
+	from RoomExtraByRoom rB, RoomExtra ex where rB.idReservation = @idReservation and rB.idService = ex.idService
 go
 
 select * from Account
 select * from Staff
 select * from Reservation
-exec USP_GetReportRevenueByDate '2023-03-24', '2023-03-25'
+exec USP_GetRoomExtraPriceByReservation 'Res-002'
 
 
 

@@ -188,54 +188,6 @@ namespace HotelManager.DAO
                     }
                 }
             }
-            
-        //public static bool UnlockStaffAccount(string username)
-        //{
-        //    using (HotelDataContext db = new HotelDataContext())
-        //    {
-        //        try
-        //        {
-        //            var query = (from staff in db.Staffs
-        //                         where staff.id.Equals(username)
-        //                         select staff);
-                    
-        //            foreach (var item in query)
-        //            {
-        //                db.USP_ResetAttempsOrUnlockAccount(item.userName); 
-        //            }
-        //            return true;
-        //        }
-        //        catch (Exception e)
-        //        {
-        //            MessageBox.Show(e.Message);
-        //            return false;
-        //        }
-        //    }
-        //}
-
-        //public static bool LockStaffAccount(string username)
-        //{
-        //    using (HotelDataContext db = new HotelDataContext())
-        //    {
-        //        try
-        //        {
-        //            var query = (from staff in db.Staffs
-        //                         where staff.id.Equals(username)
-        //                         select staff);
-
-        //            foreach (var item in query)
-        //            {
-        //                db.USP_LockWantedAccount(item.userName);
-        //            }
-        //            return true;
-        //        }
-        //        catch (Exception e)
-        //        {
-        //            MessageBox.Show(e.Message);
-        //            return false;
-        //        }
-        //    }
-        //}
 
         public static bool LockOrUnLockStaffAccount(string username)
         {

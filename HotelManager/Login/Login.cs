@@ -20,7 +20,12 @@ namespace HotelManager
         public Login()
         {
             InitializeComponent();
+        }
+
+        private void Login_Load(object sender, EventArgs e)
+        {
             this.ActiveControl = txtUserID;
+            txtPassword_Leave(sender, e);
         }
 
         private void txtUserID_Enter(object sender, EventArgs e)
@@ -60,12 +65,7 @@ namespace HotelManager
                 txtPassword.ForeColor = Color.FromArgb(170, 170, 170);
             }
         }
-
-        private void Login_Load(object sender, EventArgs e)
-        {
-            this.ActiveControl = txtUserID;
-        }
-
+     
         //private void llbQuenMatKhau_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         //{
         //    QuenMatKhau frm = new QuenMatKhau();
@@ -142,7 +142,7 @@ namespace HotelManager
                 SendKeys.Send("{TAB}");
             }
         }
-        private void txtPassword_KeyDown(object sender, KeyEventArgs e)
+        private void txtPassword_KeyDown(object sender, System.Windows.Forms.KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Tab)
             {

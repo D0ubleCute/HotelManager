@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(InsertStaffForm));
             this.picStaff = new System.Windows.Forms.PictureBox();
             this.lbStaffName = new System.Windows.Forms.Label();
             this.txtStaffName = new System.Windows.Forms.TextBox();
@@ -230,7 +231,9 @@
             this.Controls.Add(this.txtStaffName);
             this.Controls.Add(this.lbStaffName);
             this.Controls.Add(this.picStaff);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "InsertStaffForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Thêm nhân viên";
             ((System.ComponentModel.ISupportInitialize)(this.picStaff)).EndInit();
             this.ResumeLayout(false);

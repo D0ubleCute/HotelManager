@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Windows.Forms;
 using HotelManager.DAO;
 using HotelManager.Controller;
+using HotelManager.Helper;
 using Button = System.Windows.Forms.Button;
 using System.Globalization;
 
@@ -32,7 +32,7 @@ namespace HotelManager.Admin
             LoadRoom();
             LoadReservation();
 
-            lbUserName.Text = userName + " (Admin)";
+            lbUsername.Text = userName + " (Admin)";
             lbRoomFacility.Visible = false;
 
             tabControl1.SelectedTab = tpStaff;
@@ -151,23 +151,24 @@ namespace HotelManager.Admin
 
         void DeleteStaff(string userName)
         {
-            DialogResult result = MessageBox.Show("Bạn có muốn xoá nhân viên này?", "Xác nhận", MessageBoxButtons.YesNoCancel);
+            Staff st = StaffController.GetStaffById(userName);
+            DialogResult result = MessageBox.Show("Bạn có muốn xoá nhân viên " + st.fullName + "? ", "Xác nhận", MessageBoxButtons.YesNoCancel);
             if (result == DialogResult.Yes)
             {
                 bool deleteResult = StaffController.DeleteStaff(userName);
 
                 if (deleteResult)
                 {
-                    MessageBox.Show("Xóa nhân viên thành công");
+                    MessageBox.Show("Xóa nhân viên thành công", "Thông báo");
                 }
                 else
                 {
-                    MessageBox.Show("Xóa nhân viên thất bại");
+                    MessageBox.Show("Xóa nhân viên thất bại", "Thông báo");
                 }
             }
             else if (result == DialogResult.No)
             {
-                MessageBox.Show("Huỷ xóa nhân viên thất bại");
+                MessageBox.Show("Huỷ xóa nhân viên", "Thông báo");
             }
            
         }
@@ -188,7 +189,7 @@ namespace HotelManager.Admin
         {
             string staffId = txtStaffId.Text;
             string staffName = txtStaffName.Text;
-            DateTime staffBirth = DateTime.Parse(dobStaff.Text);
+            DateTime staffBirth = DateTime.ParseExact(dobStaff.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
             string staffAddress = txtStaffAddress.Text;
             string staffPhone = txtStaffPhone.Text;
             string staffINumber = txtStaffINumber.Text;
@@ -304,6 +305,9 @@ namespace HotelManager.Admin
                 if (Convert.ToString(Myrow.Cells[7].Value).Equals("Đã khoá"))// Or your condition 
                 {
                     Myrow.DefaultCellStyle.BackColor = Color.Tomato;
+                } else
+                {
+                    Myrow.DefaultCellStyle.BackColor = Color.Aquamarine;
                 }
             }
         }
@@ -317,6 +321,7 @@ namespace HotelManager.Admin
             dataGVCustomer.DataSource = customerList;
             loadCustomerList();
             AddCustomerBinding();
+            txtCustomerId.ReadOnly = true;
         }
 
         void loadCustomerList()
@@ -387,7 +392,7 @@ namespace HotelManager.Admin
             txtRoomArea.Text = room.area.ToString() + " m2";
 
             lbRoomFacility.Visible = true;
-            lbRoomFacility.Font = new Font("Segoe UI", 12, FontStyle.Bold);
+            lbRoomFacility.Font = new Font("Segoe UI", 11, FontStyle.Bold);
             lbRoomFacility.Text = roomFacility;
         }
 
@@ -408,11 +413,11 @@ namespace HotelManager.Admin
         {
             dataGVReservation.DataSource = reservationList;
             dataGVReservation.AllowUserToAddRows = false;
-            loadReservationList();
+            LoadReservationList();
             AddReservationBinding();      
         }
 
-        void loadReservationList()
+        void LoadReservationList()
         {
             DataTable reservations = ReservationController.GetReservationList();
             reservationList.DataSource = reservations;
@@ -442,8 +447,6 @@ namespace HotelManager.Admin
             txtReservationCustomerCheckout.DataBindings.Add("Text", dataGVReservation.DataSource, "Check-out", true, DataSourceUpdateMode.Never);
             lblMoney.DataBindings.Add("Text", dataGVReservation.DataSource, "Tổng tiền", true, DataSourceUpdateMode.Never);
 
-            //decimal curr = Convert.ToDecimal(lblMoney.Text);
-            //lblMoney.Text = curr.ToString("c", culture);
         }
 
         private void dataGVReservation_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
@@ -466,46 +469,103 @@ namespace HotelManager.Admin
             LoadReservation();
         }
 
+        private void tpRoomService_Click(object sender, EventArgs e)
+        {
+            int rowindex = dataGVReservation.CurrentCell.RowIndex;
+            if (rowindex < 0)
+            {
+                return;
+            }
+            string idReservation = dataGVReservation.Rows[rowindex].Cells[0].Value.ToString();
+            dataGVRoomServiceByRes.DataSource = ServiceReservationByRoomController.GetRoomServiceListByReservation(idReservation);
+        }
+
+        private void dataGVReservation_SelectionChanged(object sender, EventArgs e)
+        {
+            if (dataGVReservation.SelectedCells.Count > 0)
+            {
+                int selectedrowindex = dataGVReservation.SelectedCells[0].RowIndex;
+                DataGridViewRow selectedRow = dataGVReservation.Rows[selectedrowindex];
+                string cellValue = Convert.ToString(selectedRow.Cells["Mã đặt phòng"].Value);
+                dataGVRoomServiceByRes.DataSource = ServiceReservationByRoomController.GetRoomServiceListByReservation(cellValue);
+            }
+        }
+
         //----------end reservation module----------
 
 
         //----------begin revenue module----------
-        void LoadRevenue()
-        {
-            LoadDateTimePickerRevenue();//Set "Từ ngày" & "Đến ngày ngày" về đầu tháng & cuối tháng
-            LoadRevenue(dtpFromDate.Value, dtpToDate.Value);
-        }
-
-        void loadRevenueList()
-        {
-            DataTable reservations = ReservationController.GetReservationList();
-            reservationList.DataSource = reservations;
-            dataGVRevenue.DataSource = reservationList;
-        }
-
         void LoadDateTimePickerRevenue()
         {
             dtpFromDate.Value = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
             dtpToDate.Value = dtpFromDate.Value.AddMonths(1).AddDays(-1);
         }
 
-        void LoadRevenue(DateTime fromDate, DateTime toDate)
+        void LoadRevenueByDate(DateTime fromDate, DateTime toDate)
         {
             CultureInfo culture = new CultureInfo("vi-VN");
             dataGVRevenue.DataSource = RevenueController.GetRevenueByDate(fromDate, toDate); ;
             txtRevenueTotal.Text = GetSumRevenue().ToString("c", culture);
         }
 
+        void LoadRevenueByMonth(DateTime fromDate, DateTime toDate)
+        {
+            CultureInfo culture = new CultureInfo("vi-VN");
+            dataGVRevenue.DataSource = RevenueController.GetRevenueByMonth(fromDate, toDate); ;
+            txtRevenueTotal.Text = GetSumRevenue().ToString("c", culture);
+        }
+
+        void LoadRevenueByYear(DateTime fromDate, DateTime toDate)
+        {
+            CultureInfo culture = new CultureInfo("vi-VN");
+            dataGVRevenue.DataSource = RevenueController.GetRevenueByYear(fromDate, toDate); ;
+            txtRevenueTotal.Text = GetSumRevenue().ToString("c", culture);
+        }
+
+        void LoadRevenue()
+        {
+            LoadDateTimePickerRevenue();//Set "Từ ngày" & "Đến ngày ngày" về đầu tháng & cuối tháng
+            LoadRevenueByDate(dtpFromDate.Value, dtpToDate.Value);
+        }
+
+        void LoadRevenueList()
+        {
+            DataTable reservations = ReservationController.GetReservationList();
+            reservationList.DataSource = reservations;
+            dataGVRevenue.DataSource = reservationList;
+        }      
+
         decimal GetSumRevenue()
         {
             return RevenueController.GetTotalRevenue(dataGVRevenue);
         }
+  
 
-        private void btnRevenueFilter_Click(object sender, EventArgs e)
+        private void tpRevenue_Enter(object sender, EventArgs e)
         {
-            LoadRevenue(dtpFromDate.Value, dtpToDate.Value);
+            LoadRevenue();
         }
 
-       
+        private void btnRevenueByDate_Click(object sender, EventArgs e)
+        {
+            LoadRevenueByDate(dtpFromDate.Value, dtpToDate.Value);
+        }
+
+        private void btnRevenueByMonth_Click(object sender, EventArgs e)
+        {
+            LoadRevenueByMonth(dtpFromDate.Value, dtpToDate.Value);
+        }
+
+        private void btnRevenueByYear_Click(object sender, EventArgs e)
+        {
+            LoadRevenueByYear(dtpFromDate.Value, dtpToDate.Value);
+        }
+
+        private void btnExcelOutput_Click(object sender, EventArgs e)
+        {
+            Validation.Export2Excel(dataGVRevenue);
+        }
+
+        
     }
 }

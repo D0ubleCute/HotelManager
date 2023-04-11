@@ -16,6 +16,16 @@ namespace HotelManager.Controller
             return RevenueDAO.GetRevenueByDate(fromDate, toDate);
         }
 
+        public static DataTable GetRevenueByMonth(DateTime fromDate, DateTime toDate)
+        {
+            return RevenueDAO.GetRevenueByMonth(fromDate, toDate);
+        }
+
+        public static DataTable GetRevenueByYear(DateTime fromDate, DateTime toDate)
+        {
+            return RevenueDAO.GetRevenueByYear(fromDate, toDate);
+        }
+
         public static decimal GetTotalRevenue(DataGridView dtgvRevenue)
         {
             decimal sum = 0;

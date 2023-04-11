@@ -17,9 +17,14 @@ namespace HotelManager.Controller
             return customerList;
         }
 
+        public static Customer GetCustomerByPhone(string cusPhone)
+        {
+            return CustomerDAO.GetCustomerByPhone(cusPhone);   
+        }
+
         public static Customer GetCustomerById(string cusId)
         {
-            return CustomerDAO.GetCustomerById(cusId);   
+            return CustomerDAO.GetCustomerById(cusId);
         }
 
         public static bool UpdateStaff(string id, string hoTen, DateTime ngaySinh, string diaChi, string sdt, string cmnd)

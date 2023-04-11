@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="Hotel" Class="HotelDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="AppSettings" ConnectionString="Data Source=KIENTRAN;Initial Catalog=Hotel;Integrated Security=True" SettingsObjectName="HotelManager.Properties.Settings" SettingsPropertyName="HotelConnectionString1" Provider="System.Data.SqlClient" />
+  <Connection Mode="AppSettings" ConnectionString="Data Source=QOOBAO;Initial Catalog=Hotel;Integrated Security=True" SettingsObjectName="HotelManager.Properties.Settings" SettingsPropertyName="HotelConnectionString" Provider="System.Data.SqlClient" />
   <Table Name="dbo.Account" Member="Accounts">
     <Type Name="Account">
       <Column Name="userName" Type="System.String" DbType="VarChar(30) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
@@ -71,6 +71,10 @@
       <Association Name="Room_RoomExtraByRoom" Member="RoomExtraByRooms" ThisKey="roomNum" OtherKey="roomNum" Type="RoomExtraByRoom" />
       <Association Name="Room_RoomFacility" Member="RoomFacilities" ThisKey="roomNum" OtherKey="roomNum" Type="RoomFacility" />
       <Association Name="RoomPrice_Room" Member="RoomPrice" ThisKey="idRateByType" OtherKey="idRateByType" Type="RoomPrice" IsForeignKey="true" />
+      <Association Name="RoomPrice_Room1" Member="RoomPrice1" ThisKey="idRateByType" OtherKey="idRateByType" Type="RoomPrice" IsForeignKey="true" />
+      <Association Name="RoomPrice_Room2" Member="RoomPrice2" ThisKey="idRateByType" OtherKey="idRateByType" Type="RoomPrice" IsForeignKey="true" />
+      <Association Name="RoomPrice_Room3" Member="RoomPrice3" ThisKey="idRateByType" OtherKey="idRateByType" Type="RoomPrice" IsForeignKey="true" />
+      <Association Name="RoomPrice_Room4" Member="RoomPrice4" ThisKey="idRateByType" OtherKey="idRateByType" Type="RoomPrice" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.RoomCleanByJanitor" Member="RoomCleanByJanitors">
@@ -103,9 +107,9 @@
   </Table>
   <Table Name="dbo.RoomFacility" Member="RoomFacilities">
     <Type Name="RoomFacility">
-      <Column Name="idFacility" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="nameFacility" Type="System.String" DbType="NVarChar(60) NOT NULL" CanBeNull="false" />
       <Column Name="roomNum" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="idFacility" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsDbGenerated="true" CanBeNull="false" />
       <Association Name="Room_RoomFacility" Member="Room" ThisKey="roomNum" OtherKey="roomNum" Type="Room" IsForeignKey="true" />
     </Type>
   </Table>
@@ -118,6 +122,10 @@
       <Column Name="baseForDay" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="rateForDay" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Association Name="RoomPrice_Room" Member="Rooms" ThisKey="idRateByType" OtherKey="idRateByType" Type="Room" />
+      <Association Name="RoomPrice_Room1" Member="Rooms1" ThisKey="idRateByType" OtherKey="idRateByType" Type="Room" />
+      <Association Name="RoomPrice_Room2" Member="Rooms2" ThisKey="idRateByType" OtherKey="idRateByType" Type="Room" />
+      <Association Name="RoomPrice_Room3" Member="Rooms3" ThisKey="idRateByType" OtherKey="idRateByType" Type="Room" />
+      <Association Name="RoomPrice_Room4" Member="Rooms4" ThisKey="idRateByType" OtherKey="idRateByType" Type="Room" />
     </Type>
   </Table>
   <Table Name="dbo.Staff" Member="Staffs">
@@ -128,7 +136,7 @@
       <Column Name="address" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
       <Column Name="phone" Type="System.String" DbType="Char(12) NOT NULL" CanBeNull="false" />
       <Column Name="cmnd" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
-      <Column Name="avatar" Type="System.Data.Linq.Binary" DbType="Image" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="avatar" Type="System.String" DbType="VarChar(60)" CanBeNull="true" />
       <Column Name="userName" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
       <Association Name="Staff_Reservation" Member="Reservations" ThisKey="id" OtherKey="idStaff" Type="Reservation" />
       <Association Name="Account_Staff" Member="Account" ThisKey="userName" OtherKey="userName" Type="Account" IsForeignKey="true" />
@@ -147,22 +155,6 @@
     <Parameter Name="username" Type="System.String" DbType="VarChar(30)" />
     <Return Type="System.Int32" />
   </Function>
-  <Function Name="dbo.USP_GetReportRevenueByDate" Method="USP_GetReportRevenueByDate">
-    <Parameter Name="fromDate" Type="System.DateTime" DbType="Date" />
-    <Parameter Name="toDate" Type="System.DateTime" DbType="Date" />
-    <ElementType Name="USP_GetReportRevenueByDateResult">
-      <Column Name="idReservation" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
-      <Column Name="roomNum" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
-      <Column Name="accomodationType" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
-      <Column Name="checkinDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
-      <Column Name="checkoutDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="idCustomer" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
-      <Column Name="idStaff" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
-      <Column Name="totalPrice" Type="System.Decimal" DbType="Decimal(18,0) NOT NULL" CanBeNull="false" />
-      <Column Name="paymentStatus" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
-      <Column Name="paymentInfo" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
-    </ElementType>
-  </Function>
   <Function Name="dbo.USP_GetRoom" Method="USP_GetRoom">
     <ElementType Name="USP_GetRoomResult">
       <Column Name="roomNum" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
@@ -176,18 +168,6 @@
       <Column Name="area" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
     </ElementType>
   </Function>
-  <Function Name="dbo.USP_GetRoomExtraPriceByReservation" Method="USP_GetRoomExtraPriceByReservation">
-    <Parameter Name="idReservation" Type="System.String" DbType="VarChar(20)" />
-    <ElementType Name="USP_GetRoomExtraPriceByReservationResult">
-      <Column Name="idServiceIm" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
-      <Column Name="idService" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
-      <Column Name="roomNum" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
-      <Column Name="idReservation" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
-      <Column Name="idService1" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
-      <Column Name="nameService" Type="System.String" DbType="NVarChar(60) NOT NULL" CanBeNull="false" />
-      <Column Name="priceService" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-    </ElementType>
-  </Function>
   <Function Name="dbo.USP_GetStaff" Method="USP_GetStaff">
     <ElementType Name="USP_GetStaffResult">
       <Column Name="id" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
@@ -196,7 +176,7 @@
       <Column Name="address" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
       <Column Name="phone" Type="System.String" DbType="Char(12) NOT NULL" CanBeNull="false" />
       <Column Name="cmnd" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
-      <Column Name="avatar" Type="System.Data.Linq.Binary" DbType="Image" CanBeNull="true" />
+      <Column Name="avatar" Type="System.String" DbType="VarChar(60)" CanBeNull="true" />
       <Column Name="userName" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
       <Column Name="userName1" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
       <Column Name="password" Type="System.String" DbType="VarChar(MAX) NOT NULL" CanBeNull="false" />
@@ -232,7 +212,7 @@
       <Column Name="address" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
       <Column Name="phone" Type="System.String" DbType="Char(12) NOT NULL" CanBeNull="false" />
       <Column Name="cmnd" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
-      <Column Name="avatar" Type="System.Data.Linq.Binary" DbType="Image" CanBeNull="true" />
+      <Column Name="avatar" Type="System.String" DbType="VarChar(60)" CanBeNull="true" />
       <Column Name="userName" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
     </ElementType>
   </Function>
@@ -252,10 +232,43 @@
     <Parameter Name="dob" Type="System.DateTime" DbType="Date" />
     <Return Type="System.String" />
   </Function>
+  <Function Name="dbo.CalculateTotalByNight" Method="CalculateTotalByNight" IsComposable="true">
+    <Parameter Name="roomNum" Type="System.Int16" DbType="SmallInt" />
+    <Parameter Name="checkinDate" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="checkoutDate" Type="System.DateTime" DbType="DateTime" />
+    <Return Type="System.Decimal" />
+  </Function>
   <Function Name="dbo.CalculateTotalByHour" Method="CalculateTotalByHour" IsComposable="true">
     <Parameter Name="roomNum" Type="System.Int16" DbType="SmallInt" />
     <Parameter Name="checkinDate" Type="System.DateTime" DbType="DateTime" />
     <Parameter Name="checkoutDate" Type="System.DateTime" DbType="DateTime" />
     <Return Type="System.Decimal" />
+  </Function>
+  <Function Name="dbo.USP_GetReportRevenueByDate" Method="USP_GetReportRevenueByDate">
+    <Parameter Name="fromDate" Type="System.DateTime" DbType="Date" />
+    <Parameter Name="toDate" Type="System.DateTime" DbType="Date" />
+    <ElementType Name="USP_GetReportRevenueByDateResult">
+      <Column Name="idReservation" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="roomNum" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="accomodationType" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="checkinDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="checkoutDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="idCustomer" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="idStaff" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="totalPrice" Type="System.Decimal" DbType="Decimal(18,0) NOT NULL" CanBeNull="false" />
+      <Column Name="paymentStatus" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="paymentInfo" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.USP_GetRoomExtraPriceByReservation" Method="USP_GetRoomExtraPriceByReservation">
+    <Parameter Name="idReservation" Type="System.String" DbType="VarChar(20)" />
+    <ElementType Name="USP_GetRoomExtraPriceByReservationResult">
+      <Column Name="idServiceIm" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="idService" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="roomNum" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="idReservation" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="nameService" Type="System.String" DbType="NVarChar(60) NOT NULL" CanBeNull="false" />
+      <Column Name="priceService" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </ElementType>
   </Function>
 </Database>
