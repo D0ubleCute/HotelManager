@@ -31,6 +31,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(QuanLy));
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tpRevenue = new System.Windows.Forms.TabPage();
+            this.btnRevenueByQuarter = new Guna.UI2.WinForms.Guna2Button();
             this.btnRevenueByYear = new Guna.UI2.WinForms.Guna2Button();
             this.btnRevenueByMonth = new Guna.UI2.WinForms.Guna2Button();
             this.btnRevenueByDate = new Guna.UI2.WinForms.Guna2Button();
@@ -90,6 +91,7 @@
             this.tpFacility = new System.Windows.Forms.TabPage();
             this.tabControlForFacility = new Guna.UI2.WinForms.Guna2TabControl();
             this.tpRoomInfo = new System.Windows.Forms.TabPage();
+            this.btnFixRoom = new Guna.UI2.WinForms.Guna2Button();
             this.btnAddFacility = new Guna.UI2.WinForms.Guna2Button();
             this.txtRoomArea = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
@@ -102,6 +104,9 @@
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.tpRoomThings = new System.Windows.Forms.TabPage();
+            this.tpMiscellaneous = new System.Windows.Forms.TabPage();
+            this.btnAddRoomService = new Guna.UI2.WinForms.Guna2Button();
+            this.btnAddRoomThing = new Guna.UI2.WinForms.Guna2Button();
             this.tpReservation = new System.Windows.Forms.TabPage();
             this.guna2DateTimePicker1 = new Guna.UI2.WinForms.Guna2DateTimePicker();
             this.guna2DateTimePicker2 = new Guna.UI2.WinForms.Guna2DateTimePicker();
@@ -109,8 +114,6 @@
             this.label14 = new System.Windows.Forms.Label();
             this.guna2TabControl1 = new Guna.UI2.WinForms.Guna2TabControl();
             this.tpRoomReservation = new System.Windows.Forms.TabPage();
-            this.lblMoney = new System.Windows.Forms.Label();
-            this.label15 = new System.Windows.Forms.Label();
             this.txtStaffOrder = new System.Windows.Forms.TextBox();
             this.label = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
@@ -125,6 +128,8 @@
             this.txtReservationCustomerEmail = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
             this.txtReservationCustomerName = new System.Windows.Forms.TextBox();
+            this.tpRoomService = new System.Windows.Forms.TabPage();
+            this.dataGVRoomServiceByRes = new System.Windows.Forms.DataGridView();
             this.dataGVReservation = new System.Windows.Forms.DataGridView();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
@@ -138,18 +143,13 @@
             this.btnCustomer = new System.Windows.Forms.Button();
             this.btnStaff = new System.Windows.Forms.Button();
             this.btnRevenue = new System.Windows.Forms.Button();
-            this.tpRoomService = new System.Windows.Forms.TabPage();
-            this.dataGVRoomServiceByRes = new System.Windows.Forms.DataGridView();
-            this.btnFixRoom = new Guna.UI2.WinForms.Guna2Button();
-            this.btnRevenueByQuarter = new Guna.UI2.WinForms.Guna2Button();
-            this.tpMiscellaneous = new System.Windows.Forms.TabPage();
-            this.btnAddRoomThing = new Guna.UI2.WinForms.Guna2Button();
-            this.btnAddRoomService = new Guna.UI2.WinForms.Guna2Button();
             this.btnExcelOutput = new Guna.UI2.WinForms.Guna2Button();
             this.picStaff = new System.Windows.Forms.PictureBox();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.btnReservationSort = new System.Windows.Forms.Button();
             this.picUser = new System.Windows.Forms.PictureBox();
+            this.txtResTotalPrice = new System.Windows.Forms.TextBox();
+            this.label15 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tpRevenue.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGVRevenue)).BeginInit();
@@ -163,14 +163,14 @@
             this.tpFacility.SuspendLayout();
             this.tabControlForFacility.SuspendLayout();
             this.tpRoomInfo.SuspendLayout();
+            this.tpMiscellaneous.SuspendLayout();
             this.tpReservation.SuspendLayout();
             this.guna2TabControl1.SuspendLayout();
             this.tpRoomReservation.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGVReservation)).BeginInit();
-            this.panelFunction.SuspendLayout();
             this.tpRoomService.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGVRoomServiceByRes)).BeginInit();
-            this.tpMiscellaneous.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGVReservation)).BeginInit();
+            this.panelFunction.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picStaff)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picUser)).BeginInit();
             this.SuspendLayout();
@@ -213,6 +213,23 @@
             this.tpRevenue.Text = "Doanh thu";
             this.tpRevenue.UseVisualStyleBackColor = true;
             this.tpRevenue.Enter += new System.EventHandler(this.tpRevenue_Enter);
+            // 
+            // btnRevenueByQuarter
+            // 
+            this.btnRevenueByQuarter.BorderRadius = 20;
+            this.btnRevenueByQuarter.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnRevenueByQuarter.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnRevenueByQuarter.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnRevenueByQuarter.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnRevenueByQuarter.FillColor = System.Drawing.Color.LightCoral;
+            this.btnRevenueByQuarter.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnRevenueByQuarter.ForeColor = System.Drawing.Color.White;
+            this.btnRevenueByQuarter.Location = new System.Drawing.Point(625, 158);
+            this.btnRevenueByQuarter.Name = "btnRevenueByQuarter";
+            this.btnRevenueByQuarter.Size = new System.Drawing.Size(297, 45);
+            this.btnRevenueByQuarter.TabIndex = 37;
+            this.btnRevenueByQuarter.Text = "Theo quý";
+            this.btnRevenueByQuarter.Click += new System.EventHandler(this.btnRevenueByQuarter_Click);
             // 
             // btnRevenueByYear
             // 
@@ -940,6 +957,22 @@
             this.tpRoomInfo.TabIndex = 0;
             this.tpRoomInfo.Text = "Thông tin phòng";
             // 
+            // btnFixRoom
+            // 
+            this.btnFixRoom.BorderRadius = 20;
+            this.btnFixRoom.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnFixRoom.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnFixRoom.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnFixRoom.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnFixRoom.FillColor = System.Drawing.Color.LightCoral;
+            this.btnFixRoom.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnFixRoom.ForeColor = System.Drawing.Color.White;
+            this.btnFixRoom.Location = new System.Drawing.Point(16, 380);
+            this.btnFixRoom.Name = "btnFixRoom";
+            this.btnFixRoom.Size = new System.Drawing.Size(172, 45);
+            this.btnFixRoom.TabIndex = 33;
+            this.btnFixRoom.Text = "Sửa phòng";
+            // 
             // btnAddFacility
             // 
             this.btnAddFacility.BorderRadius = 20;
@@ -1058,6 +1091,49 @@
             this.tpRoomThings.Text = "Đồ dùng";
             this.tpRoomThings.UseVisualStyleBackColor = true;
             // 
+            // tpMiscellaneous
+            // 
+            this.tpMiscellaneous.Controls.Add(this.btnAddRoomService);
+            this.tpMiscellaneous.Controls.Add(this.btnAddRoomThing);
+            this.tpMiscellaneous.Location = new System.Drawing.Point(4, 39);
+            this.tpMiscellaneous.Name = "tpMiscellaneous";
+            this.tpMiscellaneous.Size = new System.Drawing.Size(404, 441);
+            this.tpMiscellaneous.TabIndex = 2;
+            this.tpMiscellaneous.Text = "Khác";
+            this.tpMiscellaneous.UseVisualStyleBackColor = true;
+            // 
+            // btnAddRoomService
+            // 
+            this.btnAddRoomService.BorderRadius = 20;
+            this.btnAddRoomService.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnAddRoomService.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnAddRoomService.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnAddRoomService.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnAddRoomService.FillColor = System.Drawing.Color.LightCoral;
+            this.btnAddRoomService.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAddRoomService.ForeColor = System.Drawing.Color.White;
+            this.btnAddRoomService.Location = new System.Drawing.Point(85, 224);
+            this.btnAddRoomService.Name = "btnAddRoomService";
+            this.btnAddRoomService.Size = new System.Drawing.Size(234, 76);
+            this.btnAddRoomService.TabIndex = 35;
+            this.btnAddRoomService.Text = "Thêm dịch vụ";
+            // 
+            // btnAddRoomThing
+            // 
+            this.btnAddRoomThing.BorderRadius = 20;
+            this.btnAddRoomThing.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnAddRoomThing.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnAddRoomThing.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnAddRoomThing.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnAddRoomThing.FillColor = System.Drawing.Color.LightCoral;
+            this.btnAddRoomThing.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAddRoomThing.ForeColor = System.Drawing.Color.White;
+            this.btnAddRoomThing.Location = new System.Drawing.Point(85, 122);
+            this.btnAddRoomThing.Name = "btnAddRoomThing";
+            this.btnAddRoomThing.Size = new System.Drawing.Size(234, 76);
+            this.btnAddRoomThing.TabIndex = 34;
+            this.btnAddRoomThing.Text = "Thêm đồ dùng";
+            // 
             // tpReservation
             // 
             this.tpReservation.Controls.Add(this.guna2DateTimePicker1);
@@ -1165,7 +1241,7 @@
             // 
             // tpRoomReservation
             // 
-            this.tpRoomReservation.Controls.Add(this.lblMoney);
+            this.tpRoomReservation.Controls.Add(this.txtResTotalPrice);
             this.tpRoomReservation.Controls.Add(this.label15);
             this.tpRoomReservation.Controls.Add(this.txtStaffOrder);
             this.tpRoomReservation.Controls.Add(this.label);
@@ -1188,27 +1264,6 @@
             this.tpRoomReservation.TabIndex = 0;
             this.tpRoomReservation.Text = "Đặt phòng";
             this.tpRoomReservation.UseVisualStyleBackColor = true;
-            // 
-            // lblMoney
-            // 
-            this.lblMoney.AutoSize = true;
-            this.lblMoney.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblMoney.Location = new System.Drawing.Point(144, 369);
-            this.lblMoney.Name = "lblMoney";
-            this.lblMoney.Size = new System.Drawing.Size(84, 30);
-            this.lblMoney.TabIndex = 40;
-            this.lblMoney.Text = "label20";
-            // 
-            // label15
-            // 
-            this.label15.AutoSize = true;
-            this.label15.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label15.ForeColor = System.Drawing.Color.IndianRed;
-            this.label15.Location = new System.Drawing.Point(18, 369);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(103, 25);
-            this.label15.TabIndex = 39;
-            this.label15.Text = "Tổng tiền:";
             // 
             // txtStaffOrder
             // 
@@ -1335,6 +1390,33 @@
             this.txtReservationCustomerName.Name = "txtReservationCustomerName";
             this.txtReservationCustomerName.Size = new System.Drawing.Size(234, 29);
             this.txtReservationCustomerName.TabIndex = 25;
+            // 
+            // tpRoomService
+            // 
+            this.tpRoomService.Controls.Add(this.dataGVRoomServiceByRes);
+            this.tpRoomService.Location = new System.Drawing.Point(4, 50);
+            this.tpRoomService.Name = "tpRoomService";
+            this.tpRoomService.Padding = new System.Windows.Forms.Padding(3);
+            this.tpRoomService.Size = new System.Drawing.Size(397, 419);
+            this.tpRoomService.TabIndex = 1;
+            this.tpRoomService.Text = "Đặt dịch vụ";
+            this.tpRoomService.UseVisualStyleBackColor = true;
+            this.tpRoomService.Click += new System.EventHandler(this.tpRoomService_Click);
+            // 
+            // dataGVRoomServiceByRes
+            // 
+            this.dataGVRoomServiceByRes.AllowUserToAddRows = false;
+            this.dataGVRoomServiceByRes.AllowUserToDeleteRows = false;
+            this.dataGVRoomServiceByRes.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.dataGVRoomServiceByRes.BackgroundColor = System.Drawing.Color.WhiteSmoke;
+            this.dataGVRoomServiceByRes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGVRoomServiceByRes.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGVRoomServiceByRes.Location = new System.Drawing.Point(3, 3);
+            this.dataGVRoomServiceByRes.Name = "dataGVRoomServiceByRes";
+            this.dataGVRoomServiceByRes.RowHeadersVisible = false;
+            this.dataGVRoomServiceByRes.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToDisplayedHeaders;
+            this.dataGVRoomServiceByRes.Size = new System.Drawing.Size(391, 413);
+            this.dataGVRoomServiceByRes.TabIndex = 0;
             // 
             // dataGVReservation
             // 
@@ -1474,108 +1556,6 @@
             this.btnRevenue.MouseLeave += new System.EventHandler(this.btnRevenue_MouseLeave);
             this.btnRevenue.MouseHover += new System.EventHandler(this.btnRevenue_MouseHover);
             // 
-            // tpRoomService
-            // 
-            this.tpRoomService.Controls.Add(this.dataGVRoomServiceByRes);
-            this.tpRoomService.Location = new System.Drawing.Point(4, 50);
-            this.tpRoomService.Name = "tpRoomService";
-            this.tpRoomService.Padding = new System.Windows.Forms.Padding(3);
-            this.tpRoomService.Size = new System.Drawing.Size(397, 419);
-            this.tpRoomService.TabIndex = 1;
-            this.tpRoomService.Text = "Đặt dịch vụ";
-            this.tpRoomService.UseVisualStyleBackColor = true;
-            this.tpRoomService.Click += new System.EventHandler(this.tpRoomService_Click);
-            // 
-            // dataGVRoomServiceByRes
-            // 
-            this.dataGVRoomServiceByRes.AllowUserToAddRows = false;
-            this.dataGVRoomServiceByRes.AllowUserToDeleteRows = false;
-            this.dataGVRoomServiceByRes.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
-            this.dataGVRoomServiceByRes.BackgroundColor = System.Drawing.Color.WhiteSmoke;
-            this.dataGVRoomServiceByRes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGVRoomServiceByRes.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGVRoomServiceByRes.Location = new System.Drawing.Point(3, 3);
-            this.dataGVRoomServiceByRes.Name = "dataGVRoomServiceByRes";
-            this.dataGVRoomServiceByRes.RowHeadersVisible = false;
-            this.dataGVRoomServiceByRes.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToDisplayedHeaders;
-            this.dataGVRoomServiceByRes.Size = new System.Drawing.Size(391, 413);
-            this.dataGVRoomServiceByRes.TabIndex = 0;
-            // 
-            // btnFixRoom
-            // 
-            this.btnFixRoom.BorderRadius = 20;
-            this.btnFixRoom.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.btnFixRoom.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.btnFixRoom.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.btnFixRoom.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.btnFixRoom.FillColor = System.Drawing.Color.LightCoral;
-            this.btnFixRoom.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnFixRoom.ForeColor = System.Drawing.Color.White;
-            this.btnFixRoom.Location = new System.Drawing.Point(16, 380);
-            this.btnFixRoom.Name = "btnFixRoom";
-            this.btnFixRoom.Size = new System.Drawing.Size(172, 45);
-            this.btnFixRoom.TabIndex = 33;
-            this.btnFixRoom.Text = "Sửa phòng";
-            // 
-            // btnRevenueByQuarter
-            // 
-            this.btnRevenueByQuarter.BorderRadius = 20;
-            this.btnRevenueByQuarter.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.btnRevenueByQuarter.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.btnRevenueByQuarter.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.btnRevenueByQuarter.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.btnRevenueByQuarter.FillColor = System.Drawing.Color.LightCoral;
-            this.btnRevenueByQuarter.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnRevenueByQuarter.ForeColor = System.Drawing.Color.White;
-            this.btnRevenueByQuarter.Location = new System.Drawing.Point(625, 158);
-            this.btnRevenueByQuarter.Name = "btnRevenueByQuarter";
-            this.btnRevenueByQuarter.Size = new System.Drawing.Size(297, 45);
-            this.btnRevenueByQuarter.TabIndex = 37;
-            this.btnRevenueByQuarter.Text = "Theo quý";
-            // 
-            // tpMiscellaneous
-            // 
-            this.tpMiscellaneous.Controls.Add(this.btnAddRoomService);
-            this.tpMiscellaneous.Controls.Add(this.btnAddRoomThing);
-            this.tpMiscellaneous.Location = new System.Drawing.Point(4, 39);
-            this.tpMiscellaneous.Name = "tpMiscellaneous";
-            this.tpMiscellaneous.Size = new System.Drawing.Size(404, 441);
-            this.tpMiscellaneous.TabIndex = 2;
-            this.tpMiscellaneous.Text = "Khác";
-            this.tpMiscellaneous.UseVisualStyleBackColor = true;
-            // 
-            // btnAddRoomThing
-            // 
-            this.btnAddRoomThing.BorderRadius = 20;
-            this.btnAddRoomThing.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.btnAddRoomThing.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.btnAddRoomThing.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.btnAddRoomThing.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.btnAddRoomThing.FillColor = System.Drawing.Color.LightCoral;
-            this.btnAddRoomThing.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAddRoomThing.ForeColor = System.Drawing.Color.White;
-            this.btnAddRoomThing.Location = new System.Drawing.Point(85, 122);
-            this.btnAddRoomThing.Name = "btnAddRoomThing";
-            this.btnAddRoomThing.Size = new System.Drawing.Size(234, 76);
-            this.btnAddRoomThing.TabIndex = 34;
-            this.btnAddRoomThing.Text = "Thêm đồ dùng";
-            // 
-            // btnAddRoomService
-            // 
-            this.btnAddRoomService.BorderRadius = 20;
-            this.btnAddRoomService.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.btnAddRoomService.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.btnAddRoomService.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.btnAddRoomService.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.btnAddRoomService.FillColor = System.Drawing.Color.LightCoral;
-            this.btnAddRoomService.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAddRoomService.ForeColor = System.Drawing.Color.White;
-            this.btnAddRoomService.Location = new System.Drawing.Point(85, 224);
-            this.btnAddRoomService.Name = "btnAddRoomService";
-            this.btnAddRoomService.Size = new System.Drawing.Size(234, 76);
-            this.btnAddRoomService.TabIndex = 35;
-            this.btnAddRoomService.Text = "Thêm dịch vụ";
-            // 
             // btnExcelOutput
             // 
             this.btnExcelOutput.BorderRadius = 20;
@@ -1636,6 +1616,25 @@
             this.picUser.TabIndex = 6;
             this.picUser.TabStop = false;
             // 
+            // txtResTotalPrice
+            // 
+            this.txtResTotalPrice.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtResTotalPrice.Location = new System.Drawing.Point(149, 364);
+            this.txtResTotalPrice.Name = "txtResTotalPrice";
+            this.txtResTotalPrice.Size = new System.Drawing.Size(234, 35);
+            this.txtResTotalPrice.TabIndex = 42;
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label15.ForeColor = System.Drawing.Color.Salmon;
+            this.label15.Location = new System.Drawing.Point(16, 367);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(114, 30);
+            this.label15.TabIndex = 41;
+            this.label15.Text = "Tổng tiền:";
+            // 
             // QuanLy
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1666,17 +1665,17 @@
             this.tabControlForFacility.ResumeLayout(false);
             this.tpRoomInfo.ResumeLayout(false);
             this.tpRoomInfo.PerformLayout();
+            this.tpMiscellaneous.ResumeLayout(false);
             this.tpReservation.ResumeLayout(false);
             this.tpReservation.PerformLayout();
             this.guna2TabControl1.ResumeLayout(false);
             this.tpRoomReservation.ResumeLayout(false);
             this.tpRoomReservation.PerformLayout();
+            this.tpRoomService.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGVRoomServiceByRes)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGVReservation)).EndInit();
             this.panelFunction.ResumeLayout(false);
             this.panelFunction.PerformLayout();
-            this.tpRoomService.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGVRoomServiceByRes)).EndInit();
-            this.tpMiscellaneous.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.picStaff)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picUser)).EndInit();
             this.ResumeLayout(false);
@@ -1778,8 +1777,6 @@
         private Guna.UI2.WinForms.Guna2Button btnRevenueByDate;
         private Guna.UI2.WinForms.Guna2TabControl guna2TabControl1;
         private System.Windows.Forms.TabPage tpRoomReservation;
-        private System.Windows.Forms.Label lblMoney;
-        private System.Windows.Forms.Label label15;
         private System.Windows.Forms.TextBox txtStaffOrder;
         private System.Windows.Forms.Label label;
         private System.Windows.Forms.Label label13;
@@ -1806,5 +1803,7 @@
         private System.Windows.Forms.TabPage tpMiscellaneous;
         private Guna.UI2.WinForms.Guna2Button btnAddRoomService;
         private Guna.UI2.WinForms.Guna2Button btnAddRoomThing;
+        private System.Windows.Forms.TextBox txtResTotalPrice;
+        private System.Windows.Forms.Label label15;
     }
 }

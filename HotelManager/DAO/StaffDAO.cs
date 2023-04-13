@@ -73,7 +73,7 @@ namespace HotelManager.DAO
 
             public static Staff GetStaffById(string staffID)
             {
-                List<Staff> staffList = StaffDAO.GetStaff();
+                List<Staff> staffList = GetStaff();
 
                 foreach (var item in staffList)
                 {
@@ -85,7 +85,21 @@ namespace HotelManager.DAO
                 return null;
             }
 
-            public static DataTable SearchStaffByName(string name)
+        public static Staff GetStaffByUserName(string userName)
+        {
+            List<Staff> staffList = GetStaff();
+
+            foreach (var item in staffList)
+            {
+                if (item.id.Equals(userName))
+                {
+                    return item;
+                }
+            }
+            return null;
+        }
+
+        public static DataTable SearchStaffByName(string name)
             {
                 DataTable dt = new DataTable();
 
@@ -108,6 +122,7 @@ namespace HotelManager.DAO
                 }
                 return dt;
             }
+
 
             public static bool InsertStaff(string hoTen, DateTime ngaySinh, string diaChi, string sdt, string cmnd)
                 {

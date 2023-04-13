@@ -113,6 +113,7 @@
     <Compile Include="DAO\ServiceDAO.cs" />
     <Compile Include="DAO\ServiceReservationByRoomDAO.cs" />
     <Compile Include="DAO\StaffDAO.cs" />
+    <Compile Include="Helper\Support.cs" />
     <Compile Include="Helper\Validation.cs" />
     <Compile Include="Hotel.cs">
       <DependentUpon>Hotel.dbml</DependentUpon>
@@ -127,6 +128,12 @@
     </Compile>
     <Compile Include="Login\Login.Designer.cs">
       <DependentUpon>Login.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NhanVien\CreateReservation.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NhanVien\CreateReservation.Designer.cs">
+      <DependentUpon>CreateReservation.cs</DependentUpon>
     </Compile>
     <Compile Include="NhanVien\NV.cs">
       <SubType>Form</SubType>
@@ -156,6 +163,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Login\Login.resx">
       <DependentUpon>Login.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NhanVien\CreateReservation.resx">
+      <DependentUpon>CreateReservation.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="NhanVien\NV.resx">
       <DependentUpon>NV.cs</DependentUpon>
@@ -205,6 +215,9 @@
     <None Include="Resources\quanlynhansu.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\back.png" />
+    <None Include="Resources\logout2.jpg" />
+    <None Include="Resources\logout.png" />
     <None Include="Resources\history.png" />
     <None Include="Resources\revenue.png" />
     <None Include="Resources\search.png" />

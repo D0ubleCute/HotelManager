@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data;
 using HotelManager.DAO;
+using System.Windows.Forms;
 
 namespace HotelManager.Controller
 {
@@ -23,6 +24,11 @@ namespace HotelManager.Controller
         public static DataTable GetRoomServiceListByReservation(string idRes)
         {
             return ServiceReservationByRoomDAO.GetRoomServiceListByReservation(idRes);
+        }
+
+        public static decimal GetServiceTotalPrice(DataGridView dtgv)
+        {
+            return ServiceReservationByRoomDAO.GetServiceTotalPrice(dtgv);
         }
     }
 }

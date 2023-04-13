@@ -24,5 +24,23 @@ namespace HotelManager.Controller
         {
             return ReservationDAO.reservationPayCheck(customerID, staffID, roomNum, reservationID, fromDate);
         }
+
+        public static DataTable GetReservationByDate(DateTime fromDate, DateTime toDate)
+        {
+            return ReservationDAO.GetReservationByDate(fromDate, toDate);
+        }
+
+        public static bool InsertReservation(short num, short acco, DateTime checkIn, DateTime checkOutInit, string idCus, string idStaff)
+        {
+            return ReservationDAO.InsertReservation(num, acco, checkIn, checkOutInit, idCus, idStaff);
+        }
+
+
+        public static bool UpdateReservation(string idRes, short roomNum, short accomType,
+                                           DateTime checkIn, DateTime checkOutInit, DateTime? checkoutReal,
+                                           string idCus, string idStaff, decimal total, bool status, string info)
+        {
+            return ReservationDAO.UpdateReservation(idRes, roomNum, accomType, checkIn, checkOutInit, checkoutReal, idCus, idStaff, total, status, info);
+        }
     }
 }

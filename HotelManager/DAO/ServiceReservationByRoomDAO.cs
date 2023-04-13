@@ -4,6 +4,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace HotelManager.DAO
 {
@@ -69,6 +70,18 @@ namespace HotelManager.DAO
                 }
             }
             return dt;
+        }
+
+        public static decimal GetServiceTotalPrice(DataGridView dtgv)
+        {
+            decimal sum = 0;
+
+            foreach (DataGridViewRow row in dtgv.Rows)
+            {
+                sum += Convert.ToDecimal(row.Cells["Giá thành"].Value);
+            }
+
+            return sum;
         }
     }
 }

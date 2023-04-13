@@ -62,24 +62,6 @@ namespace HotelManager.DAO
             return reservationList;
         }
 
-        public static List<Reservation> GetReservationByDate()
-        {
-            List<Reservation> reservationList = new List<Reservation>();
-
-            using (HotelDataContext db = new HotelDataContext())
-            {
-                var query = from cus in db.Reservations
-                            select cus;
-
-                foreach (var item in query)
-                {
-                    reservationList.Add(item);
-                }
-            }
-
-            return reservationList;
-        }
-
         public static DataTable GetReservationList()
         {
             DataTable dt = new DataTable();
@@ -101,6 +83,7 @@ namespace HotelManager.DAO
                 var query = from res in db.Reservations
                             join cus in db.Customers on res.idCustomer equals cus.id
                             join staff in db.Staffs on res.idStaff equals staff.id
+                            orderby res.checkinDate ascending
                             select new
                             {
                                 idReservation = res.idReservation,
@@ -187,5 +170,157 @@ namespace HotelManager.DAO
             }
             return null;
         }
+
+        public static DataTable GetReservationByDate(DateTime fromDate, DateTime toDate)
+        {
+            DataTable dt = new DataTable();
+
+            dt.Columns.Add("Mã đặt phòng", typeof(string));
+            dt.Columns.Add("Số phòng", typeof(int));
+            dt.Columns.Add("Loại hình", typeof(string));
+            dt.Columns.Add("Check-in", typeof(string));
+            dt.Columns.Add("Check-out", typeof(string));
+            dt.Columns.Add("Khách hàng", typeof(string));
+            dt.Columns.Add("Nhân viên", typeof(string));
+            dt.Columns.Add("Trạng thái", typeof(string));
+            dt.Columns.Add("Tổng tiền", typeof(decimal));
+
+            using (HotelDataContext db = new HotelDataContext())
+            {
+                CultureInfo culture = new CultureInfo("vi-VN");
+
+                var query = from res in db.Reservations
+                            where res.checkinDate >= fromDate && res.checkoutDate <= toDate
+                            join cus in db.Customers on res.idCustomer equals cus.id
+                            join staff in db.Staffs on res.idStaff equals staff.id
+                            orderby res.checkinDate ascending
+                            select new
+                            {
+                                idReservation = res.idReservation,
+                                roomNum = res.roomNum,
+                                accomodationType = res.accomodationType,
+                                checkinDate = res.checkinDate,
+                                checkoutDate = res.checkoutDate,
+                                customerName = cus.fullName,
+                                staffName = staff.fullName,
+                                paymentStatus = res.paymentStatus,
+                                totalPrice = reservationPayCheck(res.idCustomer, res.idStaff, res.roomNum, res.idReservation, res.checkinDate)
+                                // other assignments
+                            };
+
+                foreach (var item in query)
+                {
+                    switch (item.accomodationType)
+                    {
+                        case 1:
+                            if (item.paymentStatus == true)
+                            {
+                                dt.Rows.Add(item.idReservation, item.roomNum, "GIỜ",
+                                item.checkinDate.ToString("dd/MM/yyyy hh:mm:ss", CultureInfo.InvariantCulture),
+                                Convert.ToDateTime(item.checkoutDate).ToString("dd/MM/yyyy HH:mm:ss", CultureInfo.GetCultureInfo("en-US")),
+                                item.customerName, item.staffName, "Đã thanh toán", item.totalPrice);
+                            }
+                            else
+                            {
+                                dt.Rows.Add(item.idReservation, item.roomNum, "GIỜ",
+                                item.checkinDate.ToString("dd/MM/yyyy hh:mm:ss", CultureInfo.InvariantCulture),
+                                item.checkoutDate,
+                                item.customerName, item.staffName, "Đang sử dụng", item.totalPrice);
+                            }
+                            break;
+
+                        case 2:
+                            if (item.paymentStatus == true)
+                            {
+                                dt.Rows.Add(item.idReservation, item.roomNum, "ĐÊM",
+                                item.checkinDate.ToString("dd/MM/yyyy hh:mm:ss", CultureInfo.InvariantCulture),
+                                Convert.ToDateTime(item.checkoutDate).ToString("dd/MM/yyyy HH:mm:ss", CultureInfo.GetCultureInfo("vi-VN")),
+                                item.customerName, item.staffName, "Đã thanh toán", item.totalPrice);
+                            }
+                            else
+                            {
+                                dt.Rows.Add(item.idReservation, item.roomNum, "ĐÊM",
+                                Convert.ToDateTime(item.checkoutDate).ToString("dd/MM/yyyy HH:mm:ss", CultureInfo.GetCultureInfo("vi-VN")),
+                                item.checkoutDate,
+                                item.customerName, item.staffName, "Đang sử dụng", item.totalPrice);
+                            }
+                            break;
+
+                        case 3:
+                            if (item.paymentStatus == true)
+                            {
+                                dt.Rows.Add(item.idReservation, item.roomNum, "NGÀY",
+                                item.checkinDate.ToString("dd/MM/yyyy hh:mm:ss", CultureInfo.InvariantCulture),
+                                Convert.ToDateTime(item.checkoutDate).ToString("dd/MM/yyyy HH:mm:ss", CultureInfo.GetCultureInfo("vi-VN")),
+                                item.customerName, item.staffName, "Đã thanh toán", item.totalPrice);
+                            }
+                            else
+                            {
+                                dt.Rows.Add(item.idReservation, item.roomNum, "NGÀY",
+                                item.checkinDate.ToString("dd/MM/yyyy hh:mm:ss", CultureInfo.InvariantCulture),
+                                item.checkoutDate,
+                                item.customerName, item.staffName, "Đang sử dụng", item.totalPrice);
+                            }
+                            break;
+
+                    }
+                }
+                return dt;
+            }
+        }
+
+        public static bool InsertReservation(short roomNum, short accomType, 
+                                           DateTime checkIn, DateTime checkOut,string idCus, string idStaff)
+        {
+            using (HotelDataContext db = new HotelDataContext())
+            {
+                try
+                {
+                    db.USP_InsertReservation( roomNum, accomType, checkIn, checkOut, null, idCus, idStaff, 0, false, "");
+                    return true;
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show(e.Message);
+                    return false;
+                }
+            }
+        }
+
+        public static bool UpdateReservation(string idRes, short roomNum, short accomType,
+                                           DateTime checkIn, DateTime checkOutInit, DateTime? checkoutReal, 
+                                           string idCus, string idStaff, decimal total, bool status, string info)
+        {
+            using (HotelDataContext db = new HotelDataContext())
+            {
+                var nv = (from staff in db.Reservations
+                          where staff.idReservation.Equals(idRes)
+                          select staff).First();
+
+                nv.roomNum = roomNum;
+                nv.accomodationType = accomType;
+                nv.checkinDate= checkIn;
+                nv.checkoutDate= checkoutReal;
+                nv.checkoutDateInit = checkOutInit;
+                nv.idCustomer= idCus;   
+                nv.idStaff= idStaff;
+                nv.totalPrice= total;
+                nv.paymentStatus= status;
+                nv.paymentInfo = info;
+
+                //ask the datacontext to save all the changes
+                try
+                {
+                    db.SubmitChanges();
+                    return true;
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show(e.Message);
+                    return false;
+                }
+            }
+        }
+
     }
 }

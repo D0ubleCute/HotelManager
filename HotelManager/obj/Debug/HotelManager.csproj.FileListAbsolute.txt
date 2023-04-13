@@ -15,5 +15,6 @@ D:\SUBJECTS\Môn CNPM\HotelManager\HotelManager\bin\Debug\Guna.Charts.WinForms.d
 D:\SUBJECTS\Môn CNPM\HotelManager\HotelManager\bin\Debug\Guna.UI2.dll
 D:\SUBJECTS\Môn CNPM\HotelManager\HotelManager\obj\Debug\HotelManager.NhanVien.NV.resources
 D:\SUBJECTS\Môn CNPM\HotelManager\HotelManager\obj\Debug\HotelManager.csproj.CopyComplete
-D:\SUBJECTS\Môn CNPM\HotelManager\HotelManager\obj\Debug\HotelManager.NhanVien.UC_RoomForStaff.resources
-D:\SUBJECTS\Môn CNPM\HotelManager\HotelManager\obj\Debug\HotelManager.NhanVien.UC_ReservationOrder.resources
+D:\SUBJECTS\Môn CNPM\HotelManager\HotelManager\obj\Debug\HotelManager.NhanVien.UC_Reservation.resources
+D:\SUBJECTS\Môn CNPM\HotelManager\HotelManager\obj\Debug\HotelManager.NhanVien.UC_Room.resources
+D:\SUBJECTS\Môn CNPM\HotelManager\HotelManager\obj\Debug\HotelManager.NhanVien.CreateReservation.resources

@@ -21,6 +21,11 @@ namespace HotelManager.Controller
             return RevenueDAO.GetRevenueByMonth(fromDate, toDate);
         }
 
+        public static DataTable GetRevenueByQuarter(DateTime fromDate)
+        {
+            return RevenueDAO.GetRevenueByQuarter(fromDate);
+        }
+
         public static DataTable GetRevenueByYear(DateTime fromDate, DateTime toDate)
         {
             return RevenueDAO.GetRevenueByYear(fromDate, toDate);

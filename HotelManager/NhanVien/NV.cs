@@ -18,7 +18,10 @@ namespace HotelManager.NhanVien
         {
             InitializeComponent();
             Account acc = AccountController.GetAccountByUsername(userName);
-            lblStaffUsername.Text = acc.displayName;
+            Staff staff = new Staff();
+            staff = StaffController.GetStaffByUserName(userName);
+
+            lblStaffUsername.Text = staff.id;
 
             label3.Text += "Bonjour" + Environment.NewLine + acc.displayName;
         }
@@ -41,8 +44,14 @@ namespace HotelManager.NhanVien
         private void btnStaffRoom_Click(object sender, EventArgs e)
         {
             panel3.Controls.Clear();
-            UC_Room room = new UC_Room();
+            string displayName = lblStaffUsername.Text;
+            UC_Room room = new UC_Room(displayName);
             addUserControl(room);
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

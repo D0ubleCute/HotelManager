@@ -408,7 +408,6 @@ namespace HotelManager.Admin
 
         //----------begin reservation module----------
 
-
         void LoadReservation()
         {
             dataGVReservation.DataSource = reservationList;
@@ -432,7 +431,7 @@ namespace HotelManager.Admin
             txtReservationCustomerCheckin.DataBindings.Clear();
             txtReservationCustomerCheckout.DataBindings.Clear();
             txtStaffOrder.DataBindings.Clear();
-            lblMoney.DataBindings.Clear();
+            txtResTotalPrice.DataBindings.Clear();
 
             CultureInfo culture = new CultureInfo("vi-VN");
 
@@ -445,7 +444,7 @@ namespace HotelManager.Admin
             txtStaffOrder.DataBindings.Add("Text", dataGVReservation.DataSource, "Nhân viên", true, DataSourceUpdateMode.Never);
             txtReservationCustomerCheckin.DataBindings.Add("Text", dataGVReservation.DataSource, "Check-in", true, DataSourceUpdateMode.Never);
             txtReservationCustomerCheckout.DataBindings.Add("Text", dataGVReservation.DataSource, "Check-out", true, DataSourceUpdateMode.Never);
-            lblMoney.DataBindings.Add("Text", dataGVReservation.DataSource, "Tổng tiền", true, DataSourceUpdateMode.Never);
+            txtResTotalPrice.DataBindings.Add("Text", dataGVReservation.DataSource, "Tổng tiền", true, DataSourceUpdateMode.Never);
 
         }
 
@@ -515,6 +514,13 @@ namespace HotelManager.Admin
             txtRevenueTotal.Text = GetSumRevenue().ToString("c", culture);
         }
 
+        void LoadRevenueByQuarter(DateTime fromDate)
+        {
+            CultureInfo culture = new CultureInfo("vi-VN");
+            dataGVRevenue.DataSource = RevenueController.GetRevenueByQuarter(fromDate); ;
+            txtRevenueTotal.Text = GetSumRevenue().ToString("c", culture);
+        }
+
         void LoadRevenueByYear(DateTime fromDate, DateTime toDate)
         {
             CultureInfo culture = new CultureInfo("vi-VN");
@@ -566,6 +572,9 @@ namespace HotelManager.Admin
             Validation.Export2Excel(dataGVRevenue);
         }
 
-        
+        private void btnRevenueByQuarter_Click(object sender, EventArgs e)
+        {
+            LoadRevenueByQuarter(dtpFromDate.Value);
+        }
     }
 }

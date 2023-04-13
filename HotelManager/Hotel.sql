@@ -19,7 +19,7 @@ insert into Account values
 ('bao', '1', N'Bicpeo', 2, 0, 3),
 ('sau', '1', N'Sau Khuong', 2, 1, 3)
 
-select * from Account
+select * from staff
 
 create table Staff (
 	id varchar(20) not null primary key,
@@ -49,6 +49,7 @@ create table Customer (
 	idRankingAcc varchar(20) not null,
 )
 
+insert into Customer values ('', 'NaN', 'NaN', '', '', 'NaN', 'NaN', 0, 'NaN')
 insert into Customer values ('001', 'Nguyen Anh Vu', 'anhvu@gmail.com', '', '', '0933411234', '079202034551', 235, '0933411234')
 insert into Customer values ('002', 'Nguyen Bay Kha', 'Kha7@gmail.com', '', '', '0933411568', '079202039683', 120, '0933411568')
 
@@ -124,9 +125,6 @@ insert into Room values
 (402, 'Phong Suite King & Queen', '', 4, 'Suite/Double', 1, 0, 'SUT', 60),
 (403, 'Phong Suite King & Queen', '', 4, 'Suite/Double', 1, 0, 'SUT', 60)
 
-UPDATE Room
-SET isOccupied = 1
-WHERE roomNum = 102;
 
 create table RoomThings (
 	id int not null primary key identity(1,1), 
@@ -257,12 +255,13 @@ create table Reservation (
 	--1 = hour, 2=night, 3=day
 	checkinDate datetime not null,
 	checkoutDate datetime null,
-	idCustomer varchar(20) not null,
+	idCustomer varchar(20) null,
 	idStaff varchar(20) not null,
 	totalPrice decimal(18,0) not null,
 	paymentStatus bit not null,
 	-- 0= processing, 1=complete
 	paymentInfo varchar(20) null,
+	checkoutDateInit datetime,
 	FOREIGN KEY (roomNum) REFERENCES Room(roomNum),
 	FOREIGN KEY (idCustomer) REFERENCES Customer(id),
 	FOREIGN KEY (idStaff) REFERENCES Staff(id),
@@ -271,8 +270,8 @@ create table Reservation (
 insert into Reservation values 
 ('Res-001', 101, 1, '2023-03-24 09:00:00', '2023-03-24 14:00:00', '001', '001', DBO.CalculateTotalByHour(101, '2023-03-24 09:00:00', '2023-03-24 14:00:00'), 1, ''),
 ('Res-002', 201, 2, '2023-03-24 22:00:00', '2023-03-25 12:00:00', '001', '001', DBO.CalculateTotalByHour(201, '2023-03-24 22:00:00', '2023-03-25 12:00:00'), 1, '')
-insert into Reservation values 
-('Res-003', 301, 2, '2023-03-24 22:30:00', null, '001', '001', 930000, 0, '')
+
+insert into Reservation values ('Res-003', 301, 2, '2023-03-24 22:30:00', null, '001', '001', 930000, 0, '')
 insert into Reservation values('Res-004', 302, 2, '2023-03-26 22:30:00', null, '001', '001', 930000, 0, '')
 
 insert into Reservation values(DBO.AUTO_idReservation('2023-01-26 10:00:00'), 302, 1, '2023-01-26 10:00:00', '2023-01-26 14:00:00', '001', '001', DBO.CalculateTotalByHour(302, '2023-01-26 10:00:00', '2023-01-26 14:00:00'), 1, 'cash')
@@ -287,6 +286,7 @@ insert into Reservation values(DBO.AUTO_idReservation('2023-02-14 19:00:00'), 10
 select * from Room
 drop table Reservation
 select * from Reservation
+
 ------------------------------FUNCTION------------------------------
 --TINH TIEN PHONG GIO
 create or alter function DBO.CalculateTotalByHour(@roomNum smallint, @checkinDate datetime, @checkoutDate datetime)
@@ -343,8 +343,7 @@ BEGIN
 	DECLARE @CUSTOM_ID VARCHAR(20), @CUSTOM_ID_TIME VARCHAR(20), @COUNT SmallINT
 	SELECT @COUNT = (SELECT COUNT(*) FROM Reservation WHERE checkinDate = @createdAt)
 	SET @CUSTOM_ID = REPLACE(CONVERT(VARCHAR(20), @createdAt, 103), '/', '')
-	SET @CUSTOM_ID_TIME = REPLACE(CONVERT(VARCHAR(20), @createdAt, 108), ':', '')
-	RETURN CONCAT(@CUSTOM_ID, @CUSTOM_ID_TIME) + '#' + REPLICATE('0', 2) + CAST(@COUNT + 1 AS VARCHAR(5))
+	RETURN @CUSTOM_ID + '#' + REPLICATE('0', 2) + CAST(@COUNT + 1 AS VARCHAR(5))
 END
 
 
@@ -384,7 +383,7 @@ print DBO.AUTO_idRooomService(203)
 
 ------------------------------END FUNCTION------------------------------
 
-------------------------------PROC------------------------------
+------------------------------BEGIN PROC------------------------------
 -- PROC Giam Attempts va Lock Acc khi nhap sai
 create or alter PROC USP_DecreaseAttempsOrLockAccount
 	@username varchar(30)
@@ -472,7 +471,6 @@ CREATE or alter proc USP_GetReportRevenueByMonth
 as
 	select * from Reservation where checkinDate >= (select month(@fromDate), year(@fromDate)) and checkinDate <= (select month(@toDate), year(@fromDate)) and paymentStatus = 1 ORDER BY checkinDate ASC
 go
-select * from Reservation ORDER BY checkinDate ASC
 ----------------------------------------------------------------------------------
 --5. PROC SERVICE
 --5.1 lay 3 bang service
@@ -483,11 +481,51 @@ as
 	from RoomExtraByRoom rB, RoomExtra ex where rB.idReservation = @idReservation and rB.idService = ex.idService
 go
 
-select * from Account
-select * from Staff
-select * from Reservation
-exec USP_GetRoomExtraPriceByReservation 'Res-002'
-
+--6. PROC RESERVATION
+--6.1 THEM Reservation chua co 
+CREATE or alter proc USP_InsertReservation 
+	@roomNum smallint,
+	@accoType smallint,
+	@checkIn datetime,
+	@checkOutInit datetime,
+	@checkOutReal datetime,
+	@idCus varchar(20),
+	@idStaff varchar(20),
+	@totalPrice decimal(10,2),
+	@status bit,
+	@info varchar(20)
+AS
+	insert into dbo.Reservation values (DBO.AUTO_idReservation(@checkIn), @roomNum, @accoType, @checkIn, @checkOutInit, @idCus, @idStaff, @totalPrice, 0, '' ,@checkOutReal)
+go
 
 
 ------------------------------END PROC------------------------------
+
+------------------------------BEGIN TRIGGER------------------------------
+create trigger UTG_CreateReservationAndChangeOccupation
+on dbo.Reservation for insert, update
+as
+begin
+	declare @roomNum smallint
+
+	select @roomNum = roomNum from inserted
+
+	update dbo.Room set isOccupied = 1, isClean = 0 where roomNum = @roomNum
+end
+go
+
+create trigger UTG_UpdateRoomServiceInfo
+on dbo.RoomExtraByRoom for insert, update
+as
+begin
+	declare @idReservation varchar(20)
+
+	select @idReservation = idReservation from inserted
+
+	declare @roomNum smallint
+
+	select @roomNum = roomNum from dbo.Reservation where idReservation = @idReservation and paymentStatus = 0 
+
+end
+go
+select * from reservation
