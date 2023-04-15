@@ -10,11 +10,15 @@ namespace HotelManager.NhanVien
 {
     public partial class UC_Room : UserControl
     {
+        public string StaffID;     
+
         public UC_Room(string idStaff)
         {
             InitializeComponent();
             LoadRoom();
-            label1.Text = idStaff;
+
+            StaffID = idStaff;
+            Console.WriteLine(StaffID);
         }
 
         void LoadRoom()
@@ -60,6 +64,22 @@ namespace HotelManager.NhanVien
             lbRoomFacility.Text = roomFacility;
         }
 
+        void AddReservation(short roomNum, short accomType,
+                                           DateTime checkIn, DateTime checkOut, string idCus, string idStaff)
+        {
+            bool result = ReservationController.InsertReservation(roomNum, accomType, checkIn, checkOut, idCus, idStaff);
+
+            if (result)
+            {
+                MessageBox.Show("Tạo đơn đặt phòng thành công", "Thành công");
+                LoadRoom();
+            }
+            else
+            {
+                MessageBox.Show("Tạo đơn đặt phòng thành công thất bại", "Lỗi");
+            }
+        }
+
         void Btn_Click(object sender, EventArgs e)
         {
             int roomNum = ((sender as Button).Tag as Room).roomNum;
@@ -72,15 +92,41 @@ namespace HotelManager.NhanVien
                 MessageBox.Show("Hãy chọn 1 phòng", "Xác nhận");
                 LoadRoom();
                 return;
+            } else
+            {
+                Room room = RoomController.loadRoombyRoomNum(Convert.ToInt16(txtRoomNum.Text));
+                if (room.isOccupied)
+                {
+                    MessageBox.Show("Phòng đang được sử dụng, vui lòng chọn phòng khác", "Thông báo");
+                    LoadRoom();
+                    return;
+                }              
             }
 
             string roomNum = txtRoomNum.Text;
             DialogResult dialogResult = MessageBox.Show("Bạn muốn tạo đơn đặt phòng mới?", "Xác nhận", MessageBoxButtons.YesNo);
             if (dialogResult == DialogResult.Yes)
             {
-                CreateReservation createReservation = new CreateReservation(roomNum, label1.Text);
-                createReservation.ShowDialog();
-                LoadRoom();
+                using (var form = new CreateReservation(roomNum))
+                {
+                    var result = form.ShowDialog();
+                    if (result == DialogResult.OK)
+                    {
+                        short accoType = form.accoType;            //values preserved after close
+                        DateTime checkInDate = form.checkInDate;
+                        DateTime checkOutDate = form.checkOutDate;
+                        string cusPhone = form.cusPhone;
+
+                        Customer cus = CustomerController.GetCustomerByPhone(cusPhone);
+                        if (cus == null)
+                        {
+                            cusPhone = string.Empty;
+                        }
+
+                        AddReservation(Convert.ToInt16(txtRoomNum.Text), accoType, checkInDate, checkOutDate, cusPhone, StaffID);
+                    }
+                }
+                LoadRoom(); 
             }
             else if (dialogResult == DialogResult.No)
             {
@@ -89,5 +135,9 @@ namespace HotelManager.NhanVien
             LoadRoom();
         }
 
+        private void btnCheckout_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

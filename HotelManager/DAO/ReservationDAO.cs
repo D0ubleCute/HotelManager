@@ -69,8 +69,9 @@ namespace HotelManager.DAO
             dt.Columns.Add("Mã đặt phòng", typeof(string));
             dt.Columns.Add("Số phòng", typeof(int));
             dt.Columns.Add("Loại hình", typeof(string));
-            dt.Columns.Add("Check-in", typeof(string));
-            dt.Columns.Add("Check-out", typeof(string));
+            dt.Columns.Add("Ngày Check-in", typeof(string));
+            dt.Columns.Add("Ngày Check-out dự tính", typeof(string));
+            dt.Columns.Add("Ngày Check-out thực tế", typeof(string));
             dt.Columns.Add("Khách hàng", typeof(string));
             dt.Columns.Add("Nhân viên", typeof(string));
             dt.Columns.Add("Trạng thái", typeof(string));
@@ -90,7 +91,8 @@ namespace HotelManager.DAO
                                 roomNum = res.roomNum,
                                 accomodationType = res.accomodationType,
                                 checkinDate = res.checkinDate,
-                                checkoutDate = res.checkoutDate,
+                                checkoutDateInit = res.checkoutDate,
+                                checkoutDateREAL = res.checkoutDateREAL,
                                 customerName = cus.fullName,
                                 staffName = staff.fullName,
                                 paymentStatus = res.paymentStatus,
@@ -98,7 +100,7 @@ namespace HotelManager.DAO
                                 // other assignments
                             };
 
-            foreach (var item in query)
+                foreach (var item in query)
                 {
                     switch (item.accomodationType)
                     {
@@ -107,13 +109,15 @@ namespace HotelManager.DAO
                             {
                                 dt.Rows.Add(item.idReservation, item.roomNum, "GIỜ",
                                 item.checkinDate.ToString("dd/MM/yyyy hh:mm:ss", CultureInfo.InvariantCulture),
-                                Convert.ToDateTime(item.checkoutDate).ToString("dd/MM/yyyy HH:mm:ss", CultureInfo.GetCultureInfo("en-US")),
+                                "NaN",
+                                Convert.ToDateTime(item.checkoutDateInit).ToString("dd/MM/yyyy HH:mm:ss", CultureInfo.GetCultureInfo("vi-VN")),
                                 item.customerName, item.staffName, "Đã thanh toán", item.totalPrice);
-                            } else
+                            }
+                            else
                             {
                                 dt.Rows.Add(item.idReservation, item.roomNum, "GIỜ",
                                 item.checkinDate.ToString("dd/MM/yyyy hh:mm:ss", CultureInfo.InvariantCulture),
-                                item.checkoutDate,
+                                "NaN", "NaN",
                                 item.customerName, item.staffName, "Đang sử dụng", item.totalPrice);
                             }
                             break;
@@ -123,14 +127,16 @@ namespace HotelManager.DAO
                             {
                                 dt.Rows.Add(item.idReservation, item.roomNum, "ĐÊM",
                                 item.checkinDate.ToString("dd/MM/yyyy hh:mm:ss", CultureInfo.InvariantCulture),
-                                Convert.ToDateTime(item.checkoutDate).ToString("dd/MM/yyyy HH:mm:ss", CultureInfo.GetCultureInfo("vi-VN")),
+                                Convert.ToDateTime(item.checkoutDateInit).ToString("dd/MM/yyyy HH:mm:ss", CultureInfo.GetCultureInfo("vi-VN")),
+                                Convert.ToDateTime(item.checkoutDateREAL).ToString("dd/MM/yyyy HH:mm:ss", CultureInfo.GetCultureInfo("vi-VN")),
                                 item.customerName, item.staffName, "Đã thanh toán", item.totalPrice);
                             }
                             else
                             {
                                 dt.Rows.Add(item.idReservation, item.roomNum, "ĐÊM",
-                                Convert.ToDateTime(item.checkoutDate).ToString("dd/MM/yyyy HH:mm:ss", CultureInfo.GetCultureInfo("vi-VN")),
-                                item.checkoutDate,
+                                Convert.ToDateTime(item.checkinDate).ToString("dd/MM/yyyy HH:mm:ss", CultureInfo.GetCultureInfo("vi-VN")),
+                                Convert.ToDateTime(item.checkoutDateInit).ToString("dd/MM/yyyy HH:mm:ss", CultureInfo.GetCultureInfo("vi-VN")),
+                                "NaN",
                                 item.customerName, item.staffName, "Đang sử dụng", item.totalPrice);
                             }
                             break;
@@ -140,17 +146,20 @@ namespace HotelManager.DAO
                             {
                                 dt.Rows.Add(item.idReservation, item.roomNum, "NGÀY",
                                 item.checkinDate.ToString("dd/MM/yyyy hh:mm:ss", CultureInfo.InvariantCulture),
-                                Convert.ToDateTime(item.checkoutDate).ToString("dd/MM/yyyy HH:mm:ss", CultureInfo.GetCultureInfo("vi-VN")),
+                                Convert.ToDateTime(item.checkoutDateInit).ToString("dd/MM/yyyy HH:mm:ss", CultureInfo.GetCultureInfo("vi-VN")),
+                                Convert.ToDateTime(item.checkoutDateREAL).ToString("dd/MM/yyyy HH:mm:ss", CultureInfo.GetCultureInfo("vi-VN")),
                                 item.customerName, item.staffName, "Đã thanh toán", item.totalPrice);
                             }
                             else
                             {
                                 dt.Rows.Add(item.idReservation, item.roomNum, "NGÀY",
-                                item.checkinDate.ToString("dd/MM/yyyy hh:mm:ss", CultureInfo.InvariantCulture),
-                                item.checkoutDate,
+                                Convert.ToDateTime(item.checkinDate).ToString("dd/MM/yyyy HH:mm:ss", CultureInfo.GetCultureInfo("vi-VN")),
+                                Convert.ToDateTime(item.checkoutDateInit).ToString("dd/MM/yyyy HH:mm:ss", CultureInfo.GetCultureInfo("vi-VN")),
+                                "NaN",
                                 item.customerName, item.staffName, "Đang sử dụng", item.totalPrice);
                             }
                             break;
+
                     }
                 }
                 return dt;
@@ -178,8 +187,9 @@ namespace HotelManager.DAO
             dt.Columns.Add("Mã đặt phòng", typeof(string));
             dt.Columns.Add("Số phòng", typeof(int));
             dt.Columns.Add("Loại hình", typeof(string));
-            dt.Columns.Add("Check-in", typeof(string));
-            dt.Columns.Add("Check-out", typeof(string));
+            dt.Columns.Add("Ngày Check-in", typeof(string));
+            dt.Columns.Add("Ngày Check-out dự tính", typeof(string));
+            dt.Columns.Add("Ngày Check-out thực tế", typeof(string));
             dt.Columns.Add("Khách hàng", typeof(string));
             dt.Columns.Add("Nhân viên", typeof(string));
             dt.Columns.Add("Trạng thái", typeof(string));
@@ -190,7 +200,7 @@ namespace HotelManager.DAO
                 CultureInfo culture = new CultureInfo("vi-VN");
 
                 var query = from res in db.Reservations
-                            where res.checkinDate >= fromDate && res.checkoutDate <= toDate
+                            where res.checkinDate >= fromDate && res.checkinDate <= toDate.AddDays(1)
                             join cus in db.Customers on res.idCustomer equals cus.id
                             join staff in db.Staffs on res.idStaff equals staff.id
                             orderby res.checkinDate ascending
@@ -200,12 +210,12 @@ namespace HotelManager.DAO
                                 roomNum = res.roomNum,
                                 accomodationType = res.accomodationType,
                                 checkinDate = res.checkinDate,
-                                checkoutDate = res.checkoutDate,
+                                checkoutDateInit = res.checkoutDate,
+                                checkoutDateREAL = res.checkoutDateREAL,
                                 customerName = cus.fullName,
                                 staffName = staff.fullName,
                                 paymentStatus = res.paymentStatus,
                                 totalPrice = reservationPayCheck(res.idCustomer, res.idStaff, res.roomNum, res.idReservation, res.checkinDate)
-                                // other assignments
                             };
 
                 foreach (var item in query)
@@ -217,14 +227,15 @@ namespace HotelManager.DAO
                             {
                                 dt.Rows.Add(item.idReservation, item.roomNum, "GIỜ",
                                 item.checkinDate.ToString("dd/MM/yyyy hh:mm:ss", CultureInfo.InvariantCulture),
-                                Convert.ToDateTime(item.checkoutDate).ToString("dd/MM/yyyy HH:mm:ss", CultureInfo.GetCultureInfo("en-US")),
+                                "NaN",
+                                Convert.ToDateTime(item.checkoutDateInit).ToString("dd/MM/yyyy HH:mm:ss", CultureInfo.GetCultureInfo("vi-VN")),
                                 item.customerName, item.staffName, "Đã thanh toán", item.totalPrice);
                             }
                             else
                             {
                                 dt.Rows.Add(item.idReservation, item.roomNum, "GIỜ",
                                 item.checkinDate.ToString("dd/MM/yyyy hh:mm:ss", CultureInfo.InvariantCulture),
-                                item.checkoutDate,
+                                "NaN", "NaN",
                                 item.customerName, item.staffName, "Đang sử dụng", item.totalPrice);
                             }
                             break;
@@ -234,14 +245,16 @@ namespace HotelManager.DAO
                             {
                                 dt.Rows.Add(item.idReservation, item.roomNum, "ĐÊM",
                                 item.checkinDate.ToString("dd/MM/yyyy hh:mm:ss", CultureInfo.InvariantCulture),
-                                Convert.ToDateTime(item.checkoutDate).ToString("dd/MM/yyyy HH:mm:ss", CultureInfo.GetCultureInfo("vi-VN")),
+                                Convert.ToDateTime(item.checkoutDateInit).ToString("dd/MM/yyyy HH:mm:ss", CultureInfo.GetCultureInfo("vi-VN")),
+                                Convert.ToDateTime(item.checkoutDateREAL).ToString("dd/MM/yyyy HH:mm:ss", CultureInfo.GetCultureInfo("vi-VN")),
                                 item.customerName, item.staffName, "Đã thanh toán", item.totalPrice);
                             }
                             else
                             {
                                 dt.Rows.Add(item.idReservation, item.roomNum, "ĐÊM",
-                                Convert.ToDateTime(item.checkoutDate).ToString("dd/MM/yyyy HH:mm:ss", CultureInfo.GetCultureInfo("vi-VN")),
-                                item.checkoutDate,
+                                Convert.ToDateTime(item.checkinDate).ToString("dd/MM/yyyy HH:mm:ss", CultureInfo.GetCultureInfo("vi-VN")),
+                                Convert.ToDateTime(item.checkoutDateInit).ToString("dd/MM/yyyy HH:mm:ss", CultureInfo.GetCultureInfo("vi-VN")),
+                                "NaN",
                                 item.customerName, item.staffName, "Đang sử dụng", item.totalPrice);
                             }
                             break;
@@ -251,14 +264,16 @@ namespace HotelManager.DAO
                             {
                                 dt.Rows.Add(item.idReservation, item.roomNum, "NGÀY",
                                 item.checkinDate.ToString("dd/MM/yyyy hh:mm:ss", CultureInfo.InvariantCulture),
-                                Convert.ToDateTime(item.checkoutDate).ToString("dd/MM/yyyy HH:mm:ss", CultureInfo.GetCultureInfo("vi-VN")),
+                                Convert.ToDateTime(item.checkoutDateInit).ToString("dd/MM/yyyy HH:mm:ss", CultureInfo.GetCultureInfo("vi-VN")),
+                                Convert.ToDateTime(item.checkoutDateREAL).ToString("dd/MM/yyyy HH:mm:ss", CultureInfo.GetCultureInfo("vi-VN")),
                                 item.customerName, item.staffName, "Đã thanh toán", item.totalPrice);
                             }
                             else
                             {
                                 dt.Rows.Add(item.idReservation, item.roomNum, "NGÀY",
-                                item.checkinDate.ToString("dd/MM/yyyy hh:mm:ss", CultureInfo.InvariantCulture),
-                                item.checkoutDate,
+                                Convert.ToDateTime(item.checkinDate).ToString("dd/MM/yyyy HH:mm:ss", CultureInfo.GetCultureInfo("vi-VN")),
+                                Convert.ToDateTime(item.checkoutDateInit).ToString("dd/MM/yyyy HH:mm:ss", CultureInfo.GetCultureInfo("vi-VN")),
+                                "NaN",
                                 item.customerName, item.staffName, "Đang sử dụng", item.totalPrice);
                             }
                             break;
@@ -300,8 +315,8 @@ namespace HotelManager.DAO
                 nv.roomNum = roomNum;
                 nv.accomodationType = accomType;
                 nv.checkinDate= checkIn;
-                nv.checkoutDate= checkoutReal;
-                nv.checkoutDateInit = checkOutInit;
+                nv.checkoutDateREAL= checkoutReal;
+                nv.checkoutDate = checkOutInit;
                 nv.idCustomer= idCus;   
                 nv.idStaff= idStaff;
                 nv.totalPrice= total;

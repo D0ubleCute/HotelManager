@@ -19,7 +19,6 @@ insert into Account values
 ('bao', '1', N'Bicpeo', 2, 0, 3),
 ('sau', '1', N'Sau Khuong', 2, 1, 3)
 
-select * from staff
 
 create table Staff (
 	id varchar(20) not null primary key,
@@ -49,7 +48,7 @@ create table Customer (
 	idRankingAcc varchar(20) not null,
 )
 
-insert into Customer values ('', 'NaN', 'NaN', '', '', 'NaN', 'NaN', 0, 'NaN')
+insert into Customer values ('', 'NaN', 'NaN', '', '', '', 'NaN', 0, 'NaN')
 insert into Customer values ('001', 'Nguyen Anh Vu', 'anhvu@gmail.com', '', '', '0933411234', '079202034551', 235, '0933411234')
 insert into Customer values ('002', 'Nguyen Bay Kha', 'Kha7@gmail.com', '', '', '0933411568', '079202039683', 120, '0933411568')
 
@@ -290,62 +289,94 @@ select * from Reservation
 ------------------------------FUNCTION------------------------------
 --TINH TIEN PHONG GIO
 create or alter function DBO.CalculateTotalByHour(@roomNum smallint, @checkinDate datetime, @checkoutDate datetime)
-Returns decimal(18,3)
+Returns decimal(10,3)
 as
 begin
-	DECLARE @IDRate VARCHAR(20), @total decimal(18,3)
+	DECLARE @IDRate VARCHAR(20), @total decimal(10,3)
 	select @IDRate = (select idRateByType from Room where roomNum = @roomNum)
-	Select @total = (select (RoomPrice.baseForHour + RoomPrice.rateForHour*(DATEDIFF(hh, @checkinDate, @checkoutDate)-1)) 
+
+	if DATEPART(minute, @checkoutDate) >= 5
+		select @checkoutDate = Dateadd(hour, 1, @checkoutDate)
+
+	Select @total = (select (RoomPrice.baseForHour + RoomPrice.rateForHour*(DATEDIFF(hh, @checkinDate, @checkoutDate))) 
 							from RoomPrice where idRateByType = @IDRate)
 	return @total
 end
 go
+
+print DBO.CalculateTotalByHour(101, '2022-12-24 09:00:00', '2022-12-24 11:32:00')
 
 --TINH TIEN PHONG DEM
 create or alter function DBO.CalculateTotalByNight(@roomNum smallint, @checkinDate datetime, @checkoutDate datetime)
-Returns decimal(18,3)
+Returns decimal(10,3)
 as
 begin
-	DECLARE @IDRate VARCHAR(20), @total decimal(18,3), @initCheckoutDate datetime
+	DECLARE @IDRate VARCHAR(20), @total decimal(10,3), @initCheckoutDate datetime, @extendHour smallint
+
 	select @initCheckoutDate = dateadd(HOUR, 12, @checkinDate)
+
 	select @IDRate = (select idRateByType from Room where roomNum = @roomNum)
-	Select @total = (select (RoomPrice.baseForNight + RoomPrice.rateForHour*(DATEDIFF(hh, @initCheckoutDate, @checkoutDate))) 
+
+	select @total = (select RoomPrice.baseForNight from RoomPrice where idRateByType = @IDRate)
+
+	if @checkoutDate > @initCheckoutDate
+		if DATEPART(minute, @checkoutDate) < 5 
+			Select @total = (select (@total + RoomPrice.rateForHour*(DATEDIFF(hh, @initCheckoutDate, @checkoutDate))) 
+							from RoomPrice where idRateByType = @IDRate)
+
+		else if DATEPART(minute, @checkoutDate) >= 5 
+			Select @total = (select (@total + RoomPrice.rateForHour*(DATEDIFF(hh, @initCheckoutDate, @checkoutDate) + 1)) 
 							from RoomPrice where idRateByType = @IDRate)
 	return @total
 end
 go
-
-print DBO.CalculateTotalByNight(101, '2022-12-24 22:00:00', '2022-12-25 11:00:00')
+select * from RoomPrice
+print DBO.CalculateTotalByNight(101, '2022-12-24 22:00:00', '2022-12-25 15:10:00')
 select * from RoomPrice
 
+declare @num_hours int; 
+    set @num_hours = 18; 
+
+select dateadd(HOUR, @num_hours, getdate()) as time_added, 
+       getdate() as curr_date 
+
 --TINH TIEN PHONG NGAY --chua hoan thien
-create or alter function DBO.CalculateTotalByDay(@roomNum smallint, @checkinDate datetime, @initCheckoutDate datetime, @checkoutDate datetime)
-Returns decimal(18,3)
+create or alter function DBO.CalculateTotalByDay(@roomNum smallint, @checkinDate datetime, @checkoutDate datetime)
+Returns decimal(10,3)
 as
 begin
-	DECLARE @IDRate VARCHAR(20), @total decimal(18,3), @tomorrowDate datetime
-	select @tomorrowDate = dateadd(HOUR, 22, @checkinDate)
+	DECLARE @IDRate VARCHAR(20), @total decimal(10,3), @initCheckoutDate datetime, @extendHour smallint
+
+	select @initCheckoutDate = dateadd(HOUR, 22, @checkinDate)
+
 	select @IDRate = (select idRateByType from Room where roomNum = @roomNum)
-	Select @total = (select (RoomPrice.baseForDay + RoomPrice.rateForDay*(DATEDIFF(day, @initCheckoutDate, @checkinDate) - 1)
-											 + RoomPrice.rateForHour*(DATEDIFF(hh, @initCheckoutDate, @checkoutDate))) 
+
+	select @total = (select RoomPrice.baseForDay from RoomPrice where idRateByType = @IDRate)
+
+	if @checkoutDate > @initCheckoutDate
+		if DATEPART(minute, @checkoutDate) < 5 
+			Select @total = (select (@total + RoomPrice.rateForHour*(DATEDIFF(hh, @initCheckoutDate, @checkoutDate))) 
+							from RoomPrice where idRateByType = @IDRate)
+
+		else if DATEPART(minute, @checkoutDate) >= 5 
+			Select @total = (select (@total + RoomPrice.rateForHour*(DATEDIFF(hh, @initCheckoutDate, @checkoutDate) + 1)) 
 							from RoomPrice where idRateByType = @IDRate)
 	return @total
 end
 go
 
 print DBO.CalculateTotalByDay(103, '2023-01-26 14:00:00', '2023-01-29 12:00:00', '2023-01-29 12:00:00')
-select * from RoomPrice
---1. idReceipt 
-CREATE OR ALTER FUNCTION DBO.AUTO_idReservation(@createdAt DATETIME)
+
+--1. idRes 
+create or ALTER FUNCTION AUTO_idReservation(@createdAt DATE)
 RETURNS varchar(20)
 AS
 BEGIN
 	DECLARE @CUSTOM_ID VARCHAR(20), @CUSTOM_ID_TIME VARCHAR(20), @COUNT SmallINT
-	SELECT @COUNT = (SELECT COUNT(*) FROM Reservation WHERE checkinDate = @createdAt)
+	SELECT @COUNT = (SELECT COUNT(*) FROM Reservation WHERE (SELECT DATEADD(dd, 0, DATEDIFF(dd, 0, checkinDate))) = @createdAt)
 	SET @CUSTOM_ID = REPLACE(CONVERT(VARCHAR(20), @createdAt, 103), '/', '')
 	RETURN @CUSTOM_ID + '#' + REPLICATE('0', 2) + CAST(@COUNT + 1 AS VARCHAR(5))
 END
-
 
 --2. idStaff
 CREATE OR ALTER FUNCTION DBO.AUTO_idStaff(@dob DATE)
@@ -498,12 +529,11 @@ AS
 	insert into dbo.Reservation values (DBO.AUTO_idReservation(@checkIn), @roomNum, @accoType, @checkIn, @checkOutInit, @idCus, @idStaff, @totalPrice, 0, '' ,@checkOutReal)
 go
 
-
 ------------------------------END PROC------------------------------
 
 ------------------------------BEGIN TRIGGER------------------------------
-create trigger UTG_CreateReservationAndChangeOccupation
-on dbo.Reservation for insert, update
+create or alter trigger UTG_CreateReservationAndChangeOccupation
+on dbo.Reservation for insert
 as
 begin
 	declare @roomNum smallint
@@ -514,6 +544,18 @@ begin
 end
 go
 
+create or alter trigger UTG_CloseReservationAndChangeOccupation
+on dbo.Reservation for update
+as
+begin
+	declare @roomNum smallint
+
+	select @roomNum = roomNum from inserted
+
+	update dbo.Room set isOccupied = 0, isClean = 1 where roomNum = @roomNum
+end
+go
+select * from reservation
 create trigger UTG_UpdateRoomServiceInfo
 on dbo.RoomExtraByRoom for insert, update
 as

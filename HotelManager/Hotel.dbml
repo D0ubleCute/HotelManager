@@ -145,7 +145,7 @@
       <Column Name="totalPrice" Type="System.Decimal" DbType="Decimal(18,0) NOT NULL" CanBeNull="false" />
       <Column Name="paymentStatus" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
       <Column Name="paymentInfo" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
-      <Column Name="checkoutDateInit" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="checkoutDateREAL" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Association Name="Reservation_RoomExtraByRoom" Member="RoomExtraByRooms" ThisKey="idReservation" OtherKey="idReservation" Type="RoomExtraByRoom" />
       <Association Name="Customer_Reservation" Member="Customer" ThisKey="idCustomer" OtherKey="id" Type="Customer" IsForeignKey="true" />
       <Association Name="Staff_Reservation" Member="Staff" ThisKey="idStaff" OtherKey="id" Type="Staff" IsForeignKey="true" />
@@ -219,10 +219,6 @@
   </Function>
   <Function Name="dbo.AUTO_idCustomer" Method="AUTO_idCustomer" IsComposable="true">
     <Parameter Name="phone" Type="System.String" DbType="VarChar(12)" />
-    <Return Type="System.String" />
-  </Function>
-  <Function Name="dbo.AUTO_idReservation" Method="AUTO_idReservation" IsComposable="true">
-    <Parameter Name="createdAt" Type="System.DateTime" DbType="DateTime" />
     <Return Type="System.String" />
   </Function>
   <Function Name="dbo.AUTO_idRooomService" Method="AUTO_idRooomService" IsComposable="true">

@@ -246,12 +246,6 @@ namespace HotelManager
 			return ((string)(this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), phone).ReturnValue));
 		}
 		
-		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.AUTO_idReservation", IsComposable=true)]
-		public string AUTO_idReservation([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="DateTime")] System.Nullable<System.DateTime> createdAt)
-		{
-			return ((string)(this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), createdAt).ReturnValue));
-		}
-		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.AUTO_idRooomService", IsComposable=true)]
 		public string AUTO_idRooomService([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="SmallInt")] System.Nullable<short> roomNum)
 		{
@@ -3030,7 +3024,7 @@ namespace HotelManager
 		
 		private string _paymentInfo;
 		
-		private System.Nullable<System.DateTime> _checkoutDateInit;
+		private System.Nullable<System.DateTime> _checkoutDateREAL;
 		
 		private EntitySet<RoomExtraByRoom> _RoomExtraByRooms;
 		
@@ -3064,8 +3058,8 @@ namespace HotelManager
     partial void OnpaymentStatusChanged();
     partial void OnpaymentInfoChanging(string value);
     partial void OnpaymentInfoChanged();
-    partial void OncheckoutDateInitChanging(System.Nullable<System.DateTime> value);
-    partial void OncheckoutDateInitChanged();
+    partial void OncheckoutDateREALChanging(System.Nullable<System.DateTime> value);
+    partial void OncheckoutDateREALChanged();
     #endregion
 		
 		public Reservation()
@@ -3289,22 +3283,22 @@ namespace HotelManager
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_checkoutDateInit", DbType="DateTime")]
-		public System.Nullable<System.DateTime> checkoutDateInit
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_checkoutDateREAL", DbType="DateTime")]
+		public System.Nullable<System.DateTime> checkoutDateREAL
 		{
 			get
 			{
-				return this._checkoutDateInit;
+				return this._checkoutDateREAL;
 			}
 			set
 			{
-				if ((this._checkoutDateInit != value))
+				if ((this._checkoutDateREAL != value))
 				{
-					this.OncheckoutDateInitChanging(value);
+					this.OncheckoutDateREALChanging(value);
 					this.SendPropertyChanging();
-					this._checkoutDateInit = value;
-					this.SendPropertyChanged("checkoutDateInit");
-					this.OncheckoutDateInitChanged();
+					this._checkoutDateREAL = value;
+					this.SendPropertyChanged("checkoutDateREAL");
+					this.OncheckoutDateREALChanged();
 				}
 			}
 		}

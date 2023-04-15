@@ -10,53 +10,78 @@ using System.Management;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using HotelManager.Helper;
 
 namespace HotelManager.NhanVien
 {
     public partial class CreateReservation : Form
     {
-        public CreateReservation(string roomNum, string idStaff)
+        public short accoType { get; set; }
+        public DateTime checkInDate { get; set; }
+        public DateTime checkOutDate { get; set; }
+        public string cusPhone { get; set; }
+        public DialogResult Result { get; set; }
+
+
+        public CreateReservation(string roomNum)
         {
             InitializeComponent();
 
             lbRoomNum.Text = roomNum;
-            txtStaffInfo.Text = idStaff;
-        }
 
-        void AddReservation(short roomNum, short accomType,
-                                           DateTime checkIn, DateTime checkOut, string idCus, string idStaff)
-        {
-            bool result = ReservationController.InsertReservation(roomNum, accomType, checkIn, checkOut, idCus, idStaff);
+            cbbAccomodation.SelectedIndex = 0;
 
-            if (result)
-            {
-                MessageBox.Show("Tạo đơn đặt phòng thành công", "Thành công");
-                this.Close();
-            }
-            else
-            {
-                MessageBox.Show("Tạo đơn đặt phòng thành công thất bại", "Lỗi", (MessageBoxButtons)MessageBoxIcon.Error);
-            }
+            dtpCheckin.Format = DateTimePickerFormat.Custom;
+            dtpCheckin.CustomFormat = "MM/dd/yyyy HH:mm";
+            dtpCheckout.Format = DateTimePickerFormat.Custom;
+            dtpCheckout.CustomFormat = "MM/dd/yyyy HH:mm";
+
+            dtpCheckin.Value = DateTime.Now;
+            dtpCheckout.Value = DateTime.Now;        
         }
 
         private void btnConfirmCreateRes_Click(object sender, EventArgs e)
         {
-            short roomNumB = Convert.ToInt16(lbRoomNum.Text);
+            accoType = Convert.ToInt16(cbbAccomodation.Text);
 
+            checkInDate = dtpCheckin.Value;
+            checkOutDate = dtpCheckout.Value;
+
+            if (!Validation.checkPastDate(checkInDate.Date) || !Validation.checkPastDate(checkOutDate.Date))
+            {
+                MessageBox.Show("Không thể chọn ngày từ quá khứ!", "Cảnh báo");
+                return;
+            }
             
-            short acco = Convert.ToInt16(cbbAccomodation.Text);
+            if(accoType == 1)
+            {
+                checkOutDate = DateTime.Now;
+            } else if (accoType == 2)
+            {
+                TimeSpan ts1 = new TimeSpan(22, 00, 00);
+                checkInDate = checkInDate.Date + ts1;
 
-            DateTime checkin = dtpCheckin.Value;
-            DateTime checkout = dtpCheckout.Value;
-            string idCus = txtCustomerInfo.Text;
-            string idStaff = txtStaffInfo.Text;
+                TimeSpan ts2 = new TimeSpan(12, 00, 00);
+                checkOutDate = checkOutDate.Date + ts2;
+            } else
+            {
+                TimeSpan ts1 = new TimeSpan(14, 00, 00);
+                checkInDate = checkInDate.Date + ts1;
 
-            AddReservation(roomNumB, acco, checkin, checkout, idCus, idStaff);
+                TimeSpan ts2 = new TimeSpan(12, 00, 00);
+                checkOutDate = checkOutDate.Date + ts2;
+            }
+
+            cusPhone = txtCustomerInfo.Text;
+
+            DialogResult = DialogResult.OK;
+
+            Close();
         }
 
         private void guna2ImageButton1_Click(object sender, EventArgs e)
         {
             this.Close();   
-        }
+        }    
     }
 }

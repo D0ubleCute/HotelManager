@@ -62,7 +62,6 @@ namespace HotelManager.DAO
                 var nv = (from staff in db.Customers
                           where staff.phone.Equals(phone)
                           select staff).First();
-
                 return nv;
             }
         }

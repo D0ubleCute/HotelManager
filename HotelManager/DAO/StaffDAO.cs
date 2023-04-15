@@ -91,7 +91,7 @@ namespace HotelManager.DAO
 
             foreach (var item in staffList)
             {
-                if (item.id.Equals(userName))
+                if (item.userName.Equals(userName))
                 {
                     return item;
                 }

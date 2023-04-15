@@ -442,8 +442,8 @@ namespace HotelManager.Admin
             //txtReservationCustomerCheckin.DataBindings.Add("Text", dataGVReservation.DataSource, "SĐT", true, DataSourceUpdateMode.Never);
             //txtReservationCustomerCheckout.DataBindings.Add("Text", dataGVReservation.DataSource, "CMND", true, DataSourceUpdateMode.Never);
             txtStaffOrder.DataBindings.Add("Text", dataGVReservation.DataSource, "Nhân viên", true, DataSourceUpdateMode.Never);
-            txtReservationCustomerCheckin.DataBindings.Add("Text", dataGVReservation.DataSource, "Check-in", true, DataSourceUpdateMode.Never);
-            txtReservationCustomerCheckout.DataBindings.Add("Text", dataGVReservation.DataSource, "Check-out", true, DataSourceUpdateMode.Never);
+            txtReservationCustomerCheckin.DataBindings.Add("Text", dataGVReservation.DataSource, "Ngày Check-in", true, DataSourceUpdateMode.Never);
+            txtReservationCustomerCheckout.DataBindings.Add("Text", dataGVReservation.DataSource, "Ngày Check-out thực tế", true, DataSourceUpdateMode.Never);
             txtResTotalPrice.DataBindings.Add("Text", dataGVReservation.DataSource, "Tổng tiền", true, DataSourceUpdateMode.Never);
 
         }
@@ -452,7 +452,7 @@ namespace HotelManager.Admin
         {
             foreach (DataGridViewRow Myrow in dataGVReservation.Rows)
             {            //Here 2 cell is target value and 1 cell is Volume
-                if (Convert.ToString(Myrow.Cells[4].Value) == null || Convert.ToString(Myrow.Cells[4].Value).Equals(""))// Or your condition 
+                if (Convert.ToDecimal(Myrow.Cells[9].Value) == 0)// Or your condition 
                 {
                     Myrow.DefaultCellStyle.BackColor = Color.Aqua;
                 }

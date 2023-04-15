@@ -35,9 +35,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
             this.txtCustomerInfo = new System.Windows.Forms.TextBox();
-            this.txtStaffInfo = new System.Windows.Forms.TextBox();
             this.btnConfirmCreateRes = new Guna.UI2.WinForms.Guna2Button();
             this.dtpCheckin = new Guna.UI2.WinForms.Guna2DateTimePicker();
             this.dtpCheckout = new Guna.UI2.WinForms.Guna2DateTimePicker();
@@ -50,7 +48,7 @@
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Segoe UI", 20.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label9.ForeColor = System.Drawing.Color.Salmon;
-            this.label9.Location = new System.Drawing.Point(203, 40);
+            this.label9.Location = new System.Drawing.Point(231, 47);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(98, 37);
             this.label9.TabIndex = 0;
@@ -115,16 +113,6 @@
             this.label5.TabIndex = 6;
             this.label5.Text = "Khách hàng";
             // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Segoe UI Semibold", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(65, 397);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(109, 30);
-            this.label6.TabIndex = 7;
-            this.label6.Text = "Nhân viên";
-            // 
             // txtCustomerInfo
             // 
             this.txtCustomerInfo.Font = new System.Drawing.Font("Segoe UI Semibold", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -132,14 +120,6 @@
             this.txtCustomerInfo.Name = "txtCustomerInfo";
             this.txtCustomerInfo.Size = new System.Drawing.Size(236, 33);
             this.txtCustomerInfo.TabIndex = 9;
-            // 
-            // txtStaffInfo
-            // 
-            this.txtStaffInfo.Font = new System.Drawing.Font("Segoe UI Semibold", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtStaffInfo.Location = new System.Drawing.Point(314, 394);
-            this.txtStaffInfo.Name = "txtStaffInfo";
-            this.txtStaffInfo.Size = new System.Drawing.Size(236, 33);
-            this.txtStaffInfo.TabIndex = 10;
             // 
             // btnConfirmCreateRes
             // 
@@ -152,7 +132,7 @@
             this.btnConfirmCreateRes.FillColor = System.Drawing.Color.Salmon;
             this.btnConfirmCreateRes.Font = new System.Drawing.Font("Segoe UI Semibold", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnConfirmCreateRes.ForeColor = System.Drawing.Color.White;
-            this.btnConfirmCreateRes.Location = new System.Drawing.Point(70, 455);
+            this.btnConfirmCreateRes.Location = new System.Drawing.Point(70, 400);
             this.btnConfirmCreateRes.Name = "btnConfirmCreateRes";
             this.btnConfirmCreateRes.Size = new System.Drawing.Size(480, 77);
             this.btnConfirmCreateRes.TabIndex = 11;
@@ -192,7 +172,7 @@
             this.lbRoomNum.AutoSize = true;
             this.lbRoomNum.Font = new System.Drawing.Font("Segoe UI", 20.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbRoomNum.ForeColor = System.Drawing.Color.Salmon;
-            this.lbRoomNum.Location = new System.Drawing.Point(307, 40);
+            this.lbRoomNum.Location = new System.Drawing.Point(326, 47);
             this.lbRoomNum.Name = "lbRoomNum";
             this.lbRoomNum.Size = new System.Drawing.Size(33, 37);
             this.lbRoomNum.TabIndex = 14;
@@ -216,15 +196,13 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(616, 569);
+            this.ClientSize = new System.Drawing.Size(611, 504);
             this.Controls.Add(this.guna2ImageButton1);
             this.Controls.Add(this.lbRoomNum);
             this.Controls.Add(this.dtpCheckout);
             this.Controls.Add(this.dtpCheckin);
             this.Controls.Add(this.btnConfirmCreateRes);
-            this.Controls.Add(this.txtStaffInfo);
             this.Controls.Add(this.txtCustomerInfo);
-            this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
@@ -249,9 +227,7 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox txtCustomerInfo;
-        private System.Windows.Forms.TextBox txtStaffInfo;
         private Guna.UI2.WinForms.Guna2Button btnConfirmCreateRes;
         private Guna.UI2.WinForms.Guna2DateTimePicker dtpCheckin;
         private Guna.UI2.WinForms.Guna2DateTimePicker dtpCheckout;

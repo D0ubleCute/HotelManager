@@ -45,6 +45,7 @@ namespace HotelManager.NhanVien
 
         void AddReservationBinding()
         {
+            txtReservationID.DataBindings.Clear();
             txtReservationCustomerName.DataBindings.Clear();
             txtReservationCustomerEmail.DataBindings.Clear();
             txtReservationCustomerPhone.DataBindings.Clear();
@@ -56,6 +57,7 @@ namespace HotelManager.NhanVien
 
             CultureInfo culture = new CultureInfo("vi-VN");
 
+            txtReservationID.DataBindings.Add("Text", dataGVReservation.DataSource, "Mã đặt phòng", true, DataSourceUpdateMode.Never);
             txtReservationCustomerName.DataBindings.Add("Text", dataGVReservation.DataSource, "Khách hàng", true, DataSourceUpdateMode.Never);
             //txtReservationCustomerEmail.DataBindings.Add("Text", dataGVReservation.DataSource, "Họ tên", true, DataSourceUpdateMode.Never);
             //txtReservationCustomerPhone.DataBindings.Add("Text", dataGVReservation.DataSource, "Ngày sinh", true, DataSourceUpdateMode.Never);
@@ -63,8 +65,8 @@ namespace HotelManager.NhanVien
             //txtReservationCustomerCheckin.DataBindings.Add("Text", dataGVReservation.DataSource, "SĐT", true, DataSourceUpdateMode.Never);
             //txtReservationCustomerCheckout.DataBindings.Add("Text", dataGVReservation.DataSource, "CMND", true, DataSourceUpdateMode.Never);
             txtStaffOrder.DataBindings.Add("Text", dataGVReservation.DataSource, "Nhân viên", true, DataSourceUpdateMode.Never);
-            txtReservationCustomerCheckin.DataBindings.Add("Text", dataGVReservation.DataSource, "Check-in", true, DataSourceUpdateMode.Never);
-            txtReservationCustomerCheckout.DataBindings.Add("Text", dataGVReservation.DataSource, "Check-out", true, DataSourceUpdateMode.Never);
+            txtReservationCustomerCheckin.DataBindings.Add("Text", dataGVReservation.DataSource, "Ngày Check-in", true, DataSourceUpdateMode.Never);
+            txtReservationCustomerCheckout.DataBindings.Add("Text", dataGVReservation.DataSource, "Ngày Check-out thực tế", true, DataSourceUpdateMode.Never);
             txtResTotalPrice.DataBindings.Add("Text", dataGVReservation.DataSource, "Tổng tiền", true, DataSourceUpdateMode.Never);
         }
 
@@ -76,8 +78,9 @@ namespace HotelManager.NhanVien
         private void dataGVReservation_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
             foreach (DataGridViewRow Myrow in dataGVReservation.Rows)
-            {            //Here 2 cell is target value and 1 cell is Volume
-                if (Convert.ToString(Myrow.Cells[4].Value) == null || Convert.ToString(Myrow.Cells[4].Value).Equals(""))// Or your condition 
+            {            
+                //Cell[4] : Checkout 8: total
+                if (Convert.ToDecimal(Myrow.Cells[9].Value) == 0)// Or your condition 
                 {
                     Myrow.DefaultCellStyle.BackColor = Color.Aqua;
                 }
