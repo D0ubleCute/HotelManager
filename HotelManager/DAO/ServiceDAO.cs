@@ -28,6 +28,24 @@ namespace HotelManager.DAO
             return serviceList;
         }
 
+        public static List<RoomExtraCategory> GetRoomServiceCategory()
+        {
+            List<RoomExtraCategory> serviceList = new List<RoomExtraCategory>();
+
+            using (HotelDataContext db = new HotelDataContext())
+            {
+                var query = from rs in db.RoomExtraCategories
+                            select rs;
+
+                foreach (var item in query)
+                {
+                    serviceList.Add(item);
+                }
+            }
+
+            return serviceList;
+        }
+
         public static DataTable GetRoomServiceList()
         {
             DataTable dt = new DataTable();
@@ -46,6 +64,25 @@ namespace HotelManager.DAO
                 }
             }
             return dt;
+        }
+
+        public static List<RoomExtra> GetRoomServiceByCategory(string idCategory)
+        {
+            List<RoomExtra> serviceList = new List<RoomExtra>();
+
+            using (HotelDataContext db = new HotelDataContext())
+            {
+                var query = from rs in db.RoomExtras 
+                            where rs.idCategory.Equals(idCategory)
+                            select rs;
+
+                foreach (var item in query)
+                {
+                    serviceList.Add(item);
+                }
+            }
+
+            return serviceList;
         }
 
         public static bool InsertService(string hoTen, DateTime ngaySinh, string diaChi, string sdt, string cmnd)

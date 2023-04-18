@@ -30,9 +30,12 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(NV));
             this.guna2ShadowPanel1 = new Guna.UI2.WinForms.Guna2ShadowPanel();
+            this.button1 = new System.Windows.Forms.Button();
             this.lblStaffUsername = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.guna2CirclePictureBox1 = new Guna.UI2.WinForms.Guna2CirclePictureBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
             this.panel4 = new System.Windows.Forms.Panel();
@@ -44,16 +47,13 @@
             this.btnStaffService = new Guna.UI2.WinForms.Guna2Button();
             this.btnStaffRoom = new Guna.UI2.WinForms.Guna2Button();
             this.btnStaffReservation = new Guna.UI2.WinForms.Guna2Button();
-            this.button1 = new System.Windows.Forms.Button();
-            this.guna2CirclePictureBox1 = new Guna.UI2.WinForms.Guna2CirclePictureBox();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.guna2ShadowPanel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.guna2CirclePictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel1.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panel4.SuspendLayout();
             this.panel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.guna2CirclePictureBox1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // guna2ShadowPanel1
@@ -71,6 +71,19 @@
             this.guna2ShadowPanel1.ShadowColor = System.Drawing.Color.Black;
             this.guna2ShadowPanel1.Size = new System.Drawing.Size(1166, 68);
             this.guna2ShadowPanel1.TabIndex = 0;
+            // 
+            // button1
+            // 
+            this.button1.BackColor = System.Drawing.Color.Transparent;
+            this.button1.BackgroundImage = global::HotelManager.Properties.Resources.logout;
+            this.button1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.button1.ForeColor = System.Drawing.Color.Transparent;
+            this.button1.Location = new System.Drawing.Point(1102, 13);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(45, 42);
+            this.button1.TabIndex = 5;
+            this.button1.UseVisualStyleBackColor = false;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // lblStaffUsername
             // 
@@ -95,6 +108,16 @@
             this.label2.TabIndex = 3;
             this.label2.Text = "Nhân viên";
             // 
+            // guna2CirclePictureBox1
+            // 
+            this.guna2CirclePictureBox1.ImageRotate = 0F;
+            this.guna2CirclePictureBox1.Location = new System.Drawing.Point(973, 13);
+            this.guna2CirclePictureBox1.Name = "guna2CirclePictureBox1";
+            this.guna2CirclePictureBox1.ShadowDecoration.Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle;
+            this.guna2CirclePictureBox1.Size = new System.Drawing.Size(44, 41);
+            this.guna2CirclePictureBox1.TabIndex = 2;
+            this.guna2CirclePictureBox1.TabStop = false;
+            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -106,6 +129,16 @@
             this.label1.Size = new System.Drawing.Size(166, 30);
             this.label1.TabIndex = 1;
             this.label1.Text = "Jardin De E\'den";
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = global::HotelManager.Properties.Resources.logo_transparent;
+            this.pictureBox1.Location = new System.Drawing.Point(12, 13);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(41, 41);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox1.TabIndex = 0;
+            this.pictureBox1.TabStop = false;
             // 
             // panel1
             // 
@@ -178,6 +211,7 @@
             this.btnStaffSettings.Size = new System.Drawing.Size(188, 45);
             this.btnStaffSettings.TabIndex = 5;
             this.btnStaffSettings.Text = "Cài đặt";
+            this.btnStaffSettings.Click += new System.EventHandler(this.btnStaffSettings_Click);
             // 
             // btnStaffCustomer
             // 
@@ -201,6 +235,7 @@
             this.btnStaffCustomer.Size = new System.Drawing.Size(188, 45);
             this.btnStaffCustomer.TabIndex = 5;
             this.btnStaffCustomer.Text = "Khách hàng";
+            this.btnStaffCustomer.Click += new System.EventHandler(this.btnStaffCustomer_Click);
             // 
             // btnStaffFacility
             // 
@@ -224,6 +259,7 @@
             this.btnStaffFacility.Size = new System.Drawing.Size(188, 45);
             this.btnStaffFacility.TabIndex = 5;
             this.btnStaffFacility.Text = "Cơ sở vật chất";
+            this.btnStaffFacility.Click += new System.EventHandler(this.btnStaffFacility_Click);
             // 
             // btnStaffService
             // 
@@ -247,6 +283,7 @@
             this.btnStaffService.Size = new System.Drawing.Size(188, 45);
             this.btnStaffService.TabIndex = 5;
             this.btnStaffService.Text = "Dịch vụ";
+            this.btnStaffService.Click += new System.EventHandler(this.btnStaffService_Click);
             // 
             // btnStaffRoom
             // 
@@ -296,39 +333,6 @@
             this.btnStaffReservation.Text = "Quản lý đặt phòng";
             this.btnStaffReservation.Click += new System.EventHandler(this.btnStaffReservation_Click);
             // 
-            // button1
-            // 
-            this.button1.BackColor = System.Drawing.Color.Transparent;
-            this.button1.BackgroundImage = global::HotelManager.Properties.Resources.logout;
-            this.button1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.button1.ForeColor = System.Drawing.Color.Transparent;
-            this.button1.Location = new System.Drawing.Point(1102, 13);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(45, 42);
-            this.button1.TabIndex = 5;
-            this.button1.UseVisualStyleBackColor = false;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // guna2CirclePictureBox1
-            // 
-            this.guna2CirclePictureBox1.ImageRotate = 0F;
-            this.guna2CirclePictureBox1.Location = new System.Drawing.Point(973, 13);
-            this.guna2CirclePictureBox1.Name = "guna2CirclePictureBox1";
-            this.guna2CirclePictureBox1.ShadowDecoration.Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle;
-            this.guna2CirclePictureBox1.Size = new System.Drawing.Size(44, 41);
-            this.guna2CirclePictureBox1.TabIndex = 2;
-            this.guna2CirclePictureBox1.TabStop = false;
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Image = global::HotelManager.Properties.Resources.logo_transparent;
-            this.pictureBox1.Location = new System.Drawing.Point(12, 13);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(41, 41);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox1.TabIndex = 0;
-            this.pictureBox1.TabStop = false;
-            // 
             // NV
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -344,12 +348,12 @@
             this.Text = "NhanVien";
             this.guna2ShadowPanel1.ResumeLayout(false);
             this.guna2ShadowPanel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.guna2CirclePictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
             this.panel4.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.guna2CirclePictureBox1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
         }

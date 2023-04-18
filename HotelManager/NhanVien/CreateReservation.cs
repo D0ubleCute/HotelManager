@@ -11,6 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using HotelManager.Helper;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace HotelManager.NhanVien
 {
@@ -26,8 +27,16 @@ namespace HotelManager.NhanVien
         public CreateReservation(string roomNum)
         {
             InitializeComponent();
-
             lbRoomNum.Text = roomNum;
+
+            cbbAccomodation.DataSource = new Dictionary<short, string>()
+{
+                {1, "GIỜ"},
+                {2, "ĐÊM"},
+                {3, "NGÀY"},
+            }.ToList();
+            cbbAccomodation.ValueMember = "Key";
+            cbbAccomodation.DisplayMember = "Value";
 
             cbbAccomodation.SelectedIndex = 0;
 
@@ -42,7 +51,7 @@ namespace HotelManager.NhanVien
 
         private void btnConfirmCreateRes_Click(object sender, EventArgs e)
         {
-            accoType = Convert.ToInt16(cbbAccomodation.Text);
+            accoType = Convert.ToInt16(cbbAccomodation.SelectedValue);
 
             checkInDate = dtpCheckin.Value;
             checkOutDate = dtpCheckout.Value;

@@ -54,5 +54,33 @@ namespace HotelManager.NhanVien
         {
             this.Close();
         }
+
+        private void btnStaffService_Click(object sender, EventArgs e)
+        {
+            panel3.Controls.Clear();
+            UC_Service uC_Customer = new UC_Service();
+            addUserControl(uC_Customer);
+        }
+
+        private void btnStaffFacility_Click(object sender, EventArgs e)
+        {
+            panel3.Controls.Clear();
+            UC_Facility uC_Customer = new UC_Facility();
+            addUserControl(uC_Customer);
+        }
+
+        private void btnStaffCustomer_Click(object sender, EventArgs e)
+        {
+            panel3.Controls.Clear();
+            UC_Customer uC_Customer = new UC_Customer();
+            addUserControl(uC_Customer);
+        }
+
+        private void btnStaffSettings_Click(object sender, EventArgs e)
+        {
+            panel3.Controls.Clear();
+            UC_AccountSetting accountSetting = new UC_AccountSetting(StaffID);
+            addUserControl(accountSetting);
+        }
     }
 }

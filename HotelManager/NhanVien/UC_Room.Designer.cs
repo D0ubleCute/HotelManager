@@ -46,6 +46,7 @@
             this.btnChangeRoom = new Guna.UI2.WinForms.Guna2Button();
             this.btnCreateReservation = new Guna.UI2.WinForms.Guna2Button();
             this.btnCheckout = new Guna.UI2.WinForms.Guna2Button();
+            this.tpReservationInfo = new System.Windows.Forms.TabPage();
             this.panel3.SuspendLayout();
             this.tabControlForFacility.SuspendLayout();
             this.tpRoomInfo.SuspendLayout();
@@ -71,10 +72,11 @@
             // tabControlForFacility
             // 
             this.tabControlForFacility.Controls.Add(this.tpRoomInfo);
+            this.tabControlForFacility.Controls.Add(this.tpReservationInfo);
             this.tabControlForFacility.Controls.Add(this.tpRoomThings);
             this.tabControlForFacility.Cursor = System.Windows.Forms.Cursors.Hand;
             this.tabControlForFacility.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tabControlForFacility.ItemSize = new System.Drawing.Size(310, 35);
+            this.tabControlForFacility.ItemSize = new System.Drawing.Size(205, 35);
             this.tabControlForFacility.Location = new System.Drawing.Point(0, 0);
             this.tabControlForFacility.Name = "tabControlForFacility";
             this.tabControlForFacility.SelectedIndex = 0;
@@ -94,7 +96,7 @@
             this.tabControlForFacility.TabButtonSelectedState.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tabControlForFacility.TabButtonSelectedState.ForeColor = System.Drawing.Color.LightCoral;
             this.tabControlForFacility.TabButtonSelectedState.InnerColor = System.Drawing.Color.Salmon;
-            this.tabControlForFacility.TabButtonSize = new System.Drawing.Size(310, 35);
+            this.tabControlForFacility.TabButtonSize = new System.Drawing.Size(205, 35);
             this.tabControlForFacility.TabIndex = 2;
             this.tabControlForFacility.TabMenuBackColor = System.Drawing.Color.White;
             this.tabControlForFacility.TabMenuOrientation = Guna.UI2.WinForms.TabMenuOrientation.HorizontalTop;
@@ -113,10 +115,10 @@
             this.tpRoomInfo.Controls.Add(this.label7);
             this.tpRoomInfo.Controls.Add(this.label6);
             this.tpRoomInfo.ForeColor = System.Drawing.Color.IndianRed;
-            this.tpRoomInfo.Location = new System.Drawing.Point(4, 39);
+            this.tpRoomInfo.Location = new System.Drawing.Point(4, 74);
             this.tpRoomInfo.Name = "tpRoomInfo";
             this.tpRoomInfo.Padding = new System.Windows.Forms.Padding(3);
-            this.tpRoomInfo.Size = new System.Drawing.Size(617, 346);
+            this.tpRoomInfo.Size = new System.Drawing.Size(617, 311);
             this.tpRoomInfo.TabIndex = 0;
             this.tpRoomInfo.Text = "Thông tin phòng";
             // 
@@ -275,6 +277,15 @@
             this.btnCheckout.Text = "Thanh toán";
             this.btnCheckout.Click += new System.EventHandler(this.btnCheckout_Click);
             // 
+            // tpReservationInfo
+            // 
+            this.tpReservationInfo.Location = new System.Drawing.Point(4, 39);
+            this.tpReservationInfo.Name = "tpReservationInfo";
+            this.tpReservationInfo.Size = new System.Drawing.Size(617, 346);
+            this.tpReservationInfo.TabIndex = 2;
+            this.tpReservationInfo.Text = "Thông tin đặt phòng";
+            this.tpReservationInfo.UseVisualStyleBackColor = true;
+            // 
             // UC_Room
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -314,5 +325,6 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TabPage tpRoomThings;
+        private System.Windows.Forms.TabPage tpReservationInfo;
     }
 }

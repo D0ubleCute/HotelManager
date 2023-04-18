@@ -26,9 +26,16 @@ namespace HotelManager.Controller
             return ServiceReservationByRoomDAO.GetRoomServiceListByReservation(idRes);
         }
 
+
         public static decimal GetServiceTotalPrice(DataGridView dtgv)
         {
             return ServiceReservationByRoomDAO.GetServiceTotalPrice(dtgv);
         }
+
+        public static bool InsertServiceInfo(string idSer, short roomNum, short qty, string idRes)
+        {
+            return ServiceReservationByRoomDAO.InsertServiceInfo(idSer, roomNum, qty, idRes);
+        }
+
     }
 }

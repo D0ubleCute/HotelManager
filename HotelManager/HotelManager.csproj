@@ -85,6 +85,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Admin\InsertNewRoomForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Admin\InsertNewRoomForm.Designer.cs">
+      <DependentUpon>InsertNewRoomForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Admin\InsertStaffForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -113,6 +119,7 @@
     <Compile Include="DAO\ServiceDAO.cs" />
     <Compile Include="DAO\ServiceReservationByRoomDAO.cs" />
     <Compile Include="DAO\StaffDAO.cs" />
+    <Compile Include="Helper\SendMail.cs" />
     <Compile Include="Helper\Support.cs" />
     <Compile Include="Helper\Validation.cs" />
     <Compile Include="Hotel.cs">
@@ -141,6 +148,24 @@
     <Compile Include="NhanVien\NV.Designer.cs">
       <DependentUpon>NV.cs</DependentUpon>
     </Compile>
+    <Compile Include="NhanVien\UC_AccountSetting.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="NhanVien\UC_AccountSetting.Designer.cs">
+      <DependentUpon>UC_AccountSetting.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NhanVien\UC_Customer.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="NhanVien\UC_Customer.Designer.cs">
+      <DependentUpon>UC_Customer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NhanVien\UC_Facility.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="NhanVien\UC_Facility.Designer.cs">
+      <DependentUpon>UC_Facility.cs</DependentUpon>
+    </Compile>
     <Compile Include="NhanVien\UC_Reservation.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -153,8 +178,17 @@
     <Compile Include="NhanVien\UC_Room.Designer.cs">
       <DependentUpon>UC_Room.cs</DependentUpon>
     </Compile>
+    <Compile Include="NhanVien\UC_Service.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="NhanVien\UC_Service.Designer.cs">
+      <DependentUpon>UC_Service.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Admin\InsertNewRoomForm.resx">
+      <DependentUpon>InsertNewRoomForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Admin\InsertStaffForm.resx">
       <DependentUpon>InsertStaffForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -170,11 +204,23 @@
     <EmbeddedResource Include="NhanVien\NV.resx">
       <DependentUpon>NV.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="NhanVien\UC_AccountSetting.resx">
+      <DependentUpon>UC_AccountSetting.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NhanVien\UC_Customer.resx">
+      <DependentUpon>UC_Customer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NhanVien\UC_Facility.resx">
+      <DependentUpon>UC_Facility.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="NhanVien\UC_Reservation.resx">
       <DependentUpon>UC_Reservation.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="NhanVien\UC_Room.resx">
       <DependentUpon>UC_Room.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NhanVien\UC_Service.resx">
+      <DependentUpon>UC_Service.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

@@ -4,6 +4,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using HotelManager.DAO;
 
 namespace HotelManager.Controller
@@ -27,14 +28,14 @@ namespace HotelManager.Controller
             return CustomerDAO.GetCustomerById(cusId);
         }
 
-        public static bool UpdateStaff(string id, string hoTen, DateTime ngaySinh, string diaChi, string sdt, string cmnd)
+        public static bool InsertCustomer(string hoTen, DateTime ngaySinh, string email, string address, string sdt, string cmnd)
         {
-            return StaffDAO.UpdateStaff(id, hoTen, ngaySinh, diaChi, sdt, cmnd);
+            return CustomerDAO.InsertCustomer(hoTen, ngaySinh, email, address, sdt, cmnd);
         }
 
-        public static bool DeleteStaff(string userName)
+        public static bool UpdateCustomer(string id, string hoTen, DateTime ngaySinh, string email, string sdt, string cmnd)
         {
-            return StaffDAO.DeleteStaff(userName);
+            return CustomerDAO.UpdateCustomer(id, hoTen, ngaySinh, email, sdt, cmnd);
         }
 
         public static DataTable SearchStaffByName(string staffName)

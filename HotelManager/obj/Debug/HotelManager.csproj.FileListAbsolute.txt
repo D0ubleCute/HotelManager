@@ -18,3 +18,8 @@ D:\SUBJECTS\Môn CNPM\HotelManager\HotelManager\obj\Debug\HotelManager.csproj.Co
 D:\SUBJECTS\Môn CNPM\HotelManager\HotelManager\obj\Debug\HotelManager.NhanVien.UC_Reservation.resources
 D:\SUBJECTS\Môn CNPM\HotelManager\HotelManager\obj\Debug\HotelManager.NhanVien.UC_Room.resources
 D:\SUBJECTS\Môn CNPM\HotelManager\HotelManager\obj\Debug\HotelManager.NhanVien.CreateReservation.resources
+D:\SUBJECTS\Môn CNPM\HotelManager\HotelManager\obj\Debug\HotelManager.NhanVien.UC_AccountSetting.resources
+D:\SUBJECTS\Môn CNPM\HotelManager\HotelManager\obj\Debug\HotelManager.NhanVien.UC_Customer.resources
+D:\SUBJECTS\Môn CNPM\HotelManager\HotelManager\obj\Debug\HotelManager.NhanVien.UC_Facility.resources
+D:\SUBJECTS\Môn CNPM\HotelManager\HotelManager\obj\Debug\HotelManager.NhanVien.UC_Service.resources
+D:\SUBJECTS\Môn CNPM\HotelManager\HotelManager\obj\Debug\HotelManager.Admin.InsertNewRoomForm.resources

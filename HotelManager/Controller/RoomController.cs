@@ -18,8 +18,7 @@ namespace HotelManager.Controller
         }
 
         public static Room loadRoombyRoomNum(int roomNum) { 
-            Room room = RoomDAO.loadRoomByRoomNum(roomNum);
-            return room;
+            return RoomDAO.loadRoomByRoomNum(roomNum); ;
         }
 
         public static List<RoomFacility> getRoomFacility(int roomNum)
@@ -31,6 +30,15 @@ namespace HotelManager.Controller
         {
             return RoomDAO.loadRoomFacility(roomNum);   
         }
-        
+
+        public static bool InsertRoom(short roomNum, string roomName, string roomImage, short idType, string typeName, string idRateByType, short area)
+        {
+            return RoomDAO.InsertRoom(roomNum, roomName, roomImage, idType, typeName, idRateByType, area);
+        }
+
+        public static bool UpdateRoom(short roomNum, string roomName, string roomImage, short idType, string typeName, bool isOccupied, bool isClean, string idRateByType, short area)
+        {
+            return RoomDAO.UpdateRoom(roomNum, roomName, roomImage, idType, typeName, isOccupied, isClean, idRateByType, area);
+        }
     }
 }

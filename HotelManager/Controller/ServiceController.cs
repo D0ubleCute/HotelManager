@@ -16,6 +16,16 @@ namespace HotelManager.Controller
             return ServiceDAO.GetRoomService();
         }
 
+        public static List<RoomExtraCategory> GetRoomServiceCategory()
+        {
+            return ServiceDAO.GetRoomServiceCategory();
+        }
+
+        public static List<RoomExtra> GetRoomServiceByCategory(string idCategory)
+        {
+            return ServiceDAO.GetRoomServiceByCategory(idCategory);
+        }
+
         public static DataTable GetRoomServiceList()
         {
             return ServiceDAO.GetRoomServiceList();

@@ -18,7 +18,6 @@ namespace HotelManager.NhanVien
             LoadRoom();
 
             StaffID = idStaff;
-            Console.WriteLine(StaffID);
         }
 
         void LoadRoom()
@@ -29,21 +28,28 @@ namespace HotelManager.NhanVien
                 Button btn = new Button() { Width = RoomDAO.RoomBtnWidth, Height = RoomDAO.RoomBtnHeight };
                 btn.Click += Btn_Click;
                 btn.Tag = room;
-                btn.ForeColor = Color.WhiteSmoke;
-                switch (room.isOccupied)
+                if (!room.isOccupied && !room.isClean)
                 {
-                    case false:
-                        btn.BackColor = Color.AntiqueWhite;
-                        btn.ForeColor = Color.Salmon;
-                        btn.Font = new Font(btn.Font.FontFamily, 14);
-                        btn.Text = "Phòng " + room.roomNum + Environment.NewLine + "Trống";
-                        break;
-                    default:
-                        btn.BackColor = Color.Salmon;
-                        btn.ForeColor = Color.AntiqueWhite;
-                        btn.Font = new Font(btn.Font.FontFamily, 14);
-                        btn.Text = "Phòng " + room.roomNum + Environment.NewLine + "Đã đặt";
-                        break;
+                    btn.BackColor = Color.Chocolate;
+                    btn.ForeColor = Color.AntiqueWhite;
+                    btn.Font = new Font(btn.Font.FontFamily, 14);
+                    btn.Text = "Phòng " + room.roomNum + Environment.NewLine + "Đang sửa";
+
+                }
+                else if (!room.isOccupied)
+                {
+                    btn.BackColor = Color.AntiqueWhite;
+                    btn.ForeColor = Color.Salmon;
+                    btn.Font = new Font(btn.Font.FontFamily, 14);
+                    btn.Text = "Phòng " + room.roomNum + Environment.NewLine + "Trống";
+
+                }
+                else
+                {
+                    btn.BackColor = Color.Salmon;
+                    btn.ForeColor = Color.AntiqueWhite;
+                    btn.Font = new Font(btn.Font.FontFamily, 14);
+                    btn.Text = "Phòng " + room.roomNum + Environment.NewLine + "Đã đặt";
                 }
                 flowLayoutPanel1.Controls.Add(btn);
             }
@@ -80,6 +86,22 @@ namespace HotelManager.NhanVien
             }
         }
 
+        void CloseProcessingReservation(string idRes, short roomNum, short accomType,
+                                           DateTime checkIn, DateTime checkOutInit, DateTime? checkOutREAL, string paymentInfo)
+        {
+            bool result = ReservationController.CloseProcessingReservation(idRes, roomNum, accomType, checkIn, checkOutInit, checkOutREAL, 0, paymentInfo);
+
+            if (result)
+            {
+                MessageBox.Show("Đơn đặt phòng thanh toán thành công", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                LoadRoom();
+            }
+            else
+            {
+                MessageBox.Show("Đơn đặt phòng thanh toán thất bại", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
         void Btn_Click(object sender, EventArgs e)
         {
             int roomNum = ((sender as Button).Tag as Room).roomNum;
@@ -88,19 +110,21 @@ namespace HotelManager.NhanVien
 
         private void btnCreateReservation_Click(object sender, EventArgs e)
         {
-            if(txtRoomNum.Text == null || txtRoomNum.Text.Equals("")) {
+            if (txtRoomNum.Text == null || txtRoomNum.Text.Equals("")) {
                 MessageBox.Show("Hãy chọn 1 phòng", "Xác nhận");
-                LoadRoom();
                 return;
             } else
             {
                 Room room = RoomController.loadRoombyRoomNum(Convert.ToInt16(txtRoomNum.Text));
                 if (room.isOccupied)
                 {
-                    MessageBox.Show("Phòng đang được sử dụng, vui lòng chọn phòng khác", "Thông báo");
-                    LoadRoom();
+                    MessageBox.Show("Phòng đang được sử dụng, vui lòng chọn phòng khác", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return;
-                }              
+                }  else if (!room.isClean)
+                {
+                    MessageBox.Show("Phòng đang được sửa chữa, vui lòng chọn phòng khác", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }            
             }
 
             string roomNum = txtRoomNum.Text;
@@ -123,21 +147,38 @@ namespace HotelManager.NhanVien
                             cusPhone = string.Empty;
                         }
 
-                        AddReservation(Convert.ToInt16(txtRoomNum.Text), accoType, checkInDate, checkOutDate, cusPhone, StaffID);
+                        AddReservation(Convert.ToInt16(txtRoomNum.Text), accoType, checkInDate, checkOutDate, cus.id, StaffID);
+                        flowLayoutPanel1.Controls.Clear();
+                        LoadRoom();
                     }
                 }
-                LoadRoom(); 
             }
             else if (dialogResult == DialogResult.No)
             {
                 return;
             }
-            LoadRoom();
         }
 
         private void btnCheckout_Click(object sender, EventArgs e)
         {
 
+            if (txtRoomNum.Text.Equals("") || txtRoomNum.Text == null)
+            {
+                MessageBox.Show("Chưa có đơn đặt phòng để thanh toán", "Thông tin", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+            Reservation reservation = ReservationController.FindProcessingReservationByRoomNum(Convert.ToInt16(txtRoomNum.Text));
+
+            if (reservation == null)
+            {
+                MessageBox.Show("Chưa có đơn đặt phòng để thanh toán", "Thông tin", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            CloseProcessingReservation(reservation.idReservation, reservation.roomNum, reservation.accomodationType, reservation.checkinDate,
+                                        reservation.checkoutDate, reservation.checkoutDateREAL, "cash");
+            flowLayoutPanel1.Controls.Clear();
+            LoadRoom();
         }
     }
 }

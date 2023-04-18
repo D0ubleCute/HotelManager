@@ -323,6 +323,23 @@ namespace HotelManager.Helper
                 return false;
             }
         }
+
+        public static bool IsNumeric(this string text)
+        {
+            double test;
+            return double.TryParse(text, out test);
+        }
+
+
+        public static bool IsValidRoomNum(short roomNum)
+        {
+            if(roomNum < 100 || roomNum > 999)
+            {
+                return false;
+            }
+            return true;
+        }
+
         public static int GetQuarter(DateTime date)
         {
             if (date.Month >= 4 && date.Month <= 6)

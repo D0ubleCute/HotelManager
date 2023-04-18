@@ -1,4 +1,5 @@
-﻿using HotelManager.Helper;
+﻿using HotelManager.Controller;
+using HotelManager.Helper;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -10,6 +11,38 @@ namespace HotelManager.DAO
 {
     public class RevenueDAO
     {
+        public static decimal reservationPayCheck(string customerID, string staffID, int roomNum, string reservationID, DateTime fromDate)
+        {
+            decimal servicePayCheckSum = 0;
+            decimal reservationPayCheckSum = 0;
+            Customer customer = CustomerController.GetCustomerById(customerID);
+            Staff staff = StaffController.GetStaffById(staffID);
+
+            using (HotelDataContext db = new HotelDataContext())
+            {
+                var query = from res in db.Reservations
+                            where res.idReservation.Equals(reservationID) &&
+                            res.idCustomer.Equals(customerID) && res.roomNum == roomNum && res.checkinDate == fromDate
+                            select res;
+
+                foreach (var item in query)
+                {
+                    if (item.paymentStatus == true)
+                    {
+                        var query2 = db.USP_GetRoomExtraPriceByReservation(item.idReservation);
+
+                        foreach (var item2 in query2)
+                        {
+                            servicePayCheckSum += (item2.priceService * item2.serviceQty);
+                        }
+                        reservationPayCheckSum += item.totalPrice + servicePayCheckSum;
+                    }
+                }
+            }
+
+            return reservationPayCheckSum;
+        }
+
         public static DataTable GetRevenueByDate(DateTime fromDate, DateTime toDate)
         {
             DataTable dt = new DataTable();
@@ -27,7 +60,8 @@ namespace HotelManager.DAO
 
                 foreach (var item in query)
                 {
-                    dt.Rows.Add(item.roomNum, item.accomodationType, item.checkinDate, item.checkoutDate, item.totalPrice);
+                    decimal totalPrice = reservationPayCheck(item.idCustomer, item.idStaff, item.roomNum, item.idReservation, item.checkinDate);
+                    dt.Rows.Add(item.roomNum, item.accomodationType, item.checkinDate, item.checkoutDate, totalPrice);
                 }
             }
 
@@ -55,7 +89,8 @@ namespace HotelManager.DAO
 
                 foreach (var item in query)
                 {
-                    dt.Rows.Add(item.roomNum, item.accomodationType, item.checkinDate, item.checkoutDate, item.totalPrice);
+                    decimal totalPrice = reservationPayCheck(item.idCustomer, item.idStaff, item.roomNum, item.idReservation, item.checkinDate);
+                    dt.Rows.Add(item.roomNum, item.accomodationType, item.checkinDate, item.checkoutDate, totalPrice);
                 }
             }
 
@@ -100,7 +135,8 @@ namespace HotelManager.DAO
 
                 foreach (var item in query)
                 {
-                    dt.Rows.Add(item.roomNum, item.accomodationType, item.checkinDate, item.checkoutDate, item.totalPrice);
+                    decimal totalPrice = reservationPayCheck(item.idCustomer, item.idStaff, item.roomNum, item.idReservation, item.checkinDate);
+                    dt.Rows.Add(item.roomNum, item.accomodationType, item.checkinDate, item.checkoutDate, totalPrice);                
                 }
             }
 
@@ -127,7 +163,8 @@ namespace HotelManager.DAO
 
                 foreach (var item in query)
                 {
-                    dt.Rows.Add(item.roomNum, item.accomodationType, item.checkinDate, item.checkoutDate, item.totalPrice);
+                    decimal totalPrice = reservationPayCheck(item.idCustomer, item.idStaff, item.roomNum, item.idReservation, item.checkinDate);
+                    dt.Rows.Add(item.roomNum, item.accomodationType, item.checkinDate, item.checkoutDate, totalPrice);
                 }
             }
 

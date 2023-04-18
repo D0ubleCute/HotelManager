@@ -8,6 +8,7 @@ using HotelManager.Controller;
 using HotelManager.Helper;
 using Button = System.Windows.Forms.Button;
 using System.Globalization;
+using HotelManager.NhanVien;
 
 namespace HotelManager.Admin
 {
@@ -364,18 +365,27 @@ namespace HotelManager.Admin
                 Button btn = new Button() { Width = RoomDAO.RoomBtnWidth, Height = RoomDAO.RoomBtnHeight };
                 btn.Click += Btn_Click;
                 btn.Tag = room;
-                switch (room.isOccupied)
+                if (!room.isOccupied && !room.isClean)
                 {
-                    case false:
-                        btn.BackColor = Color.Aqua;
-                        btn.Font = new Font(btn.Font.FontFamily, 14);
-                        btn.Text = "Phòng " + room.roomNum + Environment.NewLine + "Trống";
-                        break;
-                    default:
-                        btn.BackColor = Color.AntiqueWhite;
-                        btn.Font = new Font(btn.Font.FontFamily, 14);
-                        btn.Text = "Phòng " + room.roomNum + Environment.NewLine + "Đã đặt";
-                        break;
+                    btn.BackColor = Color.Chocolate;
+                    btn.ForeColor = Color.AntiqueWhite;
+                    btn.Font = new Font(btn.Font.FontFamily, 14);
+                    btn.Text = "Phòng " + room.roomNum + Environment.NewLine + "Đang sửa";
+                }
+                else if (!room.isOccupied)
+                {
+                    btn.BackColor = Color.AntiqueWhite;
+                    btn.ForeColor = Color.Salmon;
+                    btn.Font = new Font(btn.Font.FontFamily, 14);
+                    btn.Text = "Phòng " + room.roomNum + Environment.NewLine + "Trống";
+
+                }
+                else {
+                    btn.BackColor = Color.Salmon;
+                    btn.ForeColor = Color.AntiqueWhite;
+                    btn.Font = new Font(btn.Font.FontFamily, 14);
+                    btn.Text = "Phòng " + room.roomNum + Environment.NewLine + "Đã đặt";
+
                 }
                 flowLayoutPanel1.Controls.Add(btn);
             }
@@ -383,25 +393,100 @@ namespace HotelManager.Admin
 
         void showRoomInfo(int roomNum)
         {
+            txtRoomNum.ReadOnly= true;
+
             Room room = RoomController.loadRoombyRoomNum(roomNum);
             string roomFacility = RoomController.loadRoomFacility(roomNum);
 
             txtRoomNum.Text = room.roomNum.ToString();
             txtRoomName.Text = room.roomName.ToString();
             txtRoomType.Text = room.typeName.ToString();
-            txtRoomArea.Text = room.area.ToString() + " m2";
+            txtRoomArea.Text = room.area.ToString();
 
             lbRoomFacility.Visible = true;
             lbRoomFacility.Font = new Font("Segoe UI", 11, FontStyle.Bold);
             lbRoomFacility.Text = roomFacility;
         }
 
+        void UpdateRoom(short roomNum, string roomName, string roomImage, short idType, string typeName, bool isOccupied, bool isClean, string idRateByType, short area)
+        {
+            RoomController.UpdateRoom(roomNum, roomName, roomImage, idType, typeName, isOccupied, isClean, idRateByType, area);
+        }
+
         void Btn_Click(object sender, EventArgs e)
         {
             int roomNum = ((sender as Button).Tag as Room).roomNum;
+            Room room = RoomController.loadRoombyRoomNum(roomNum);
+            if (room.isClean)
+                btnSaveRoomInfo.Enabled = false;
+            else 
+                btnSaveRoomInfo.Enabled = true;
             showRoomInfo(roomNum);
         }
 
+        private void btnFixRoom_Click(object sender, EventArgs e)
+        {
+            flowLayoutPanel1.Controls.Clear();
+
+            short roomNum = Convert.ToInt16(txtRoomNum.Text);
+
+            Room room = RoomController.loadRoombyRoomNum(roomNum);
+
+            if (room.isClean)
+            {
+                UpdateRoom(roomNum, room.roomName, room.roomImage, room.idType, room.typeName, false, false, room.idRateByType, room.area);
+            } else if (!room.isClean)
+            {           
+                UpdateRoom(roomNum, room.roomName, room.roomImage, room.idType, room.typeName, false, true, room.idRateByType, room.area);
+            }
+            LoadRoom();
+        }
+
+        private void btnAddFacility_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnSaveRoomInfo_Click(object sender, EventArgs e)
+        {
+            flowLayoutPanel1.Controls.Clear();
+
+            short roomNum = Convert.ToInt16(txtRoomNum.Text);
+
+            Room room = RoomController.loadRoombyRoomNum(roomNum);
+
+            if (!room.isClean)
+            {
+                room.roomName = txtRoomName.Text;
+                room.typeName = txtRoomType.Text;
+                room.area = Convert.ToInt16(txtRoomArea.Text);
+                UpdateRoom(roomNum, room.roomName, room.roomImage, room.idType, room.typeName, false, true, room.idRateByType, room.area);
+            }
+            LoadRoom();
+            btnSaveRoomInfo.Enabled = false;
+        }
+
+        private void btnInsertNewRoom_Click(object sender, EventArgs e)
+        {
+           
+            DialogResult dialogResult = MessageBox.Show("Bạn muốn tạo phòng mới?", "Xác nhận", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
+            {
+                using (var form = new InsertNewRoomForm())
+                {
+                    var result = form.ShowDialog();
+                    if (result == DialogResult.OK)
+                    {                    
+                        flowLayoutPanel1.Controls.Clear();
+                        LoadRoom();
+                    }
+                }
+            }
+            else if (dialogResult == DialogResult.No)
+            {
+                return;
+            }
+        }
 
         //----------end room module----------
 
@@ -576,5 +661,6 @@ namespace HotelManager.Admin
         {
             LoadRevenueByQuarter(dtpFromDate.Value);
         }
+
     }
 }

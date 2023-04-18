@@ -91,6 +91,8 @@
             this.tpFacility = new System.Windows.Forms.TabPage();
             this.tabControlForFacility = new Guna.UI2.WinForms.Guna2TabControl();
             this.tpRoomInfo = new System.Windows.Forms.TabPage();
+            this.btnSaveRoomInfo = new Guna.UI2.WinForms.Guna2Button();
+            this.label20 = new System.Windows.Forms.Label();
             this.btnFixRoom = new Guna.UI2.WinForms.Guna2Button();
             this.btnAddFacility = new Guna.UI2.WinForms.Guna2Button();
             this.txtRoomArea = new System.Windows.Forms.TextBox();
@@ -114,6 +116,8 @@
             this.label14 = new System.Windows.Forms.Label();
             this.guna2TabControl1 = new Guna.UI2.WinForms.Guna2TabControl();
             this.tpRoomReservation = new System.Windows.Forms.TabPage();
+            this.txtResTotalPrice = new System.Windows.Forms.TextBox();
+            this.label15 = new System.Windows.Forms.Label();
             this.txtStaffOrder = new System.Windows.Forms.TextBox();
             this.label = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
@@ -143,13 +147,12 @@
             this.btnCustomer = new System.Windows.Forms.Button();
             this.btnStaff = new System.Windows.Forms.Button();
             this.btnRevenue = new System.Windows.Forms.Button();
+            this.btnInsertNewRoom = new Guna.UI2.WinForms.Guna2Button();
             this.btnExcelOutput = new Guna.UI2.WinForms.Guna2Button();
             this.picStaff = new System.Windows.Forms.PictureBox();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.btnReservationSort = new System.Windows.Forms.Button();
             this.picUser = new System.Windows.Forms.PictureBox();
-            this.txtResTotalPrice = new System.Windows.Forms.TextBox();
-            this.label15 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tpRevenue.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGVRevenue)).BeginInit();
@@ -212,7 +215,6 @@
             this.tpRevenue.TabIndex = 0;
             this.tpRevenue.Text = "Doanh thu";
             this.tpRevenue.UseVisualStyleBackColor = true;
-            this.tpRevenue.Enter += new System.EventHandler(this.tpRevenue_Enter);
             // 
             // btnRevenueByQuarter
             // 
@@ -894,6 +896,7 @@
             // 
             // tpFacility
             // 
+            this.tpFacility.Controls.Add(this.btnInsertNewRoom);
             this.tpFacility.Controls.Add(this.tabControlForFacility);
             this.tpFacility.Controls.Add(this.flowLayoutPanel1);
             this.tpFacility.Location = new System.Drawing.Point(4, 22);
@@ -937,6 +940,8 @@
             // tpRoomInfo
             // 
             this.tpRoomInfo.BackColor = System.Drawing.Color.SeaShell;
+            this.tpRoomInfo.Controls.Add(this.btnSaveRoomInfo);
+            this.tpRoomInfo.Controls.Add(this.label20);
             this.tpRoomInfo.Controls.Add(this.btnFixRoom);
             this.tpRoomInfo.Controls.Add(this.btnAddFacility);
             this.tpRoomInfo.Controls.Add(this.txtRoomArea);
@@ -949,6 +954,7 @@
             this.tpRoomInfo.Controls.Add(this.label5);
             this.tpRoomInfo.Controls.Add(this.label7);
             this.tpRoomInfo.Controls.Add(this.label6);
+            this.tpRoomInfo.Cursor = System.Windows.Forms.Cursors.Default;
             this.tpRoomInfo.ForeColor = System.Drawing.Color.IndianRed;
             this.tpRoomInfo.Location = new System.Drawing.Point(4, 39);
             this.tpRoomInfo.Name = "tpRoomInfo";
@@ -956,6 +962,33 @@
             this.tpRoomInfo.Size = new System.Drawing.Size(404, 441);
             this.tpRoomInfo.TabIndex = 0;
             this.tpRoomInfo.Text = "Thông tin phòng";
+            // 
+            // btnSaveRoomInfo
+            // 
+            this.btnSaveRoomInfo.BorderRadius = 20;
+            this.btnSaveRoomInfo.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnSaveRoomInfo.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnSaveRoomInfo.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnSaveRoomInfo.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnSaveRoomInfo.FillColor = System.Drawing.Color.LightCoral;
+            this.btnSaveRoomInfo.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSaveRoomInfo.ForeColor = System.Drawing.Color.White;
+            this.btnSaveRoomInfo.Location = new System.Drawing.Point(138, 380);
+            this.btnSaveRoomInfo.Name = "btnSaveRoomInfo";
+            this.btnSaveRoomInfo.Size = new System.Drawing.Size(133, 45);
+            this.btnSaveRoomInfo.TabIndex = 35;
+            this.btnSaveRoomInfo.Text = "Lưu";
+            this.btnSaveRoomInfo.Click += new System.EventHandler(this.btnSaveRoomInfo_Click);
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Font = new System.Drawing.Font("Segoe UI Semibold", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label20.Location = new System.Drawing.Point(306, 206);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(40, 25);
+            this.label20.TabIndex = 34;
+            this.label20.Text = "m2";
             // 
             // btnFixRoom
             // 
@@ -967,11 +1000,12 @@
             this.btnFixRoom.FillColor = System.Drawing.Color.LightCoral;
             this.btnFixRoom.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnFixRoom.ForeColor = System.Drawing.Color.White;
-            this.btnFixRoom.Location = new System.Drawing.Point(16, 380);
+            this.btnFixRoom.Location = new System.Drawing.Point(6, 380);
             this.btnFixRoom.Name = "btnFixRoom";
-            this.btnFixRoom.Size = new System.Drawing.Size(172, 45);
+            this.btnFixRoom.Size = new System.Drawing.Size(126, 45);
             this.btnFixRoom.TabIndex = 33;
             this.btnFixRoom.Text = "Sửa phòng";
+            this.btnFixRoom.Click += new System.EventHandler(this.btnFixRoom_Click);
             // 
             // btnAddFacility
             // 
@@ -983,18 +1017,19 @@
             this.btnAddFacility.FillColor = System.Drawing.Color.LightCoral;
             this.btnAddFacility.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAddFacility.ForeColor = System.Drawing.Color.White;
-            this.btnAddFacility.Location = new System.Drawing.Point(209, 380);
+            this.btnAddFacility.Location = new System.Drawing.Point(277, 380);
             this.btnAddFacility.Name = "btnAddFacility";
-            this.btnAddFacility.Size = new System.Drawing.Size(168, 45);
+            this.btnAddFacility.Size = new System.Drawing.Size(121, 45);
             this.btnAddFacility.TabIndex = 32;
             this.btnAddFacility.Text = "Thêm CSVC";
+            this.btnAddFacility.Click += new System.EventHandler(this.btnAddFacility_Click);
             // 
             // txtRoomArea
             // 
             this.txtRoomArea.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtRoomArea.Location = new System.Drawing.Point(118, 206);
             this.txtRoomArea.Name = "txtRoomArea";
-            this.txtRoomArea.Size = new System.Drawing.Size(259, 29);
+            this.txtRoomArea.Size = new System.Drawing.Size(181, 29);
             this.txtRoomArea.TabIndex = 31;
             // 
             // label3
@@ -1264,6 +1299,25 @@
             this.tpRoomReservation.TabIndex = 0;
             this.tpRoomReservation.Text = "Đặt phòng";
             this.tpRoomReservation.UseVisualStyleBackColor = true;
+            // 
+            // txtResTotalPrice
+            // 
+            this.txtResTotalPrice.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtResTotalPrice.Location = new System.Drawing.Point(149, 364);
+            this.txtResTotalPrice.Name = "txtResTotalPrice";
+            this.txtResTotalPrice.Size = new System.Drawing.Size(234, 35);
+            this.txtResTotalPrice.TabIndex = 42;
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label15.ForeColor = System.Drawing.Color.Salmon;
+            this.label15.Location = new System.Drawing.Point(16, 367);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(114, 30);
+            this.label15.TabIndex = 41;
+            this.label15.Text = "Tổng tiền:";
             // 
             // txtStaffOrder
             // 
@@ -1556,6 +1610,23 @@
             this.btnRevenue.MouseLeave += new System.EventHandler(this.btnRevenue_MouseLeave);
             this.btnRevenue.MouseHover += new System.EventHandler(this.btnRevenue_MouseHover);
             // 
+            // btnInsertNewRoom
+            // 
+            this.btnInsertNewRoom.BorderRadius = 20;
+            this.btnInsertNewRoom.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnInsertNewRoom.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnInsertNewRoom.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnInsertNewRoom.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnInsertNewRoom.FillColor = System.Drawing.Color.LightCoral;
+            this.btnInsertNewRoom.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnInsertNewRoom.ForeColor = System.Drawing.Color.White;
+            this.btnInsertNewRoom.Location = new System.Drawing.Point(3, 3);
+            this.btnInsertNewRoom.Name = "btnInsertNewRoom";
+            this.btnInsertNewRoom.Size = new System.Drawing.Size(529, 33);
+            this.btnInsertNewRoom.TabIndex = 34;
+            this.btnInsertNewRoom.Text = "Thêm phòng mới";
+            this.btnInsertNewRoom.Click += new System.EventHandler(this.btnInsertNewRoom_Click);
+            // 
             // btnExcelOutput
             // 
             this.btnExcelOutput.BorderRadius = 20;
@@ -1587,9 +1658,9 @@
             this.flowLayoutPanel1.AutoScroll = true;
             this.flowLayoutPanel1.BackgroundImage = global::HotelManager.Properties.Resources.logo_transparent;
             this.flowLayoutPanel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 3);
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 42);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(529, 478);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(529, 439);
             this.flowLayoutPanel1.TabIndex = 0;
             // 
             // btnReservationSort
@@ -1615,25 +1686,6 @@
             this.picUser.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.picUser.TabIndex = 6;
             this.picUser.TabStop = false;
-            // 
-            // txtResTotalPrice
-            // 
-            this.txtResTotalPrice.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtResTotalPrice.Location = new System.Drawing.Point(149, 364);
-            this.txtResTotalPrice.Name = "txtResTotalPrice";
-            this.txtResTotalPrice.Size = new System.Drawing.Size(234, 35);
-            this.txtResTotalPrice.TabIndex = 42;
-            // 
-            // label15
-            // 
-            this.label15.AutoSize = true;
-            this.label15.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label15.ForeColor = System.Drawing.Color.Salmon;
-            this.label15.Location = new System.Drawing.Point(16, 367);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(114, 30);
-            this.label15.TabIndex = 41;
-            this.label15.Text = "Tổng tiền:";
             // 
             // QuanLy
             // 
@@ -1805,5 +1857,8 @@
         private Guna.UI2.WinForms.Guna2Button btnAddRoomThing;
         private System.Windows.Forms.TextBox txtResTotalPrice;
         private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.Label label20;
+        private Guna.UI2.WinForms.Guna2Button btnSaveRoomInfo;
+        private Guna.UI2.WinForms.Guna2Button btnInsertNewRoom;
     }
 }

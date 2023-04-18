@@ -60,8 +60,8 @@ create table ThanhVien (
 	FOREIGN KEY (idCustomer) REFERENCES Customer(id),
 )
 
-insert into ThanhVien values ('0933411234', 235, N'Thường', '001')
-insert into ThanhVien values ('0933411568', 120, N'Thường', '002')
+insert into ThanhVien values ('0933411234', 235, N'Normal', '001')
+insert into ThanhVien values ('0933411568', 120, N'Normal', '002')
 
 create table Janitor (
 	idJanitor varchar(20) not null primary key,
@@ -99,7 +99,7 @@ create table Room (
 	roomNum smallint not null primary key,
 	roomName nvarchar(60) not null,
 	roomImage varchar(255) null,
-	idType varchar(20) not null,
+	idType smallint not null,
 	typeName nvarchar(60) not null,
 	isClean bit not null,
 	isOccupied bit not null,	
@@ -162,42 +162,58 @@ insert into RoomPrice values
 
 select * from RoomPrice
 
-
 create table RoomExtra (
 	idService varchar(20) not null primary key,
+	idCategory varchar(20) not null,
 	nameService nvarchar(60) not null,
 	priceService int not null,
+	FOREIGN KEY (idCategory) REFERENCES RoomExtraCategory(idCategory),
 )
 
+create table RoomExtraCategory(
+	idCategory varchar(20) not null primary key,
+	nameCategory nvarchar(100) not null
+)
+
+insert into RoomExtraCategory values ('massage', N'Massage')
+insert into RoomExtraCategory values ('breakfast', N'Bữa sáng tại phòng')
+insert into RoomExtraCategory values ('breakfast-bf', N'Bữa sáng Buffet')
+insert into RoomExtraCategory values ('deco', N'Trang trí')
+insert into RoomExtraCategory values ('spa', N'Spa trị liệu')
+insert into RoomExtraCategory values ('bartender', N'Bartender tại phòng VIP')
+
+
 insert into RoomExtra values 
-('massage-01', N'Massage thư giãn, chỉnh đốt sống', 200000),
-('massage-02', N'Massage thư giãn, chỉnh đốt sống, đắp than', 280000),
-('BF-01', N'Bữa sáng tại giường SET 1', 80000),
-('BF-02', N'Bữa sáng tại giường SET 2', 180000),
-('BF-03', N'Bữa sáng tại giường SET 3', 260000)
-insert into RoomExtra values('YEAH-1', N'Trang trí theo chủ đề SET 1', 300000)
-insert into RoomExtra values('YEAH-2', N'Trang trí theo chủ đề SET 2', 460000)
-insert into RoomExtra values('BAR', N'Bartender phục vụ', 810000)
+('massage-01', 'massage', N'Massage thư giãn, chỉnh đốt sống', 200000),
+('massage-02', 'massage', N'Massage thư giãn, chỉnh đốt sống, đắp than', 280000),
+('BF-01', 'breakfast', N'Bữa sáng tại phòng SET 1', 80000),
+('BF-02', 'breakfast', N'Bữa sáng tại phòng SET 2', 180000),
+('BF-03', 'breakfast', N'Bữa sáng tại phòng SET 3', 260000)
+insert into RoomExtra values('BF-BF', 'breakfast-bf', N'Buffet bữa sáng tại nhà hàng', 180000)
+insert into RoomExtra values('Deco-1', 'deco', N'Trang trí theo chủ đề SET 1', 300000)
+insert into RoomExtra values('Deco-2', 'deco', N'Trang trí theo chủ đề SET 2', 460000)
+insert into RoomExtra values('BARTENDER', 'bartender', N'Bartender phục vụ', 810000)
+insert into RoomExtra values('SPA-1', 'spa', N'Spa trị liệu Combo 1', 300000)
+insert into RoomExtra values('SPA-2', 'spa', N'Spa trị liệu Combo 2', 420000)
 
 
-select * from RoomExtra
-
+drop table RoomExtraByRoom
 create table RoomExtraByRoom (
-	idServiceIm varchar(20) not null primary key,
+	idServiceIm int not null primary key identity(1,1),
 	idService varchar(20) not null,
 	roomNum smallint not null,
+	serviceQty smallint not null,
 	idReservation varchar(20) not null,
 	FOREIGN KEY (idService) REFERENCES RoomExtra(idService),
-	FOREIGN KEY (roomNum) REFERENCES Room(roomNum),
 	FOREIGN KEY (idReservation) REFERENCES Reservation(idReservation)
 )
 
 insert into RoomExtraByRoom values 
-('Ser-001', 'massage-01', 101, 'Res-001')
+( 'massage-01', 101, 1, 'Res-001')
 insert into RoomExtraByRoom values 
-('Ser-002', 'massage-01', 201, 'Res-002')
+( 'massage-01', 102, 1, 'Res-002')
 insert into RoomExtraByRoom values 
-('Ser-003', 'BF-01', 201, 'Res-002')
+('BF-01', 102, 1, 'Res-002')
 
 select * from RoomExtraByRoom
 
@@ -253,58 +269,73 @@ create table Reservation (
 	accomodationType smallint not null,
 	--1 = hour, 2=night, 3=day
 	checkinDate datetime not null,
-	checkoutDate datetime null,
+	checkoutDate datetime not null,
+	checkoutDateREAL datetime,
 	idCustomer varchar(20) null,
 	idStaff varchar(20) not null,
 	totalPrice decimal(18,0) not null,
 	paymentStatus bit not null,
 	-- 0= processing, 1=complete
 	paymentInfo varchar(20) null,
-	checkoutDateInit datetime,
 	FOREIGN KEY (roomNum) REFERENCES Room(roomNum),
 	FOREIGN KEY (idCustomer) REFERENCES Customer(id),
 	FOREIGN KEY (idStaff) REFERENCES Staff(id),
 )
 
+drop table Reservation
+
 insert into Reservation values 
-('Res-001', 101, 1, '2023-03-24 09:00:00', '2023-03-24 14:00:00', '001', '001', DBO.CalculateTotalByHour(101, '2023-03-24 09:00:00', '2023-03-24 14:00:00'), 1, ''),
-('Res-002', 201, 2, '2023-03-24 22:00:00', '2023-03-25 12:00:00', '001', '001', DBO.CalculateTotalByHour(201, '2023-03-24 22:00:00', '2023-03-25 12:00:00'), 1, '')
+('Res-001', 101, 1, '2023-03-24 09:00:00', '2023-03-24 14:00:00', '2023-03-24 14:00:00', '001', '001', DBO.CalculateTotalByHour(101, '2023-03-24 09:00:00', '2023-03-24 14:00:00'), 1, 'cash'),
+('Res-002', 201, 2, '2023-03-24 22:00:00', '2023-03-25 12:00:00', '2023-03-24 14:00:00', '001', '001', DBO.CalculateTotalByHour(201, '2023-03-24 22:00:00', '2023-03-25 12:00:00'), 1, 'cash')
 
-insert into Reservation values ('Res-003', 301, 2, '2023-03-24 22:30:00', null, '001', '001', 930000, 0, '')
-insert into Reservation values('Res-004', 302, 2, '2023-03-26 22:30:00', null, '001', '001', 930000, 0, '')
+insert into Reservation values(DBO.AUTO_idReservation('2023-01-26 10:00:00'), 302, 1, '2023-01-26 10:00:00', '2023-01-26 14:00:00', '2023-01-26 14:00:00', '001', '001', DBO.CalculateTotalByHour(302, '2023-01-26 10:00:00', '2023-01-26 14:00:00'), 1, 'cash')
 
-insert into Reservation values(DBO.AUTO_idReservation('2023-01-26 10:00:00'), 302, 1, '2023-01-26 10:00:00', '2023-01-26 14:00:00', '001', '001', DBO.CalculateTotalByHour(302, '2023-01-26 10:00:00', '2023-01-26 14:00:00'), 1, 'cash')
+insert into Reservation values(DBO.AUTO_idReservation('2022-12-24 22:00:00'), 202, 2, '2022-12-24 22:00:00', '2022-12-25 10:00:00', '2022-12-25 10:00:00', '001', '001', DBO.CalculateTotalByHour(202, '2022-12-24 22:00:00', '2022-12-25 10:00:00'), 1, 'cash')
 
-insert into Reservation values(DBO.AUTO_idReservation('2022-12-24 22:00:00'), 202, 2, '2022-12-24 22:00:00', '2022-12-25 10:00:00', '001', '001', DBO.CalculateTotalByHour(202, '2022-12-24 22:00:00', '2022-12-25 10:00:00'), 1, 'cash')
+insert into Reservation values(DBO.AUTO_idReservation('2022-11-26 10:00:00'), 203, 3, '2023-01-26 14:00:00', '2023-01-29 12:00:00', '2023-01-29 12:00:00', '001', '001', DBO.CalculateTotalByHour(203, '2023-01-26 14:00:00', '2023-01-29 12:00:00'), 1, 'cash')
 
-insert into Reservation values(DBO.AUTO_idReservation('2022-11-26 10:00:00'), 203, 3, '2023-01-26 14:00:00', '2023-01-29 12:00:00', '001', '001', DBO.CalculateTotalByHour(203, '2023-01-26 14:00:00', '2023-01-29 12:00:00'), 1, 'cash')
+insert into Reservation values(DBO.AUTO_idReservation('2023-02-14 19:00:00'), 102, 1, '2023-02-14 19:00:00', '2023-02-14 23:00:00', '2023-02-14 23:00:00', '001', '001', DBO.CalculateTotalByHour(102, '2023-02-14 19:00:00', '2023-02-14 23:00:00'), 1, 'cash')
 
-insert into Reservation values(DBO.AUTO_idReservation('2023-02-14 19:00:00'), 102, 1, '2023-02-14 19:00:00', '2023-02-14 23:00:00', '001', '001', DBO.CalculateTotalByHour(102, '2023-02-14 19:00:00', '2023-02-14 23:00:00'), 1, 'cash')
+insert into Reservation values(DBO.AUTO_idReservation('2023-02-16 19:00:00'), 102, 1, '2023-02-16 19:00:00', '2023-02-16 22:00:00', '2023-02-16 22:00:00', '001', '001', DBO.CalculateTotalByHour(102, '2023-02-16 19:00:00', '2023-02-16 22:00:00'), 1, 'cash')
 
 
 select * from Room
 drop table Reservation
-select * from Reservation
+select * from Staff
 
 ------------------------------FUNCTION------------------------------
---TINH TIEN PHONG GIO
+--TINH TIEN PHONG GIO-- chuaaa
 create or alter function DBO.CalculateTotalByHour(@roomNum smallint, @checkinDate datetime, @checkoutDate datetime)
 Returns decimal(10,3)
 as
 begin
-	DECLARE @IDRate VARCHAR(20), @total decimal(10,3)
+	DECLARE @IDRate VARCHAR(20), @total decimal(10,3), @initCheckoutDate datetime, @extendHour smallint
+
+	select @initCheckoutDate = dateadd(HOUR, 1, @checkinDate)
+
 	select @IDRate = (select idRateByType from Room where roomNum = @roomNum)
 
-	if DATEPART(minute, @checkoutDate) >= 5
-		select @checkoutDate = Dateadd(hour, 1, @checkoutDate)
+	select @total = (select RoomPrice.baseForHour from RoomPrice where idRateByType = @IDRate)
 
-	Select @total = (select (RoomPrice.baseForHour + RoomPrice.rateForHour*(DATEDIFF(hh, @checkinDate, @checkoutDate))) 
+	if @checkoutDate > @initCheckoutDate 
+		if (DATEPART(minute, @checkoutDate) - DATEPART(minute, @initCheckoutDate) < 5) 
+			Select @total = (select (@total + RoomPrice.rateForHour*(DATEDIFF(hh, @initCheckoutDate, @checkoutDate))) 
 							from RoomPrice where idRateByType = @IDRate)
+
+		else if (DATEPART(minute, @checkoutDate) - DATEPART(minute, @initCheckoutDate) >=5 )
+			Select @total = (select (@total + RoomPrice.rateForHour*(DATEDIFF(hh, @initCheckoutDate, @checkoutDate) + 1)) 
+							from RoomPrice where idRateByType = @IDRate)
+
+	if (@checkinDate > @checkoutDate)
+		if (DATEDIFF(hh, @checkinDate, @checkoutDate) <= -1)
+			select @total = 0
+		else 
+			select @total = @total
 	return @total
 end
 go
 
-print DBO.CalculateTotalByHour(101, '2022-12-24 09:00:00', '2022-12-24 11:32:00')
+print DBO.CalculateTotalByHour(103, '2023-04-16 13:21:53.250' , '2023-04-16 15:26:53.320')
 
 --TINH TIEN PHONG DEM
 create or alter function DBO.CalculateTotalByNight(@roomNum smallint, @checkinDate datetime, @checkoutDate datetime)
@@ -319,7 +350,7 @@ begin
 
 	select @total = (select RoomPrice.baseForNight from RoomPrice where idRateByType = @IDRate)
 
-	if @checkoutDate > @initCheckoutDate
+	if (@checkoutDate > @initCheckoutDate)
 		if DATEPART(minute, @checkoutDate) < 5 
 			Select @total = (select (@total + RoomPrice.rateForHour*(DATEDIFF(hh, @initCheckoutDate, @checkoutDate))) 
 							from RoomPrice where idRateByType = @IDRate)
@@ -327,18 +358,19 @@ begin
 		else if DATEPART(minute, @checkoutDate) >= 5 
 			Select @total = (select (@total + RoomPrice.rateForHour*(DATEDIFF(hh, @initCheckoutDate, @checkoutDate) + 1)) 
 							from RoomPrice where idRateByType = @IDRate)
+
+	if (@checkinDate > @checkoutDate)
+		if (DATEDIFF(hh, @checkinDate, @checkoutDate) <= -1)
+			select @total = 0
+		else 
+			select @total = @total
 	return @total
 end
 go
 select * from RoomPrice
-print DBO.CalculateTotalByNight(101, '2022-12-24 22:00:00', '2022-12-25 15:10:00')
+print DBO.CalculateTotalByNight(101, '2022-12-24 22:00:00', '2022-12-24 15:10:00')
+
 select * from RoomPrice
-
-declare @num_hours int; 
-    set @num_hours = 18; 
-
-select dateadd(HOUR, @num_hours, getdate()) as time_added, 
-       getdate() as curr_date 
 
 --TINH TIEN PHONG NGAY --chua hoan thien
 create or alter function DBO.CalculateTotalByDay(@roomNum smallint, @checkinDate datetime, @checkoutDate datetime)
@@ -361,6 +393,12 @@ begin
 		else if DATEPART(minute, @checkoutDate) >= 5 
 			Select @total = (select (@total + RoomPrice.rateForHour*(DATEDIFF(hh, @initCheckoutDate, @checkoutDate) + 1)) 
 							from RoomPrice where idRateByType = @IDRate)
+
+	if (@checkinDate > @checkoutDate)
+		if (DATEDIFF(hh, @checkinDate, @checkoutDate) <= -1)
+			select @total = 0
+		else 
+			select @total = @total
 	return @total
 end
 go
@@ -377,6 +415,8 @@ BEGIN
 	SET @CUSTOM_ID = REPLACE(CONVERT(VARCHAR(20), @createdAt, 103), '/', '')
 	RETURN @CUSTOM_ID + '#' + REPLICATE('0', 2) + CAST(@COUNT + 1 AS VARCHAR(5))
 END
+
+
 
 --2. idStaff
 CREATE OR ALTER FUNCTION DBO.AUTO_idStaff(@dob DATE)
@@ -451,14 +491,15 @@ as
 		UPDATE Account SET attempts = 0 where userName = @username
 go
 
---1 PROC List Staff
+--2. PROC NHANVIEN
+--2.1 PROC List Staff
 create or alter proc USP_GetStaff
 as
 	select *, Account.isLocked from Staff, Account where Staff.userName = Account.userName
 go
 
 select * from staff
---1. PROC Them NV
+--2.2 PROC Them NV
 CREATE or alter proc USP_InsertStaff 
 	@fullname nvarchar(60),
 	@dob date,
@@ -470,8 +511,7 @@ AS
 	insert into Staff values (DBO.AUTO_idStaff(@dob), @fullname, @dob, @address, @phone, @cmnd, '', @cmnd)
 go
 
---2. PROC NHANVIEN
---2.1 PROC Tim NV
+--2.3 PROC Tim NV
 CREATE proc USP_SearchStaff 
 	@name nvarchar(60)
 as
@@ -479,12 +519,27 @@ as
 go
 
 ----------------------------------------------------------------------------------
---3. PROC Load Room
+--3. PROC ROOM
+--3.1 Load Room
 CREATE or alter proc USP_GetRoom
 as
 	select * from room
 go
 
+--3.2 Proc Insert Room
+CREATE or alter proc USP_InsertRoom
+	@roomNum smallint,
+	@roomName nvarchar(60),
+	@roomImage varchar(max),
+	@idType smallint,
+	@typeName nvarchar(60),
+	@idRateByType varchar(20),
+	@area smallint
+as
+	insert into room values (@roomNum, @roomName, @roomImage, @idType, @typeName, 1, 0, @idRateByType, @area)
+go
+
+select * from room
 ----------------------------------------------------------------------------------
 --4. PROC DOANH THU
 --4.1 Lay doanhthu theo ngay
@@ -508,9 +563,52 @@ go
 create or alter proc USP_GetRoomExtraPriceByReservation
 	@idReservation varchar(20)
 as
-	select rb.idServiceIm, rb.idService, rb.roomNum, rb.idReservation, ex.nameService, ex.priceService 
+	select rb.idServiceIm, rb.idService, rb.roomNum, rb.idReservation, ex.nameService, ex.priceService, rb.serviceQty, rb.serviceQty*ex.priceService as 'Tong tien'
 	from RoomExtraByRoom rB, RoomExtra ex where rB.idReservation = @idReservation and rB.idService = ex.idService
 go
+
+exec USP_GetRoomExtraPriceByReservation '17042023#007'
+select * from RoomExtraByRoom
+
+
+exec USP_GetRoomExtraPriceByReservation '17042023#001'
+
+--5.2 Them serviceInfo vao res
+create or alter proc USP_InsertServiceInfo
+	@idService varchar(20),
+	@roomNum smallint,
+	@qty smallint,
+	@idReservation varchar(20)
+as
+begin
+	declare @isExistService smallint
+	declare @serviceCount smallint = 1
+
+	select @isExistService = idServiceIm, @serviceCount = rb.serviceQty from dbo.RoomExtraByRoom as rb where idReservation = @idReservation and idService = @idService
+	if (@isExistService > 0)
+		begin
+			declare @newCount smallint = @serviceCount + @qty
+			if (@newCount > 0)
+				update dbo.RoomExtraByRoom set serviceQty = @serviceCount + @qty where idReservation = @idReservation and idService = @idService
+			else 
+				delete dbo.RoomExtraByRoom where idReservation = @idReservation and idService = @idService
+		end
+	else
+		begin
+			insert into RoomExtraByRoom values(@idService, @roomNum, @qty, @idReservation)
+		end
+end
+go
+
+exec USP_InsertServiceInfo 'massage-01', 103, 2, '16042023#009'
+exec USP_InsertServiceInfo 'BF-01', 103, 2, '16042023#009'
+
+exec USP_InsertServiceInfo 'massage-01', 102, 2, '16042023#0010' 
+
+exec USP_InsertServiceInfo 'massage-01', 302, 2, '17042023#001'
+exec USP_InsertServiceInfo 'BF-01', 302, 2, '17042023#001'
+
+exec USP_InsertServiceInfo 'massage-01', 302, 2, '17042023#001' 
 
 --6. PROC RESERVATION
 --6.1 THEM Reservation chua co 
@@ -526,36 +624,155 @@ CREATE or alter proc USP_InsertReservation
 	@status bit,
 	@info varchar(20)
 AS
-	insert into dbo.Reservation values (DBO.AUTO_idReservation(@checkIn), @roomNum, @accoType, @checkIn, @checkOutInit, @idCus, @idStaff, @totalPrice, 0, '' ,@checkOutReal)
+	insert into dbo.Reservation values (DBO.AUTO_idReservation(@checkIn), @roomNum, @accoType, @checkIn, @checkOutInit, null, @idCus, @idStaff, @totalPrice, 0, '')
 go
 
+exec USP_InsertReservation 303, 1, '2023-01-26 14:00:00', '2023-01-26 15:00:00', '2023-01-26 18:00:00', '001', '001', 0, 0, ''
+
+select * from Reservation
+
+--6.2 Ket Reservation va thanh toan
+create or alter proc USP_CloseProcessingReservation
+	@idRes varchar(20),
+	@roomNum smallint,
+	@accoType smallint,
+	@checkIn datetime,
+	@checkOutInit datetime,
+	@checkOutReal datetime,
+	@totalPrice decimal(10,2),
+	@info varchar(20)
+AS
+	select @checkOutReal = getdate()
+	if @accoType = 1
+		select @totalPrice = DBO.CalculateTotalByHour(@roomNum, @checkIn, @checkOutReal)
+		update dbo.Reservation 
+		Set checkoutDateREAL = @checkOutReal, totalPrice = @totalPrice, paymentStatus = 1, paymentInfo = @info
+		where idReservation = @idRes
+
+	if @accoType = 2
+		select @totalPrice = DBO.CalculateTotalByNight(@roomNum, @checkIn, @checkOutReal)
+		update dbo.Reservation 
+		Set checkoutDateREAL = @checkOutReal, totalPrice = @totalPrice, paymentStatus = 1, paymentInfo = @info
+		where idReservation = @idRes
+
+	if @accoType = 3
+		select @totalPrice = DBO.CalculateTotalByDay(@roomNum, @checkIn, @checkOutReal)
+		update dbo.Reservation 
+		Set checkoutDateREAL = @checkOutReal, totalPrice = @totalPrice, paymentStatus = 1, paymentInfo = @info
+		where idReservation = @idRes
+go
+
+--6.3 Ket Reservation phong cu va doi phong
+create or alter proc USP_CloseProcessingReservationAndChangeRoom
+	@idRes varchar(20),
+	@roomNum smallint,
+	@accoType smallint,
+	@checkIn datetime,
+	@checkOutInit datetime,
+	@checkOutReal datetime,
+	@totalPrice decimal(10,2),
+	@info varchar(20),
+	@newRoomNum smallint,
+	@newAccoType smallint,
+	@newCheckIn datetime,
+	@idCus varchar(20),
+	@idStaff varchar(20)
+AS
+	select @checkOutReal = getdate()
+	select @newCheckIn = GETDATE()
+	if @accoType = 1
+		select @totalPrice = DBO.CalculateTotalByHour(@roomNum, @checkIn, @checkOutReal)
+		update dbo.Reservation 
+		Set checkoutDateREAL = @checkOutReal, totalPrice = @totalPrice, paymentStatus = 1, paymentInfo = @info
+		where idReservation = @idRes
+
+	if @accoType = 2
+		select @totalPrice = DBO.CalculateTotalByNight(@roomNum, @checkIn, @checkOutReal)
+		update dbo.Reservation 
+		Set checkoutDateREAL = @checkOutReal, totalPrice = @totalPrice, paymentStatus = 1, paymentInfo = @info
+		where idReservation = @idRes
+
+	if @accoType = 3
+		select @totalPrice = DBO.CalculateTotalByDay(@roomNum, @checkIn, @checkOutReal)
+		update dbo.Reservation 
+		Set checkoutDateREAL = @checkOutReal, totalPrice = @totalPrice, paymentStatus = 1, paymentInfo = @info
+		where idReservation = @idRes
+
+	insert into dbo.Reservation values (DBO.AUTO_idReservation(@newCheckIn), @newRoomNum, @newAccoType, @newCheckIn, @checkOutInit, null, @idCus, @idStaff, @totalPrice, 0, '')
+go
+
+
+
+--7 PROC CUSTOMER
+--7.1 PROC Them CUstomer
+CREATE or alter proc USP_InsertCustomer 
+	@fullname nvarchar(60),
+	@dob date,
+	@email varchar(60),
+	@address nvarchar(100),
+	@phone varchar(12),
+	@cmnd varchar(20)
+AS
+	insert into customer values (DBO.AUTO_idCustomer(@dob), @fullname, @email, @dob, @address, @phone, @cmnd, 0, @cmnd)
+go
 ------------------------------END PROC------------------------------
+sp_help customer
+select * from room
 
 ------------------------------BEGIN TRIGGER------------------------------
+create or alter trigger UTG_InsertCustomerAndInsertRanking
+on dbo.Customer after insert
+as
+begin
+	declare @idCustomer varchar(20), @phone varchar(13)
+
+	select @idCustomer = id from inserted
+
+	select @phone = phone from inserted
+
+	insert into dbo.ThanhVien values (@phone, 0, N'Normal', @idCustomer)
+end
+go
+
 create or alter trigger UTG_CreateReservationAndChangeOccupation
-on dbo.Reservation for insert
+on dbo.Reservation after insert
 as
 begin
 	declare @roomNum smallint
 
 	select @roomNum = roomNum from inserted
 
-	update dbo.Room set isOccupied = 1, isClean = 0 where roomNum = @roomNum
+	update dbo.Room set isOccupied = 1 where roomNum = @roomNum
 end
 go
-
+select * from
+--chua hoanthien
 create or alter trigger UTG_CloseReservationAndChangeOccupation
-on dbo.Reservation for update
+on dbo.Reservation after update
 as
 begin
-	declare @roomNum smallint
+	declare @roomNum smallint,  @idReservation varchar(20), @idCustomer varchar(20), @totalPrice decimal(10,2)
 
+	select @idReservation = idReservation from inserted
 	select @roomNum = roomNum from inserted
+	select @idCustomer = idCustomer from inserted
+	select @totalPrice = totalPrice from inserted
 
-	update dbo.Room set isOccupied = 0, isClean = 1 where roomNum = @roomNum
+	select @totalPrice = (select SUM(priceService*serviceQty) from USP_
+
+	select @totalPrice = CAST((@totalPrice / 1000)*100 as INTEGER)
+	select @totalPrice = @totalPrice / 100
+
+	update dbo.Room set isOccupied = 0 where roomNum = @roomNum
+
+	if (@idCustomer = '')
+		update dbo.Customer set points = 0 where id = @idCustomer
+	else 
+		update dbo.Customer set points = points + @totalPrice where id = @idCustomer
 end
 go
-select * from reservation
+
+select * from Customer
 create trigger UTG_UpdateRoomServiceInfo
 on dbo.RoomExtraByRoom for insert, update
 as
