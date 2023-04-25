@@ -46,34 +46,39 @@ namespace HotelManager.DAO
             }       
         }
 
-        public static List<RoomFacility> getRoomFacility(int roomNum)
+        public static List<Room> LoadUnoccupiedRoom()
         {
-            List<RoomFacility> facilityListPerRoom = new List<RoomFacility>();
+            List<Room> roomList = new List<Room>();
 
             using (HotelDataContext db = new HotelDataContext())
             {
-                var query = from room in db.RoomFacilities
-                            where room.roomNum == roomNum
-                            select room; 
+                var query = from cr in db.Rooms where cr.isOccupied == false
+                            select cr;
                 foreach (var item in query)
                 {
-                    facilityListPerRoom.Add(item);
+                    roomList.Add(item);
                 }
             }
-            return facilityListPerRoom;
+            return roomList;
         }
 
-        public static string loadRoomFacility(int roomNum)
+        public static List<Room> LoadFixingRoom()
         {
-            List<RoomFacility> facilityListPerRoom = getRoomFacility(roomNum);
-            string listFacility = "";
+            List<Room> roomList = new List<Room>();
 
-            foreach(RoomFacility item in facilityListPerRoom)
+            using (HotelDataContext db = new HotelDataContext())
             {
-                listFacility += item.nameFacility.ToString() + "  ";
+                var query = from cr in db.Rooms
+                            where cr.isClean == false
+                            select cr;
+                foreach (var item in query)
+                {
+                    roomList.Add(item);
+                }
             }
-            return listFacility;
+            return roomList;
         }
+
 
         public static bool InsertRoom(short roomNum, string roomName, string roomImage, short idType, string typeName, string idRateByType, short area)
         {

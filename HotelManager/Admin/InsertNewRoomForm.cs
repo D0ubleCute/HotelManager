@@ -24,7 +24,8 @@ namespace HotelManager.Admin
                 {1, "Deluxe/Twin"},
                 {2, "Superior"},
                 {3, "Suite"},
-                {4, "Suite/Double"},
+                {4, "Suite 2 giường đôi"},
+                {5, "President"}
             }.ToList();
             cbbRoomType.ValueMember = "Key";
             cbbRoomType.DisplayMember = "Value";
@@ -36,7 +37,8 @@ namespace HotelManager.Admin
                 {"DLX", "Deluxe/Twin"},
                 {"SUPER", "Superior"},
                 {"SUT", "Suite"},
-                {"SUT-2", "Suite Double"},
+                {"SUT-2", "Suite/Double"},
+                {"PRESIDENT", "PRESIDENT"}
             }.ToList();
             cbbIDRateByType.ValueMember = "Key";
             cbbIDRateByType.DisplayMember = "Value";

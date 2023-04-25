@@ -86,6 +86,27 @@ namespace HotelManager.NhanVien
             }
         }
 
+        void AddNewReservationAfterChange(string idRes, short roomNum, short accomType,
+                                           DateTime checkIn, DateTime checkOut, DateTime? checkOutReal, string idCus, string idStaff, decimal oldTotalPrice, string info,
+                                           short newRoomNum, short newAccoType, DateTime newCheckIn, DateTime newCheckOutInit)
+        {
+            Reservation reservation = ReservationController.FindProcessingReservationByRoomNum(roomNum);
+            idRes = reservation.idReservation;
+
+            bool result = ReservationController.CloseProcessingReservationAndChangeRoom(idRes, roomNum, accomType, checkIn, checkOut, checkOutReal, oldTotalPrice, info
+                                                                                        , newRoomNum, newAccoType, newCheckIn, newCheckOutInit, idCus, idStaff);
+
+            if (result)
+            {
+                MessageBox.Show("Đổi phòng thành công", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                LoadRoom();
+            }
+            else
+            {
+                MessageBox.Show("Đổi phòng thất bại", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
         void CloseProcessingReservation(string idRes, short roomNum, short accomType,
                                            DateTime checkIn, DateTime checkOutInit, DateTime? checkOutREAL, string paymentInfo)
         {
@@ -145,9 +166,12 @@ namespace HotelManager.NhanVien
                         if (cus == null)
                         {
                             cusPhone = string.Empty;
+                        } else
+                        {
+                            cusPhone = cus.id;
                         }
 
-                        AddReservation(Convert.ToInt16(txtRoomNum.Text), accoType, checkInDate, checkOutDate, cus.id, StaffID);
+                        AddReservation(Convert.ToInt16(txtRoomNum.Text), accoType, checkInDate, checkOutDate, cusPhone, StaffID);
                         flowLayoutPanel1.Controls.Clear();
                         LoadRoom();
                     }
@@ -161,7 +185,6 @@ namespace HotelManager.NhanVien
 
         private void btnCheckout_Click(object sender, EventArgs e)
         {
-
             if (txtRoomNum.Text.Equals("") || txtRoomNum.Text == null)
             {
                 MessageBox.Show("Chưa có đơn đặt phòng để thanh toán", "Thông tin", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -177,8 +200,62 @@ namespace HotelManager.NhanVien
 
             CloseProcessingReservation(reservation.idReservation, reservation.roomNum, reservation.accomodationType, reservation.checkinDate,
                                         reservation.checkoutDate, reservation.checkoutDateREAL, "cash");
+            Reservation res = ReservationController.GetReservationById(reservation.idReservation);
+            Customer cus = CustomerController.GetCustomerById(res.idCustomer);
             flowLayoutPanel1.Controls.Clear();
             LoadRoom();
+            INVOICE iNVOICE = new INVOICE(res.idReservation, res.roomNum, cus.fullName, res.totalPrice);
+            iNVOICE.ShowDialog();
+        }
+
+        private void btnChangeRoom_Click(object sender, EventArgs e)
+        {
+            if (txtRoomNum.Text == null || txtRoomNum.Text.Equals(""))
+            {
+                MessageBox.Show("Hãy chọn 1 phòng", "Xác nhận");
+                return;
+            }
+            else
+            {
+                Room room = RoomController.loadRoombyRoomNum(Convert.ToInt16(txtRoomNum.Text));
+                if (!room.isClean)
+                {
+                    MessageBox.Show("Phòng đang được sửa chữa, vui lòng chọn phòng khác", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
+            }
+
+            string roomNum = txtRoomNum.Text;
+            Reservation res = ReservationController.FindProcessingReservationByRoomNum(Convert.ToInt16(txtRoomNum.Text));
+
+            if (res != null)
+            {
+                DialogResult dialogResult = MessageBox.Show("Bạn muốn đổi phòng?", "Xác nhận", MessageBoxButtons.YesNo);
+                if (dialogResult == DialogResult.Yes)
+                {
+                    using (var form = new CreateReservationForChangingRoom())
+                    {
+                        var result = form.ShowDialog();
+                        if (result == DialogResult.OK)
+                        {
+                            short newRoomNum = form.roomNum;
+                            short accoType = form.accoType;            //values preserved after close
+                            DateTime checkInDate = form.checkInDate;
+                            DateTime checkOutDate = form.checkOutDate;
+
+                            AddNewReservationAfterChange(res.idReservation, res.roomNum, res.accomodationType, res.checkinDate, res.checkoutDate, res.checkoutDateREAL, res.idCustomer, res.idStaff,
+                                                               0, "Merged to " + newRoomNum.ToString(), newRoomNum, accoType, checkInDate, checkOutDate);
+                            flowLayoutPanel1.Controls.Clear();
+                            LoadRoom();
+                        }
+                    }
+                }
+                else if (dialogResult == DialogResult.No)
+                {
+                    return;
+                }
+            }
         }
     }
-}
+ }
+

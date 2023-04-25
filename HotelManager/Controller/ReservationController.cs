@@ -70,6 +70,11 @@ namespace HotelManager.Controller
             return ReservationDAO.GetReservationById(idReservation);
         }
 
-
+        public static bool CloseProcessingReservationAndChangeRoom(string idRes, short roomNum, short accomType,
+                                           DateTime checkIn, DateTime checkOutInit, DateTime? checkoutReal, decimal totalPrice, string info,
+                                           short newRoomNum, short newAccoType, DateTime newCheckIn, DateTime newCheckOutInit, string idStaff, string idCus)
+        {
+            return ReservationDAO.CloseProcessingReservationAndChangeRoom(idRes, roomNum, accomType, checkIn, checkOutInit, checkoutReal, totalPrice, info, newRoomNum, newAccoType, newCheckIn, newCheckOutInit,idCus, idStaff); ;
+        }
     }
 }

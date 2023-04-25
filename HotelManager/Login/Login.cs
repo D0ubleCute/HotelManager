@@ -12,6 +12,7 @@ using HotelManager.Controller;
 using HotelManager.DAO;
 using HotelManager.Admin;
 using HotelManager.NhanVien;
+using HotelManager.Helper;
 
 namespace HotelManager
 {
@@ -20,6 +21,7 @@ namespace HotelManager
         public Login()
         {
             InitializeComponent();
+
         }
 
         private void Login_Load(object sender, EventArgs e)
@@ -30,7 +32,7 @@ namespace HotelManager
 
         private void txtUserID_Enter(object sender, EventArgs e)
         {
-            if (txtUserID.Text == "Tên đăng nhập...")
+            if (txtUserID.Text == "Địa chỉ Email...")
             {
                 txtUserID.Text = "";
                 txtUserID.ForeColor = Color.Black;
@@ -41,7 +43,7 @@ namespace HotelManager
         {
             if (txtUserID.Text == "")
             {
-                txtUserID.Text = "Tên đăng nhập...";
+                txtUserID.Text = "Địa chỉ Email...";
                 txtUserID.ForeColor = Color.FromArgb(170, 170, 170);
             }
         }
@@ -83,7 +85,7 @@ namespace HotelManager
             Account test = AccountController.GetAccountByUsername(username);
             if (test == null)
             {
-                MessageBox.Show("Tài khoản này không tồn tại", "Thông báo");
+                MessageBox.Show("Tài khoản này không tồn tại", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return;
             }
 
@@ -94,7 +96,7 @@ namespace HotelManager
                 {
                     QuanLy frm = new QuanLy(loginAccount.userName);
                     AccountController.ResetAttempsOrUnlockAccount(username);
-                    MessageBox.Show("Đăng nhập thành công. Chào mừng Admin", "Thông báo");
+                    MessageBox.Show("Đăng nhập thành công. Chào mừng Admin", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     this.Hide();
                     frm.ShowDialog();
                     this.Show();
@@ -103,18 +105,18 @@ namespace HotelManager
                 {
                     NV frm = new NV(loginAccount.userName);
                     AccountController.ResetAttempsOrUnlockAccount(username);
-                    MessageBox.Show("Đăng nhập thành công. Chào mừng " + loginAccount.displayName, "Thông báo");
+                    MessageBox.Show("Đăng nhập thành công. Chào mừng " + loginAccount.displayName, "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     this.Hide();
                     frm.ShowDialog();
                     Show();
                 }
                 else if (loginAccount.isLocked == true)
                 {
-                    MessageBox.Show("Tài khoản của bạn đã bị khoá, liên hệ quản lý để biết thêm chi tiết", "Thông báo");
+                    MessageBox.Show("Tài khoản của bạn đã bị khoá, liên hệ quản lý để biết thêm chi tiết", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 }
                 else
                 {
-                    MessageBox.Show("Tài khoản này không tồn tại", "Thông báo");
+                    MessageBox.Show("Tài khoản này không tồn tại", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 }
 
             
@@ -124,12 +126,12 @@ namespace HotelManager
 
                 if (getLocked && loginAccount.isLocked == false)
                 {
-                    MessageBox.Show("Sai tên tài khoản hoặc mật khẩu, bạn còn " + loginAccount.attempts + " lần thử", "Thông báo");
+                    MessageBox.Show("Sai tên tài khoản hoặc mật khẩu, bạn còn " + loginAccount.attempts + " lần thử", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
                     return;
                 }
                 else if (getLocked && loginAccount.isLocked == true)
                 {
-                    MessageBox.Show("Tài khoản của bạn đã bị khoá, liên hệ quản lý để biết thêm chi tiết", "Thông báo");
+                    MessageBox.Show("Tài khoản của bạn đã bị khoá, liên hệ quản lý để biết thêm chi tiết", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                     return;
                 }
             }
@@ -155,6 +157,25 @@ namespace HotelManager
                 e.SuppressKeyPress = true;//Tắt tiếng *ting của windows
             }
         }
-       
+
+        private void llbForgotPassword_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            //if (txtUserID.Text != "")
+            //{
+            //    Staff staff = StaffController.GetStaffByUserName(txtUserID.Text);
+            //    if (staff != null)
+            //    {
+            //        string password = Support.GetRandomPassword();
+            //        if (AccountController.F(txtEmail.Text, password))
+            //        {
+            //            Admin.SendMail loader = new Admin.SendMail(txtEmail.Text, password, true);
+            //            loader.ShowDialog();
+            //            MessageBox.Show(loader.Result, "Thông báo");
+            //        }
+            //        else
+            //            MessageBox.Show("Không thực hiện được", "Thông báo");
+            //    }
+            //}
+        }
     }
 }

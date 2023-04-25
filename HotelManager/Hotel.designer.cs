@@ -36,15 +36,9 @@ namespace HotelManager
     partial void InsertCustomer(Customer instance);
     partial void UpdateCustomer(Customer instance);
     partial void DeleteCustomer(Customer instance);
-    partial void InsertJanitor(Janitor instance);
-    partial void UpdateJanitor(Janitor instance);
-    partial void DeleteJanitor(Janitor instance);
     partial void InsertReservation(Reservation instance);
     partial void UpdateReservation(Reservation instance);
     partial void DeleteReservation(Reservation instance);
-    partial void InsertRoomCleanByJanitor(RoomCleanByJanitor instance);
-    partial void UpdateRoomCleanByJanitor(RoomCleanByJanitor instance);
-    partial void DeleteRoomCleanByJanitor(RoomCleanByJanitor instance);
     partial void InsertRoomFacility(RoomFacility instance);
     partial void UpdateRoomFacility(RoomFacility instance);
     partial void DeleteRoomFacility(RoomFacility instance);
@@ -123,27 +117,11 @@ namespace HotelManager
 			}
 		}
 		
-		public System.Data.Linq.Table<Janitor> Janitors
-		{
-			get
-			{
-				return this.GetTable<Janitor>();
-			}
-		}
-		
 		public System.Data.Linq.Table<Reservation> Reservations
 		{
 			get
 			{
 				return this.GetTable<Reservation>();
-			}
-		}
-		
-		public System.Data.Linq.Table<RoomCleanByJanitor> RoomCleanByJanitors
-		{
-			get
-			{
-				return this.GetTable<RoomCleanByJanitor>();
 			}
 		}
 		
@@ -227,13 +205,6 @@ namespace HotelManager
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.USP_CloseProcessingReservation")]
-		public int USP_CloseProcessingReservation([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(20)")] string idRes, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="SmallInt")] System.Nullable<short> roomNum, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="SmallInt")] System.Nullable<short> accoType, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="DateTime")] System.Nullable<System.DateTime> checkIn, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="DateTime")] System.Nullable<System.DateTime> checkOutInit, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="DateTime")] System.Nullable<System.DateTime> checkOutReal, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Decimal(10,2)")] System.Nullable<decimal> totalPrice, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(20)")] string info)
-		{
-			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), idRes, roomNum, accoType, checkIn, checkOutInit, checkOutReal, totalPrice, info);
-			return ((int)(result.ReturnValue));
-		}
-		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.USP_DecreaseAttempsOrLockAccount")]
 		public int USP_DecreaseAttempsOrLockAccount([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(30)")] string username)
 		{
@@ -260,13 +231,6 @@ namespace HotelManager
 		{
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())));
 			return ((ISingleResult<USP_GetStaffResult>)(result.ReturnValue));
-		}
-		
-		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.USP_InsertStaff")]
-		public int USP_InsertStaff([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="NVarChar(60)")] string fullname, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Date")] System.Nullable<System.DateTime> dob, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="NVarChar(100)")] string address, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(12)")] string phone, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(20)")] string cmnd)
-		{
-			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), fullname, dob, address, phone, cmnd);
-			return ((int)(result.ReturnValue));
 		}
 		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.USP_SearchStaff")]
@@ -322,6 +286,62 @@ namespace HotelManager
 		public int USP_InsertRoom([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="SmallInt")] System.Nullable<short> roomNum, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="NVarChar(60)")] string roomName, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(MAX)")] string roomImage, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="SmallInt")] System.Nullable<short> idType, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="NVarChar(60)")] string typeName, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(20)")] string idRateByType, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="SmallInt")] System.Nullable<short> area)
 		{
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), roomNum, roomName, roomImage, idType, typeName, idRateByType, area);
+			return ((int)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.USP_CloseProcessingReservation")]
+		public int USP_CloseProcessingReservation([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(20)")] string idRes, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="SmallInt")] System.Nullable<short> roomNum, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="SmallInt")] System.Nullable<short> accoType, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="DateTime")] System.Nullable<System.DateTime> checkIn, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="DateTime")] System.Nullable<System.DateTime> checkOutInit, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="DateTime")] System.Nullable<System.DateTime> checkOutReal, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Decimal(10,2)")] System.Nullable<decimal> totalPrice, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(20)")] string info)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), idRes, roomNum, accoType, checkIn, checkOutInit, checkOutReal, totalPrice, info);
+			return ((int)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.USP_CloseProcessingReservationAndChangeRoom")]
+		public int USP_CloseProcessingReservationAndChangeRoom([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(20)")] string idRes, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="SmallInt")] System.Nullable<short> roomNum, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="SmallInt")] System.Nullable<short> accoType, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="DateTime")] System.Nullable<System.DateTime> checkIn, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="DateTime")] System.Nullable<System.DateTime> checkOutInit, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="DateTime")] System.Nullable<System.DateTime> checkOutReal, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Decimal(10,2)")] System.Nullable<decimal> totalPrice, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(20)")] string info, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="SmallInt")] System.Nullable<short> newRoomNum, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="SmallInt")] System.Nullable<short> newAccoType, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="DateTime")] System.Nullable<System.DateTime> newCheckIn, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="DateTime")] System.Nullable<System.DateTime> newCheckOutInit, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(20)")] string idCus, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(20)")] string idStaff, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Decimal(10,2)")] System.Nullable<decimal> newTotalPrice)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), idRes, roomNum, accoType, checkIn, checkOutInit, checkOutReal, totalPrice, info, newRoomNum, newAccoType, newCheckIn, newCheckOutInit, idCus, idStaff, newTotalPrice);
+			return ((int)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.USP_InsertRoomFacility")]
+		public int USP_InsertRoomFacility([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="NVarChar(60)")] string nameFacility, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="SmallInt")] System.Nullable<short> roomNum)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), nameFacility, roomNum);
+			return ((int)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.USP_InsertStaff")]
+		public int USP_InsertStaff([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="NVarChar(60)")] string fullname, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Date")] System.Nullable<System.DateTime> dob, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="NVarChar(100)")] string address, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(12)")] string phone, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(20)")] string cmnd, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(30)")] string recipientPass, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> count)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), fullname, dob, address, phone, cmnd, recipientPass, count);
+			return ((int)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.USP_InsertNewService")]
+		public int USP_InsertNewService([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(30)")] string idCategory, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="NVarChar(100)")] string nameCategory, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(30)")] string idService, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="NVarChar(100)")] string nameService, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> priceService)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), idCategory, nameCategory, idService, nameService, priceService);
+			return ((int)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.USP_InsertAlreadyService")]
+		public int USP_InsertAlreadyService([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(30)")] string idCategory, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(30)")] string idService, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="NVarChar(100)")] string nameService, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> priceService)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), idCategory, idService, nameService, priceService);
+			return ((int)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.USP_UpdatePassword")]
+		public int USP_UpdatePassword([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="NVarChar(50)")] string email, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="NVarChar(50)")] string oldpassword, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="NVarChar(50)")] string newpassword)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), email, oldpassword, newpassword);
+			return ((int)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.USP_ForgotPassword")]
+		public int USP_ForgotPassword([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="NVarChar(50)")] string email, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="NVarChar(50)")] string password)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), email, password);
 			return ((int)(result.ReturnValue));
 		}
 	}
@@ -846,216 +866,6 @@ namespace HotelManager
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Janitor")]
-	public partial class Janitor : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private string _idJanitor;
-		
-		private string _fullName;
-		
-		private System.DateTime _dob;
-		
-		private string _address;
-		
-		private string _phone;
-		
-		private string _cmnd;
-		
-		private EntitySet<RoomCleanByJanitor> _RoomCleanByJanitors;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnidJanitorChanging(string value);
-    partial void OnidJanitorChanged();
-    partial void OnfullNameChanging(string value);
-    partial void OnfullNameChanged();
-    partial void OndobChanging(System.DateTime value);
-    partial void OndobChanged();
-    partial void OnaddressChanging(string value);
-    partial void OnaddressChanged();
-    partial void OnphoneChanging(string value);
-    partial void OnphoneChanged();
-    partial void OncmndChanging(string value);
-    partial void OncmndChanged();
-    #endregion
-		
-		public Janitor()
-		{
-			this._RoomCleanByJanitors = new EntitySet<RoomCleanByJanitor>(new Action<RoomCleanByJanitor>(this.attach_RoomCleanByJanitors), new Action<RoomCleanByJanitor>(this.detach_RoomCleanByJanitors));
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_idJanitor", DbType="VarChar(20) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
-		public string idJanitor
-		{
-			get
-			{
-				return this._idJanitor;
-			}
-			set
-			{
-				if ((this._idJanitor != value))
-				{
-					this.OnidJanitorChanging(value);
-					this.SendPropertyChanging();
-					this._idJanitor = value;
-					this.SendPropertyChanged("idJanitor");
-					this.OnidJanitorChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_fullName", DbType="NVarChar(60) NOT NULL", CanBeNull=false)]
-		public string fullName
-		{
-			get
-			{
-				return this._fullName;
-			}
-			set
-			{
-				if ((this._fullName != value))
-				{
-					this.OnfullNameChanging(value);
-					this.SendPropertyChanging();
-					this._fullName = value;
-					this.SendPropertyChanged("fullName");
-					this.OnfullNameChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_dob", DbType="Date NOT NULL")]
-		public System.DateTime dob
-		{
-			get
-			{
-				return this._dob;
-			}
-			set
-			{
-				if ((this._dob != value))
-				{
-					this.OndobChanging(value);
-					this.SendPropertyChanging();
-					this._dob = value;
-					this.SendPropertyChanged("dob");
-					this.OndobChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_address", DbType="NVarChar(100)")]
-		public string address
-		{
-			get
-			{
-				return this._address;
-			}
-			set
-			{
-				if ((this._address != value))
-				{
-					this.OnaddressChanging(value);
-					this.SendPropertyChanging();
-					this._address = value;
-					this.SendPropertyChanged("address");
-					this.OnaddressChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_phone", DbType="VarChar(12) NOT NULL", CanBeNull=false)]
-		public string phone
-		{
-			get
-			{
-				return this._phone;
-			}
-			set
-			{
-				if ((this._phone != value))
-				{
-					this.OnphoneChanging(value);
-					this.SendPropertyChanging();
-					this._phone = value;
-					this.SendPropertyChanged("phone");
-					this.OnphoneChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_cmnd", DbType="VarChar(20) NOT NULL", CanBeNull=false)]
-		public string cmnd
-		{
-			get
-			{
-				return this._cmnd;
-			}
-			set
-			{
-				if ((this._cmnd != value))
-				{
-					this.OncmndChanging(value);
-					this.SendPropertyChanging();
-					this._cmnd = value;
-					this.SendPropertyChanged("cmnd");
-					this.OncmndChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Janitor_RoomCleanByJanitor", Storage="_RoomCleanByJanitors", ThisKey="idJanitor", OtherKey="idJanitor")]
-		public EntitySet<RoomCleanByJanitor> RoomCleanByJanitors
-		{
-			get
-			{
-				return this._RoomCleanByJanitors;
-			}
-			set
-			{
-				this._RoomCleanByJanitors.Assign(value);
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void attach_RoomCleanByJanitors(RoomCleanByJanitor entity)
-		{
-			this.SendPropertyChanging();
-			entity.Janitor = this;
-		}
-		
-		private void detach_RoomCleanByJanitors(RoomCleanByJanitor entity)
-		{
-			this.SendPropertyChanging();
-			entity.Janitor = null;
-		}
-	}
-	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Reservation")]
 	public partial class Reservation : INotifyPropertyChanging, INotifyPropertyChanged
 	{
@@ -1506,198 +1316,6 @@ namespace HotelManager
 		{
 			this.SendPropertyChanging();
 			entity.Reservation = null;
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.RoomCleanByJanitor")]
-	public partial class RoomCleanByJanitor : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private string _idCleaning;
-		
-		private string _idJanitor;
-		
-		private short _roomNum;
-		
-		private EntityRef<Janitor> _Janitor;
-		
-		private EntityRef<Room> _Room;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnidCleaningChanging(string value);
-    partial void OnidCleaningChanged();
-    partial void OnidJanitorChanging(string value);
-    partial void OnidJanitorChanged();
-    partial void OnroomNumChanging(short value);
-    partial void OnroomNumChanged();
-    #endregion
-		
-		public RoomCleanByJanitor()
-		{
-			this._Janitor = default(EntityRef<Janitor>);
-			this._Room = default(EntityRef<Room>);
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_idCleaning", DbType="VarChar(20) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
-		public string idCleaning
-		{
-			get
-			{
-				return this._idCleaning;
-			}
-			set
-			{
-				if ((this._idCleaning != value))
-				{
-					this.OnidCleaningChanging(value);
-					this.SendPropertyChanging();
-					this._idCleaning = value;
-					this.SendPropertyChanged("idCleaning");
-					this.OnidCleaningChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_idJanitor", DbType="VarChar(20) NOT NULL", CanBeNull=false)]
-		public string idJanitor
-		{
-			get
-			{
-				return this._idJanitor;
-			}
-			set
-			{
-				if ((this._idJanitor != value))
-				{
-					if (this._Janitor.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnidJanitorChanging(value);
-					this.SendPropertyChanging();
-					this._idJanitor = value;
-					this.SendPropertyChanged("idJanitor");
-					this.OnidJanitorChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_roomNum", DbType="SmallInt NOT NULL")]
-		public short roomNum
-		{
-			get
-			{
-				return this._roomNum;
-			}
-			set
-			{
-				if ((this._roomNum != value))
-				{
-					if (this._Room.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnroomNumChanging(value);
-					this.SendPropertyChanging();
-					this._roomNum = value;
-					this.SendPropertyChanged("roomNum");
-					this.OnroomNumChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Janitor_RoomCleanByJanitor", Storage="_Janitor", ThisKey="idJanitor", OtherKey="idJanitor", IsForeignKey=true)]
-		public Janitor Janitor
-		{
-			get
-			{
-				return this._Janitor.Entity;
-			}
-			set
-			{
-				Janitor previousValue = this._Janitor.Entity;
-				if (((previousValue != value) 
-							|| (this._Janitor.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Janitor.Entity = null;
-						previousValue.RoomCleanByJanitors.Remove(this);
-					}
-					this._Janitor.Entity = value;
-					if ((value != null))
-					{
-						value.RoomCleanByJanitors.Add(this);
-						this._idJanitor = value.idJanitor;
-					}
-					else
-					{
-						this._idJanitor = default(string);
-					}
-					this.SendPropertyChanged("Janitor");
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Room_RoomCleanByJanitor", Storage="_Room", ThisKey="roomNum", OtherKey="roomNum", IsForeignKey=true)]
-		public Room Room
-		{
-			get
-			{
-				return this._Room.Entity;
-			}
-			set
-			{
-				Room previousValue = this._Room.Entity;
-				if (((previousValue != value) 
-							|| (this._Room.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Room.Entity = null;
-						previousValue.RoomCleanByJanitors.Remove(this);
-					}
-					this._Room.Entity = value;
-					if ((value != null))
-					{
-						value.RoomCleanByJanitors.Add(this);
-						this._roomNum = value.roomNum;
-					}
-					else
-					{
-						this._roomNum = default(short);
-					}
-					this.SendPropertyChanged("Room");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
 		}
 	}
 	
@@ -3568,8 +3186,6 @@ namespace HotelManager
 		
 		private EntitySet<Reservation> _Reservations;
 		
-		private EntitySet<RoomCleanByJanitor> _RoomCleanByJanitors;
-		
 		private EntitySet<RoomFacility> _RoomFacilities;
 		
 		private EntityRef<RoomPrice> _RoomPrice;
@@ -3609,7 +3225,6 @@ namespace HotelManager
 		public Room()
 		{
 			this._Reservations = new EntitySet<Reservation>(new Action<Reservation>(this.attach_Reservations), new Action<Reservation>(this.detach_Reservations));
-			this._RoomCleanByJanitors = new EntitySet<RoomCleanByJanitor>(new Action<RoomCleanByJanitor>(this.attach_RoomCleanByJanitors), new Action<RoomCleanByJanitor>(this.detach_RoomCleanByJanitors));
 			this._RoomFacilities = new EntitySet<RoomFacility>(new Action<RoomFacility>(this.attach_RoomFacilities), new Action<RoomFacility>(this.detach_RoomFacilities));
 			this._RoomPrice = default(EntityRef<RoomPrice>);
 			this._RoomPrice1 = default(EntityRef<RoomPrice>);
@@ -3816,19 +3431,6 @@ namespace HotelManager
 			set
 			{
 				this._Reservations.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Room_RoomCleanByJanitor", Storage="_RoomCleanByJanitors", ThisKey="roomNum", OtherKey="roomNum")]
-		public EntitySet<RoomCleanByJanitor> RoomCleanByJanitors
-		{
-			get
-			{
-				return this._RoomCleanByJanitors;
-			}
-			set
-			{
-				this._RoomCleanByJanitors.Assign(value);
 			}
 		}
 		
@@ -4042,18 +3644,6 @@ namespace HotelManager
 		}
 		
 		private void detach_Reservations(Reservation entity)
-		{
-			this.SendPropertyChanging();
-			entity.Room = null;
-		}
-		
-		private void attach_RoomCleanByJanitors(RoomCleanByJanitor entity)
-		{
-			this.SendPropertyChanging();
-			entity.Room = this;
-		}
-		
-		private void detach_RoomCleanByJanitors(RoomCleanByJanitor entity)
 		{
 			this.SendPropertyChanging();
 			entity.Room = null;

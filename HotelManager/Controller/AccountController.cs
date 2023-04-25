@@ -38,6 +38,12 @@ namespace HotelManager.Controller
         {
             return AccountDAO.ResetAttempsOrUnlockAccount(userName);
         }
+
+        public static bool UpdatePassword(string email, string oldPassword, string newPass)
+        {
+            return AccountDAO.UpdatePassword(email, oldPassword, newPass);  
+        }
+
     }
 }
 

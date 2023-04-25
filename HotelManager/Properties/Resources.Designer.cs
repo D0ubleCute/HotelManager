@@ -123,6 +123,16 @@ namespace HotelManager.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        public static System.Drawing.Bitmap Pulse_1s_200px {
+            get {
+                object obj = ResourceManager.GetObject("Pulse-1s-200px", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         public static System.Drawing.Bitmap quanlynhansu {
             get {
                 object obj = ResourceManager.GetObject("quanlynhansu", resourceCulture);

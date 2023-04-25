@@ -58,9 +58,9 @@ namespace HotelManager.NhanVien
             CultureInfo culture = new CultureInfo("vi-VN");
 
             txtReservationID.DataBindings.Add("Text", dataGVReservation.DataSource, "Mã đặt phòng", true, DataSourceUpdateMode.Never);
-            txtReservationCustomerName.DataBindings.Add("Text", dataGVReservation.DataSource, "Khách hàng", true, DataSourceUpdateMode.Never);
+            txtReservationCustomerName.DataBindings.Add("Text", dataGVReservation.DataSource, "Tên khách hàng", true, DataSourceUpdateMode.Never);
             //txtReservationCustomerEmail.DataBindings.Add("Text", dataGVReservation.DataSource, "Họ tên", true, DataSourceUpdateMode.Never);
-            //txtReservationCustomerPhone.DataBindings.Add("Text", dataGVReservation.DataSource, "Ngày sinh", true, DataSourceUpdateMode.Never);
+            txtReservationCustomerPhone.DataBindings.Add("Text", dataGVReservation.DataSource, "SĐT khách hàng", true, DataSourceUpdateMode.Never);
             //txtReservationCustomerCMND.DataBindings.Add("Text", dataGVReservation.DataSource, "Email", true, DataSourceUpdateMode.Never);
             //txtReservationCustomerCheckin.DataBindings.Add("Text", dataGVReservation.DataSource, "SĐT", true, DataSourceUpdateMode.Never);
             //txtReservationCustomerCheckout.DataBindings.Add("Text", dataGVReservation.DataSource, "CMND", true, DataSourceUpdateMode.Never);
@@ -68,6 +68,17 @@ namespace HotelManager.NhanVien
             txtReservationCustomerCheckin.DataBindings.Add("Text", dataGVReservation.DataSource, "Ngày Check-in", true, DataSourceUpdateMode.Never);
             txtReservationCustomerCheckout.DataBindings.Add("Text", dataGVReservation.DataSource, "Ngày Check-out thực tế", true, DataSourceUpdateMode.Never);
             txtResTotalPrice.DataBindings.Add("Text", dataGVReservation.DataSource, "Tổng tiền", true, DataSourceUpdateMode.Never);
+        }
+
+        void showCustomerInfo(string cusPhone)
+        {
+            Customer cus = CustomerController.GetCustomerByPhone(cusPhone);
+            if (cus != null)
+            {
+                txtReservationCustomerEmail.Text = cus.email;
+                txtReservationCustomerCMND.Text = cus.cmnd;
+                txtReservationCustomerPhone.Text = cus.phone;
+            }
         }
 
         private void btnReservationSort_Click(object sender, EventArgs e)
@@ -79,12 +90,15 @@ namespace HotelManager.NhanVien
         {
             foreach (DataGridViewRow Myrow in dataGVReservation.Rows)
             {            
-                //Cell[4] : Checkout 8: total
-                if (Convert.ToDecimal(Myrow.Cells[9].Value) == 0)// Or your condition 
+                
+                if (Convert.ToDecimal(Myrow.Cells[10].Value) == 0)// Or your condition 
                 {
                     Myrow.DefaultCellStyle.BackColor = Color.Aqua;
                 }
-                else
+                else if (Convert.ToString(Myrow.Cells[9].ToString()).Equals("Đã thanh toán") && Convert.ToDecimal(Myrow.Cells[10].Value) == 0)
+                {
+                    Myrow.DefaultCellStyle.BackColor = Color.SaddleBrown;
+                } else
                 {
                     Myrow.DefaultCellStyle.BackColor = Color.MediumSpringGreen;
                 }
@@ -98,10 +112,12 @@ namespace HotelManager.NhanVien
                 int selectedrowindex = dataGVReservation.SelectedCells[0].RowIndex;
                 DataGridViewRow selectedRow = dataGVReservation.Rows[selectedrowindex];
                 string cellValue = Convert.ToString(selectedRow.Cells["Mã đặt phòng"].Value);
+                string cusPhone = Convert.ToString(selectedRow.Cells["SĐT khách hàng"].Value);
                 dataGridView1.DataSource = ServiceReservationByRoomController.GetRoomServiceListByReservation(cellValue);
 
                 CultureInfo culture = new CultureInfo("vi-VN");
                 txtServiceTotalPrice.Text = ServiceReservationByRoomController.GetServiceTotalPrice(dataGridView1).ToString("c", culture);
+                showCustomerInfo(cusPhone);
             }
         }
     }

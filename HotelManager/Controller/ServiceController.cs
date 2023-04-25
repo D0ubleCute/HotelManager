@@ -31,6 +31,16 @@ namespace HotelManager.Controller
             return ServiceDAO.GetRoomServiceList();
         }
 
+        public static bool InsertAlreadyService(string idCategory, string idService, string nameService, int priceService)
+        {
+            return ServiceDAO.InsertAlreadyService(idCategory, idService, nameService, priceService);
+        }
+
+        public static bool InsertNewService(string idCategory, string nameCategory, string idService, string nameService, int priceService)
+        {
+            return ServiceDAO.InsertNewService(idCategory, nameCategory, idService, nameService, priceService);
+        }
+
         public static bool UpdateService(string id, string serviceName, int servicePrice)
         {
             return ServiceDAO.UpdateService(id, serviceName, servicePrice);

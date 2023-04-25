@@ -52,7 +52,15 @@ namespace HotelManager.NhanVien
 
         private void button1_Click(object sender, EventArgs e)
         {
-            this.Close();
+            DialogResult dialogResult = MessageBox.Show("Bạn muốn đăng xuất?", "XÁC NHẬN", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
+            {
+                Close();
+            }
+            else if (dialogResult == DialogResult.No)
+            {
+                return;
+            }
         }
 
         private void btnStaffService_Click(object sender, EventArgs e)

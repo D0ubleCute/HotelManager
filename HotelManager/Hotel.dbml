@@ -26,17 +26,6 @@
       <Association Name="Customer_ThanhVien" Member="ThanhViens" ThisKey="id" OtherKey="idCustomer" Type="ThanhVien" />
     </Type>
   </Table>
-  <Table Name="dbo.Janitor" Member="Janitors">
-    <Type Name="Janitor">
-      <Column Name="idJanitor" Type="System.String" DbType="VarChar(20) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="fullName" Type="System.String" DbType="NVarChar(60) NOT NULL" CanBeNull="false" />
-      <Column Name="dob" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
-      <Column Name="address" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
-      <Column Name="phone" Type="System.String" DbType="VarChar(12) NOT NULL" CanBeNull="false" />
-      <Column Name="cmnd" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
-      <Association Name="Janitor_RoomCleanByJanitor" Member="RoomCleanByJanitors" ThisKey="idJanitor" OtherKey="idJanitor" Type="RoomCleanByJanitor" />
-    </Type>
-  </Table>
   <Table Name="dbo.Reservation" Member="Reservations">
     <Type Name="Reservation">
       <Column Name="idReservation" Type="System.String" DbType="VarChar(20) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
@@ -54,15 +43,6 @@
       <Association Name="Customer_Reservation" Member="Customer" ThisKey="idCustomer" OtherKey="id" Type="Customer" IsForeignKey="true" />
       <Association Name="Staff_Reservation" Member="Staff" ThisKey="idStaff" OtherKey="id" Type="Staff" IsForeignKey="true" />
       <Association Name="Room_Reservation" Member="Room" ThisKey="roomNum" OtherKey="roomNum" Type="Room" IsForeignKey="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.RoomCleanByJanitor" Member="RoomCleanByJanitors">
-    <Type Name="RoomCleanByJanitor">
-      <Column Name="idCleaning" Type="System.String" DbType="VarChar(20) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="idJanitor" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
-      <Column Name="roomNum" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
-      <Association Name="Janitor_RoomCleanByJanitor" Member="Janitor" ThisKey="idJanitor" OtherKey="idJanitor" Type="Janitor" IsForeignKey="true" />
-      <Association Name="Room_RoomCleanByJanitor" Member="Room" ThisKey="roomNum" OtherKey="roomNum" Type="Room" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.RoomFacility" Member="RoomFacilities">
@@ -169,7 +149,6 @@
       <Column Name="idRateByType" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
       <Column Name="area" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
       <Association Name="Room_Reservation" Member="Reservations" ThisKey="roomNum" OtherKey="roomNum" Type="Reservation" />
-      <Association Name="Room_RoomCleanByJanitor" Member="RoomCleanByJanitors" ThisKey="roomNum" OtherKey="roomNum" Type="RoomCleanByJanitor" />
       <Association Name="Room_RoomFacility" Member="RoomFacilities" ThisKey="roomNum" OtherKey="roomNum" Type="RoomFacility" />
       <Association Name="RoomPrice_Room" Member="RoomPrice" ThisKey="idRateByType" OtherKey="idRateByType" Type="RoomPrice" IsForeignKey="true" />
       <Association Name="RoomPrice_Room1" Member="RoomPrice1" ThisKey="idRateByType" OtherKey="idRateByType" Type="RoomPrice" IsForeignKey="true" />
@@ -178,17 +157,6 @@
       <Association Name="RoomPrice_Room4" Member="RoomPrice4" ThisKey="idRateByType" OtherKey="idRateByType" Type="RoomPrice" IsForeignKey="true" />
     </Type>
   </Table>
-  <Function Name="dbo.USP_CloseProcessingReservation" Method="USP_CloseProcessingReservation">
-    <Parameter Name="idRes" Type="System.String" DbType="VarChar(20)" />
-    <Parameter Name="roomNum" Type="System.Int16" DbType="SmallInt" />
-    <Parameter Name="accoType" Type="System.Int16" DbType="SmallInt" />
-    <Parameter Name="checkIn" Type="System.DateTime" DbType="DateTime" />
-    <Parameter Name="checkOutInit" Type="System.DateTime" DbType="DateTime" />
-    <Parameter Name="checkOutReal" Type="System.DateTime" DbType="DateTime" />
-    <Parameter Name="totalPrice" Type="System.Decimal" DbType="Decimal(10,2)" />
-    <Parameter Name="info" Type="System.String" DbType="VarChar(20)" />
-    <Return Type="System.Int32" />
-  </Function>
   <Function Name="dbo.USP_DecreaseAttempsOrLockAccount" Method="USP_DecreaseAttempsOrLockAccount">
     <Parameter Name="username" Type="System.String" DbType="VarChar(30)" />
     <Return Type="System.Int32" />
@@ -241,14 +209,6 @@
       <Column Name="attempts" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
       <Column Name="isLocked1" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
     </ElementType>
-  </Function>
-  <Function Name="dbo.USP_InsertStaff" Method="USP_InsertStaff">
-    <Parameter Name="fullname" Type="System.String" DbType="NVarChar(60)" />
-    <Parameter Name="dob" Type="System.DateTime" DbType="Date" />
-    <Parameter Name="address" Type="System.String" DbType="NVarChar(100)" />
-    <Parameter Name="phone" Type="System.String" DbType="VarChar(12)" />
-    <Parameter Name="cmnd" Type="System.String" DbType="VarChar(20)" />
-    <Return Type="System.Int32" />
   </Function>
   <Function Name="dbo.USP_SearchStaff" Method="USP_SearchStaff">
     <Parameter Name="name" Type="System.String" DbType="NVarChar(60)" />
@@ -321,6 +281,76 @@
     <Parameter Name="typeName" Type="System.String" DbType="NVarChar(60)" />
     <Parameter Name="idRateByType" Type="System.String" DbType="VarChar(20)" />
     <Parameter Name="area" Type="System.Int16" DbType="SmallInt" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.USP_CloseProcessingReservation" Method="USP_CloseProcessingReservation">
+    <Parameter Name="idRes" Type="System.String" DbType="VarChar(20)" />
+    <Parameter Name="roomNum" Type="System.Int16" DbType="SmallInt" />
+    <Parameter Name="accoType" Type="System.Int16" DbType="SmallInt" />
+    <Parameter Name="checkIn" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="checkOutInit" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="checkOutReal" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="totalPrice" Type="System.Decimal" DbType="Decimal(10,2)" />
+    <Parameter Name="info" Type="System.String" DbType="VarChar(20)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.USP_CloseProcessingReservationAndChangeRoom" Method="USP_CloseProcessingReservationAndChangeRoom">
+    <Parameter Name="idRes" Type="System.String" DbType="VarChar(20)" />
+    <Parameter Name="roomNum" Type="System.Int16" DbType="SmallInt" />
+    <Parameter Name="accoType" Type="System.Int16" DbType="SmallInt" />
+    <Parameter Name="checkIn" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="checkOutInit" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="checkOutReal" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="totalPrice" Type="System.Decimal" DbType="Decimal(10,2)" />
+    <Parameter Name="info" Type="System.String" DbType="VarChar(20)" />
+    <Parameter Name="newRoomNum" Type="System.Int16" DbType="SmallInt" />
+    <Parameter Name="newAccoType" Type="System.Int16" DbType="SmallInt" />
+    <Parameter Name="newCheckIn" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="newCheckOutInit" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="idCus" Type="System.String" DbType="VarChar(20)" />
+    <Parameter Name="idStaff" Type="System.String" DbType="VarChar(20)" />
+    <Parameter Name="newTotalPrice" Type="System.Decimal" DbType="Decimal(10,2)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.USP_InsertRoomFacility" Method="USP_InsertRoomFacility">
+    <Parameter Name="nameFacility" Type="System.String" DbType="NVarChar(60)" />
+    <Parameter Name="roomNum" Type="System.Int16" DbType="SmallInt" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.USP_InsertStaff" Method="USP_InsertStaff">
+    <Parameter Name="fullname" Type="System.String" DbType="NVarChar(60)" />
+    <Parameter Name="dob" Type="System.DateTime" DbType="Date" />
+    <Parameter Name="address" Type="System.String" DbType="NVarChar(100)" />
+    <Parameter Name="phone" Type="System.String" DbType="VarChar(12)" />
+    <Parameter Name="cmnd" Type="System.String" DbType="VarChar(20)" />
+    <Parameter Name="recipientPass" Type="System.String" DbType="VarChar(30)" />
+    <Parameter Name="count" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.USP_InsertNewService" Method="USP_InsertNewService">
+    <Parameter Name="idCategory" Type="System.String" DbType="VarChar(30)" />
+    <Parameter Name="nameCategory" Type="System.String" DbType="NVarChar(100)" />
+    <Parameter Name="idService" Type="System.String" DbType="VarChar(30)" />
+    <Parameter Name="nameService" Type="System.String" DbType="NVarChar(100)" />
+    <Parameter Name="priceService" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.USP_InsertAlreadyService" Method="USP_InsertAlreadyService">
+    <Parameter Name="idCategory" Type="System.String" DbType="VarChar(30)" />
+    <Parameter Name="idService" Type="System.String" DbType="VarChar(30)" />
+    <Parameter Name="nameService" Type="System.String" DbType="NVarChar(100)" />
+    <Parameter Name="priceService" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.USP_UpdatePassword" Method="USP_UpdatePassword">
+    <Parameter Name="email" Type="System.String" DbType="NVarChar(50)" />
+    <Parameter Name="oldpassword" Type="System.String" DbType="NVarChar(50)" />
+    <Parameter Name="newpassword" Type="System.String" DbType="NVarChar(50)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.USP_ForgotPassword" Method="USP_ForgotPassword">
+    <Parameter Name="email" Type="System.String" DbType="NVarChar(50)" />
+    <Parameter Name="password" Type="System.String" DbType="NVarChar(50)" />
     <Return Type="System.Int32" />
   </Function>
 </Database>

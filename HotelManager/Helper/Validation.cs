@@ -39,30 +39,7 @@ namespace HotelManager.Helper
             utf8Decode.GetChars(todecode_byte, 0, todecode_byte.Length, decoded_char, 0);
             string result = new String(decoded_char);
             return result;
-        }
-
-        public static string GetTicketTypeRepresentation(int ticketType)
-        {
-            StringBuilder representString = new StringBuilder();
-            switch (ticketType)
-            {
-                case 0:
-                    representString.Append("Vé người lớn");
-                    break;
-                case 1:
-                    representString.Append("Vé học sinh - sinh viên");
-                    break;
-                case 2:
-                    representString.Append("Vé trẻ em");
-                    break;
-                default:
-                    representString.Append("Vé không xác định");
-                    break;
-            }
-
-            return representString.ToString();
-        }
-
+        }     
 
         public static List<Control> GetAllControls(Control container, List<Control> list)
         {
@@ -182,44 +159,6 @@ namespace HotelManager.Helper
             }
         }
 
-        public static bool SendMailForVouchers(string email, List<string> vouchers)
-        {
-            var from = new MailAddress("paimoncinema@gmail.com");
-            var to = new MailAddress(email);
-
-            var subject = "Tri ân khách hàng";
-            StringBuilder body = new StringBuilder();
-
-            string username = "7fb8aeeca5eda3";
-            string password = "9bbf94a6d618fa";
-
-            string host = "smtp.mailtrap.io";
-            int port = 2525;
-
-            var client = new SmtpClient(host, port)
-            {
-                Credentials = new NetworkCredential(username, password),
-                EnableSsl = true
-            };
-
-            var mail = new MailMessage();
-            mail.Subject = subject;
-            mail.From = from;
-            mail.To.Add(to);
-            mail.Body = body.ToString();
-            mail.IsBodyHtml = true;
-
-            try
-            {
-                client.Send(mail);
-                return true;
-            }
-            catch (Exception)
-            {
-                return false;
-            }
-        }
-
         public static bool FileCopy(string fileName, string sourcePath, string targetPath)
         {
             // Use Path class to manipulate file and directory paths.
@@ -245,40 +184,6 @@ namespace HotelManager.Helper
             }
         }
 
-        public static (string, List<string>) GetListCode(int quantity, int length, string firstChars, string lastChars)
-        {
-            List<string> ListCode = new List<string>();
-            var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-            var random = new Random();
-            int randomLength = length - firstChars.Length - lastChars.Length;
-            if (randomLength <= 0)
-            {
-                return ("Độ dài của voucher phải lớn hơn độ dài chuỗi kí tự đầu + độ dài chuỗi kí tự cuối", null);
-            }
-            if (randomLength < 4)
-            {
-                return ($"Độ dài của voucher phải lớn hơn độ dài chuỗi kí tự đầu + độ dài chuỗi kí tự cuối + 4 ", null);
-            }
-            for (int i = 0; i < quantity; i++)
-            {
-
-                var stringChars = new char[randomLength];
-                for (int j = 0; j < stringChars.Length; j++)
-                {
-                    stringChars[j] = chars[random.Next(chars.Length)];
-                }
-                string newCode = new String(stringChars);
-                var isExist = ListCode.Any(code => code == newCode);
-                if (isExist)
-                {
-                    i--;
-                    continue;
-                }
-                ListCode.Add(firstChars + newCode + lastChars);
-            }
-
-            return (null, ListCode);
-        }
         public static string FormatVNMoney(decimal money)
         {
             if (money == 0)
@@ -330,7 +235,6 @@ namespace HotelManager.Helper
             return double.TryParse(text, out test);
         }
 
-
         public static bool IsValidRoomNum(short roomNum)
         {
             if(roomNum < 100 || roomNum > 999)
@@ -359,6 +263,17 @@ namespace HotelManager.Helper
                 return false;
             }
             return true;
+        }
+
+        public static bool check18YearsOldInAge(DateTime birth)
+        {
+            birth = birth.AddYears(-18);
+            DateTime ok = DateTime.UtcNow.AddYears(-18);
+            if (ok.Year - birth.Year >= 18)
+            {
+                return true;
+            }
+            return false;
         }
     }
 }

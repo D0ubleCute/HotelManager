@@ -28,6 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(QuanLy));
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tpRevenue = new System.Windows.Forms.TabPage();
@@ -69,7 +72,6 @@
             this.tpCustomer = new System.Windows.Forms.TabPage();
             this.txtSearchCustomer = new System.Windows.Forms.TextBox();
             this.btnDeleteCustomer = new System.Windows.Forms.Button();
-            this.btnShowCustomer = new System.Windows.Forms.Button();
             this.dataGVCustomer = new System.Windows.Forms.DataGridView();
             this.btnSearchCustomer = new System.Windows.Forms.Button();
             this.grpCustomer = new System.Windows.Forms.GroupBox();
@@ -89,6 +91,7 @@
             this.txtCustomerINumber = new System.Windows.Forms.TextBox();
             this.lblCustomerName = new System.Windows.Forms.Label();
             this.tpFacility = new System.Windows.Forms.TabPage();
+            this.btnInsertNewRoom = new Guna.UI2.WinForms.Guna2Button();
             this.tabControlForFacility = new Guna.UI2.WinForms.Guna2TabControl();
             this.tpRoomInfo = new System.Windows.Forms.TabPage();
             this.btnSaveRoomInfo = new Guna.UI2.WinForms.Guna2Button();
@@ -108,7 +111,6 @@
             this.tpRoomThings = new System.Windows.Forms.TabPage();
             this.tpMiscellaneous = new System.Windows.Forms.TabPage();
             this.btnAddRoomService = new Guna.UI2.WinForms.Guna2Button();
-            this.btnAddRoomThing = new Guna.UI2.WinForms.Guna2Button();
             this.tpReservation = new System.Windows.Forms.TabPage();
             this.guna2DateTimePicker1 = new Guna.UI2.WinForms.Guna2DateTimePicker();
             this.guna2DateTimePicker2 = new Guna.UI2.WinForms.Guna2DateTimePicker();
@@ -147,12 +149,13 @@
             this.btnCustomer = new System.Windows.Forms.Button();
             this.btnStaff = new System.Windows.Forms.Button();
             this.btnRevenue = new System.Windows.Forms.Button();
-            this.btnInsertNewRoom = new Guna.UI2.WinForms.Guna2Button();
+            this.btnShowCustomer = new System.Windows.Forms.Button();
             this.btnExcelOutput = new Guna.UI2.WinForms.Guna2Button();
             this.picStaff = new System.Windows.Forms.PictureBox();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.btnReservationSort = new System.Windows.Forms.Button();
             this.picUser = new System.Windows.Forms.PictureBox();
+            this.dataGVRoomThings = new Guna.UI2.WinForms.Guna2DataGridView();
             this.tabControl1.SuspendLayout();
             this.tpRevenue.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGVRevenue)).BeginInit();
@@ -166,6 +169,7 @@
             this.tpFacility.SuspendLayout();
             this.tabControlForFacility.SuspendLayout();
             this.tpRoomInfo.SuspendLayout();
+            this.tpRoomThings.SuspendLayout();
             this.tpMiscellaneous.SuspendLayout();
             this.tpReservation.SuspendLayout();
             this.guna2TabControl1.SuspendLayout();
@@ -176,6 +180,7 @@
             this.panelFunction.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picStaff)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picUser)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGVRoomThings)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -681,17 +686,6 @@
             this.btnDeleteCustomer.Text = "Xóa";
             this.btnDeleteCustomer.UseVisualStyleBackColor = true;
             // 
-            // btnShowCustomer
-            // 
-            this.btnShowCustomer.Location = new System.Drawing.Point(82, 134);
-            this.btnShowCustomer.Margin = new System.Windows.Forms.Padding(2);
-            this.btnShowCustomer.Name = "btnShowCustomer";
-            this.btnShowCustomer.Size = new System.Drawing.Size(175, 55);
-            this.btnShowCustomer.TabIndex = 68;
-            this.btnShowCustomer.Text = "Xem";
-            this.btnShowCustomer.UseVisualStyleBackColor = true;
-            this.btnShowCustomer.Click += new System.EventHandler(this.btnShowCustomer_Click_1);
-            // 
             // dataGVCustomer
             // 
             this.dataGVCustomer.AllowUserToAddRows = false;
@@ -906,6 +900,23 @@
             this.tpFacility.Text = "Cơ sở vật chất";
             this.tpFacility.UseVisualStyleBackColor = true;
             // 
+            // btnInsertNewRoom
+            // 
+            this.btnInsertNewRoom.BorderRadius = 20;
+            this.btnInsertNewRoom.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnInsertNewRoom.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnInsertNewRoom.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnInsertNewRoom.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnInsertNewRoom.FillColor = System.Drawing.Color.LightCoral;
+            this.btnInsertNewRoom.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnInsertNewRoom.ForeColor = System.Drawing.Color.White;
+            this.btnInsertNewRoom.Location = new System.Drawing.Point(3, 3);
+            this.btnInsertNewRoom.Name = "btnInsertNewRoom";
+            this.btnInsertNewRoom.Size = new System.Drawing.Size(529, 33);
+            this.btnInsertNewRoom.TabIndex = 34;
+            this.btnInsertNewRoom.Text = "Thêm phòng mới";
+            this.btnInsertNewRoom.Click += new System.EventHandler(this.btnInsertNewRoom_Click);
+            // 
             // tabControlForFacility
             // 
             this.tabControlForFacility.Controls.Add(this.tpRoomInfo);
@@ -1118,6 +1129,7 @@
             // 
             // tpRoomThings
             // 
+            this.tpRoomThings.Controls.Add(this.dataGVRoomThings);
             this.tpRoomThings.Location = new System.Drawing.Point(4, 39);
             this.tpRoomThings.Name = "tpRoomThings";
             this.tpRoomThings.Padding = new System.Windows.Forms.Padding(3);
@@ -1129,7 +1141,6 @@
             // tpMiscellaneous
             // 
             this.tpMiscellaneous.Controls.Add(this.btnAddRoomService);
-            this.tpMiscellaneous.Controls.Add(this.btnAddRoomThing);
             this.tpMiscellaneous.Location = new System.Drawing.Point(4, 39);
             this.tpMiscellaneous.Name = "tpMiscellaneous";
             this.tpMiscellaneous.Size = new System.Drawing.Size(404, 441);
@@ -1147,27 +1158,12 @@
             this.btnAddRoomService.FillColor = System.Drawing.Color.LightCoral;
             this.btnAddRoomService.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAddRoomService.ForeColor = System.Drawing.Color.White;
-            this.btnAddRoomService.Location = new System.Drawing.Point(85, 224);
+            this.btnAddRoomService.Location = new System.Drawing.Point(77, 169);
             this.btnAddRoomService.Name = "btnAddRoomService";
-            this.btnAddRoomService.Size = new System.Drawing.Size(234, 76);
+            this.btnAddRoomService.Size = new System.Drawing.Size(253, 86);
             this.btnAddRoomService.TabIndex = 35;
             this.btnAddRoomService.Text = "Thêm dịch vụ";
-            // 
-            // btnAddRoomThing
-            // 
-            this.btnAddRoomThing.BorderRadius = 20;
-            this.btnAddRoomThing.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.btnAddRoomThing.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.btnAddRoomThing.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.btnAddRoomThing.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.btnAddRoomThing.FillColor = System.Drawing.Color.LightCoral;
-            this.btnAddRoomThing.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAddRoomThing.ForeColor = System.Drawing.Color.White;
-            this.btnAddRoomThing.Location = new System.Drawing.Point(85, 122);
-            this.btnAddRoomThing.Name = "btnAddRoomThing";
-            this.btnAddRoomThing.Size = new System.Drawing.Size(234, 76);
-            this.btnAddRoomThing.TabIndex = 34;
-            this.btnAddRoomThing.Text = "Thêm đồ dùng";
+            this.btnAddRoomService.Click += new System.EventHandler(this.btnAddRoomService_Click);
             // 
             // tpReservation
             // 
@@ -1610,22 +1606,16 @@
             this.btnRevenue.MouseLeave += new System.EventHandler(this.btnRevenue_MouseLeave);
             this.btnRevenue.MouseHover += new System.EventHandler(this.btnRevenue_MouseHover);
             // 
-            // btnInsertNewRoom
+            // btnShowCustomer
             // 
-            this.btnInsertNewRoom.BorderRadius = 20;
-            this.btnInsertNewRoom.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.btnInsertNewRoom.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.btnInsertNewRoom.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.btnInsertNewRoom.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.btnInsertNewRoom.FillColor = System.Drawing.Color.LightCoral;
-            this.btnInsertNewRoom.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnInsertNewRoom.ForeColor = System.Drawing.Color.White;
-            this.btnInsertNewRoom.Location = new System.Drawing.Point(3, 3);
-            this.btnInsertNewRoom.Name = "btnInsertNewRoom";
-            this.btnInsertNewRoom.Size = new System.Drawing.Size(529, 33);
-            this.btnInsertNewRoom.TabIndex = 34;
-            this.btnInsertNewRoom.Text = "Thêm phòng mới";
-            this.btnInsertNewRoom.Click += new System.EventHandler(this.btnInsertNewRoom_Click);
+            this.btnShowCustomer.Location = new System.Drawing.Point(82, 134);
+            this.btnShowCustomer.Margin = new System.Windows.Forms.Padding(2);
+            this.btnShowCustomer.Name = "btnShowCustomer";
+            this.btnShowCustomer.Size = new System.Drawing.Size(175, 55);
+            this.btnShowCustomer.TabIndex = 68;
+            this.btnShowCustomer.Text = "Xem";
+            this.btnShowCustomer.UseVisualStyleBackColor = true;
+            this.btnShowCustomer.Click += new System.EventHandler(this.btnShowCustomer_Click_1);
             // 
             // btnExcelOutput
             // 
@@ -1687,6 +1677,58 @@
             this.picUser.TabIndex = 6;
             this.picUser.TabStop = false;
             // 
+            // dataGVRoomThings
+            // 
+            this.dataGVRoomThings.AllowUserToAddRows = false;
+            this.dataGVRoomThings.AllowUserToDeleteRows = false;
+            this.dataGVRoomThings.AllowUserToResizeColumns = false;
+            this.dataGVRoomThings.AllowUserToResizeRows = false;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.White;
+            this.dataGVRoomThings.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(88)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGVRoomThings.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGVRoomThings.DefaultCellStyle = dataGridViewCellStyle3;
+            this.dataGVRoomThings.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
+            this.dataGVRoomThings.Location = new System.Drawing.Point(4, 4);
+            this.dataGVRoomThings.Name = "dataGVRoomThings";
+            this.dataGVRoomThings.RowHeadersVisible = false;
+            this.dataGVRoomThings.Size = new System.Drawing.Size(392, 431);
+            this.dataGVRoomThings.TabIndex = 0;
+            this.dataGVRoomThings.ThemeStyle.AlternatingRowsStyle.BackColor = System.Drawing.Color.White;
+            this.dataGVRoomThings.ThemeStyle.AlternatingRowsStyle.Font = null;
+            this.dataGVRoomThings.ThemeStyle.AlternatingRowsStyle.ForeColor = System.Drawing.Color.Empty;
+            this.dataGVRoomThings.ThemeStyle.AlternatingRowsStyle.SelectionBackColor = System.Drawing.Color.Empty;
+            this.dataGVRoomThings.ThemeStyle.AlternatingRowsStyle.SelectionForeColor = System.Drawing.Color.Empty;
+            this.dataGVRoomThings.ThemeStyle.BackColor = System.Drawing.Color.White;
+            this.dataGVRoomThings.ThemeStyle.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
+            this.dataGVRoomThings.ThemeStyle.HeaderStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(88)))), ((int)(((byte)(255)))));
+            this.dataGVRoomThings.ThemeStyle.HeaderStyle.BorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
+            this.dataGVRoomThings.ThemeStyle.HeaderStyle.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dataGVRoomThings.ThemeStyle.HeaderStyle.ForeColor = System.Drawing.Color.White;
+            this.dataGVRoomThings.ThemeStyle.HeaderStyle.HeaightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            this.dataGVRoomThings.ThemeStyle.HeaderStyle.Height = 23;
+            this.dataGVRoomThings.ThemeStyle.ReadOnly = false;
+            this.dataGVRoomThings.ThemeStyle.RowsStyle.BackColor = System.Drawing.Color.White;
+            this.dataGVRoomThings.ThemeStyle.RowsStyle.BorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
+            this.dataGVRoomThings.ThemeStyle.RowsStyle.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dataGVRoomThings.ThemeStyle.RowsStyle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
+            this.dataGVRoomThings.ThemeStyle.RowsStyle.Height = 22;
+            this.dataGVRoomThings.ThemeStyle.RowsStyle.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
+            this.dataGVRoomThings.ThemeStyle.RowsStyle.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
+            // 
             // QuanLy
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1717,6 +1759,7 @@
             this.tabControlForFacility.ResumeLayout(false);
             this.tpRoomInfo.ResumeLayout(false);
             this.tpRoomInfo.PerformLayout();
+            this.tpRoomThings.ResumeLayout(false);
             this.tpMiscellaneous.ResumeLayout(false);
             this.tpReservation.ResumeLayout(false);
             this.tpReservation.PerformLayout();
@@ -1730,6 +1773,7 @@
             this.panelFunction.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picStaff)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picUser)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGVRoomThings)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1776,7 +1820,6 @@
         private System.Windows.Forms.TabPage tpReservation;
         private System.Windows.Forms.TextBox txtSearchCustomer;
         private System.Windows.Forms.Button btnDeleteCustomer;
-        private System.Windows.Forms.Button btnShowCustomer;
         private System.Windows.Forms.DataGridView dataGVCustomer;
         private System.Windows.Forms.Button btnSearchCustomer;
         private System.Windows.Forms.GroupBox grpCustomer;
@@ -1854,11 +1897,12 @@
         private Guna.UI2.WinForms.Guna2Button btnRevenueByQuarter;
         private System.Windows.Forms.TabPage tpMiscellaneous;
         private Guna.UI2.WinForms.Guna2Button btnAddRoomService;
-        private Guna.UI2.WinForms.Guna2Button btnAddRoomThing;
         private System.Windows.Forms.TextBox txtResTotalPrice;
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.Label label20;
         private Guna.UI2.WinForms.Guna2Button btnSaveRoomInfo;
         private Guna.UI2.WinForms.Guna2Button btnInsertNewRoom;
+        private System.Windows.Forms.Button btnShowCustomer;
+        private Guna.UI2.WinForms.Guna2DataGridView dataGVRoomThings;
     }
 }

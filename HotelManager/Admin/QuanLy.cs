@@ -16,6 +16,7 @@ namespace HotelManager.Admin
     {
         private string staffUserName;
 
+
         BindingSource staffList = new BindingSource();
         BindingSource customerList = new BindingSource();
         BindingSource reservationList = new BindingSource();
@@ -25,6 +26,7 @@ namespace HotelManager.Admin
         {
             InitializeComponent();
 
+            this.SetStyle(ControlStyles.SupportsTransparentBackColor, true);
             this.staffUserName = userName;
 
             LoadRevenue();
@@ -183,7 +185,11 @@ namespace HotelManager.Admin
         {
             InsertStaffForm insertStaffForm = new InsertStaffForm();
             insertStaffForm.Show();
-            LoadStaff(); 
+            if (insertStaffForm.DialogResult == DialogResult.OK)
+            {
+                LoadStaff();
+
+            }
         }
 
         private void btnUpdateStaff_Click(object sender, EventArgs e)
@@ -388,7 +394,10 @@ namespace HotelManager.Admin
 
                 }
                 flowLayoutPanel1.Controls.Add(btn);
+                
             }
+
+            
         }
 
         void showRoomInfo(int roomNum)
@@ -422,6 +431,10 @@ namespace HotelManager.Admin
             else 
                 btnSaveRoomInfo.Enabled = true;
             showRoomInfo(roomNum);
+            if (tabControlForFacility.SelectedTab == tpRoomThings)
+            {
+                dataGVRoomThings.DataSource = RoomThingController.GetRoomThingsTableByRoomNum((short)roomNum);
+            }
         }
 
         private void btnFixRoom_Click(object sender, EventArgs e)
@@ -444,7 +457,30 @@ namespace HotelManager.Admin
 
         private void btnAddFacility_Click(object sender, EventArgs e)
         {
+            short roomNum = Convert.ToInt16(txtRoomNum.Text);
+            Room room = RoomController.loadRoombyRoomNum(roomNum);
+            if (room.isClean == true)
+            {
+                MessageBox.Show("Phòng đang được vận hành", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
 
+            DialogResult dialogResult = MessageBox.Show("Bạn muốn thêm CSVC cho phòng " + txtRoomNum.Text + " ?", "Xác nhận", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+            if (dialogResult == DialogResult.Yes)
+            {
+                using (var form = new InsertRoomFacility(roomNum))
+                {
+                    var result = form.ShowDialog();
+                    if (result == DialogResult.OK)
+                    {
+                        showRoomInfo(roomNum);
+                    }
+                }
+            }
+            else if (dialogResult == DialogResult.No)
+            {
+                return;
+            }
         }
 
         private void btnSaveRoomInfo_Click(object sender, EventArgs e)
@@ -488,6 +524,13 @@ namespace HotelManager.Admin
             }
         }
 
+        private void btnAddRoomService_Click(object sender, EventArgs e)
+        {
+            DialogResult dialogResult = MessageBox.Show("Bạn muốn tạo dịch vụ mới?", "Xác nhận", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+            CreateService createService = new CreateService();
+            createService.ShowDialog();
+        }
+
         //----------end room module----------
 
 
@@ -520,7 +563,7 @@ namespace HotelManager.Admin
 
             CultureInfo culture = new CultureInfo("vi-VN");
 
-            txtReservationCustomerName.DataBindings.Add("Text", dataGVReservation.DataSource, "Khách hàng", true, DataSourceUpdateMode.Never);
+            txtReservationCustomerName.DataBindings.Add("Text", dataGVReservation.DataSource, "Tên khách hàng", true, DataSourceUpdateMode.Never);
             //txtReservationCustomerEmail.DataBindings.Add("Text", dataGVReservation.DataSource, "Họ tên", true, DataSourceUpdateMode.Never);
             //txtReservationCustomerPhone.DataBindings.Add("Text", dataGVReservation.DataSource, "Ngày sinh", true, DataSourceUpdateMode.Never);
             //txtReservationCustomerCMND.DataBindings.Add("Text", dataGVReservation.DataSource, "Email", true, DataSourceUpdateMode.Never);
@@ -537,9 +580,13 @@ namespace HotelManager.Admin
         {
             foreach (DataGridViewRow Myrow in dataGVReservation.Rows)
             {            //Here 2 cell is target value and 1 cell is Volume
-                if (Convert.ToDecimal(Myrow.Cells[9].Value) == 0)// Or your condition 
+                if (Convert.ToDecimal(Myrow.Cells[10].Value) == 0)// Or your condition 
                 {
                     Myrow.DefaultCellStyle.BackColor = Color.Aqua;
+                }
+                else if (Convert.ToString(Myrow.Cells[9].Value).Equals("Đã thanh toán") && Convert.ToDecimal(Myrow.Cells[10].Value) == 0)
+                {
+                    Myrow.DefaultCellStyle.BackColor = Color.SaddleBrown;
                 }
                 else
                 {

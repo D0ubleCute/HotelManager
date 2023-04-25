@@ -1,4 +1,5 @@
-﻿using HotelManager.Controller;
+﻿using HotelManager.Admin;
+using HotelManager.Controller;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -121,6 +122,24 @@ namespace HotelManager.NhanVien
             dataGVReceipt.DataSource = receiptList;
         }
 
-   
+        private void btnAddCustomer_Click(object sender, EventArgs e)
+        {
+            DialogResult dialogResult = MessageBox.Show("Bạn muốn thêm thành viên mới?", "Xác nhận", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
+            {
+                using (var form = new InsertNewCustomer())
+                {
+                    var result = form.ShowDialog();
+                    if (result == DialogResult.OK)
+                    {
+                        LoadCustomer();
+                    }
+                }
+            }
+            else if (dialogResult == DialogResult.No)
+            {
+                return;
+            }
+        }
     }
 }

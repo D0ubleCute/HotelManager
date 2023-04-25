@@ -36,6 +36,7 @@
             this.lbUserID = new System.Windows.Forms.Label();
             this.lbPassword = new System.Windows.Forms.Label();
             this.btnLogin = new System.Windows.Forms.Button();
+            this.llbForgotPassword = new System.Windows.Forms.LinkLabel();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -108,7 +109,7 @@
             // 
             this.btnLogin.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnLogin.ForeColor = System.Drawing.Color.Orange;
-            this.btnLogin.Location = new System.Drawing.Point(550, 323);
+            this.btnLogin.Location = new System.Drawing.Point(550, 308);
             this.btnLogin.Name = "btnLogin";
             this.btnLogin.Size = new System.Drawing.Size(149, 54);
             this.btnLogin.TabIndex = 2;
@@ -116,12 +117,26 @@
             this.btnLogin.UseVisualStyleBackColor = true;
             this.btnLogin.Click += new System.EventHandler(this.btnLogin_Click);
             // 
+            // llbForgotPassword
+            // 
+            this.llbForgotPassword.AutoSize = true;
+            this.llbForgotPassword.Font = new System.Drawing.Font("Segoe UI Semibold", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.llbForgotPassword.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
+            this.llbForgotPassword.Location = new System.Drawing.Point(539, 377);
+            this.llbForgotPassword.Name = "llbForgotPassword";
+            this.llbForgotPassword.Size = new System.Drawing.Size(169, 30);
+            this.llbForgotPassword.TabIndex = 6;
+            this.llbForgotPassword.TabStop = true;
+            this.llbForgotPassword.Text = "Quên mật khẩu?";
+            this.llbForgotPassword.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.llbForgotPassword_LinkClicked);
+            // 
             // Login
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlDark;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.llbForgotPassword);
             this.Controls.Add(this.btnLogin);
             this.Controls.Add(this.lbPassword);
             this.Controls.Add(this.lbUserID);
@@ -149,6 +164,7 @@
         private System.Windows.Forms.Label lbUserID;
         private System.Windows.Forms.Label lbPassword;
         private System.Windows.Forms.Button btnLogin;
+        private System.Windows.Forms.LinkLabel llbForgotPassword;
     }
 }
 

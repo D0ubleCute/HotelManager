@@ -42,11 +42,9 @@
             this.label5 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.tpRoomThings = new System.Windows.Forms.TabPage();
             this.btnChangeRoom = new Guna.UI2.WinForms.Guna2Button();
             this.btnCreateReservation = new Guna.UI2.WinForms.Guna2Button();
             this.btnCheckout = new Guna.UI2.WinForms.Guna2Button();
-            this.tpReservationInfo = new System.Windows.Forms.TabPage();
             this.panel3.SuspendLayout();
             this.tabControlForFacility.SuspendLayout();
             this.tpRoomInfo.SuspendLayout();
@@ -72,11 +70,9 @@
             // tabControlForFacility
             // 
             this.tabControlForFacility.Controls.Add(this.tpRoomInfo);
-            this.tabControlForFacility.Controls.Add(this.tpReservationInfo);
-            this.tabControlForFacility.Controls.Add(this.tpRoomThings);
             this.tabControlForFacility.Cursor = System.Windows.Forms.Cursors.Hand;
             this.tabControlForFacility.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tabControlForFacility.ItemSize = new System.Drawing.Size(205, 35);
+            this.tabControlForFacility.ItemSize = new System.Drawing.Size(620, 35);
             this.tabControlForFacility.Location = new System.Drawing.Point(0, 0);
             this.tabControlForFacility.Name = "tabControlForFacility";
             this.tabControlForFacility.SelectedIndex = 0;
@@ -96,7 +92,7 @@
             this.tabControlForFacility.TabButtonSelectedState.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tabControlForFacility.TabButtonSelectedState.ForeColor = System.Drawing.Color.LightCoral;
             this.tabControlForFacility.TabButtonSelectedState.InnerColor = System.Drawing.Color.Salmon;
-            this.tabControlForFacility.TabButtonSize = new System.Drawing.Size(205, 35);
+            this.tabControlForFacility.TabButtonSize = new System.Drawing.Size(620, 35);
             this.tabControlForFacility.TabIndex = 2;
             this.tabControlForFacility.TabMenuBackColor = System.Drawing.Color.White;
             this.tabControlForFacility.TabMenuOrientation = Guna.UI2.WinForms.TabMenuOrientation.HorizontalTop;
@@ -115,10 +111,10 @@
             this.tpRoomInfo.Controls.Add(this.label7);
             this.tpRoomInfo.Controls.Add(this.label6);
             this.tpRoomInfo.ForeColor = System.Drawing.Color.IndianRed;
-            this.tpRoomInfo.Location = new System.Drawing.Point(4, 74);
+            this.tpRoomInfo.Location = new System.Drawing.Point(4, 39);
             this.tpRoomInfo.Name = "tpRoomInfo";
             this.tpRoomInfo.Padding = new System.Windows.Forms.Padding(3);
-            this.tpRoomInfo.Size = new System.Drawing.Size(617, 311);
+            this.tpRoomInfo.Size = new System.Drawing.Size(617, 346);
             this.tpRoomInfo.TabIndex = 0;
             this.tpRoomInfo.Text = "Thông tin phòng";
             // 
@@ -214,16 +210,6 @@
             this.label6.TabIndex = 26;
             this.label6.Text = "Diện tích";
             // 
-            // tpRoomThings
-            // 
-            this.tpRoomThings.Location = new System.Drawing.Point(4, 39);
-            this.tpRoomThings.Name = "tpRoomThings";
-            this.tpRoomThings.Padding = new System.Windows.Forms.Padding(3);
-            this.tpRoomThings.Size = new System.Drawing.Size(617, 346);
-            this.tpRoomThings.TabIndex = 1;
-            this.tpRoomThings.Text = "Đồ dùng";
-            this.tpRoomThings.UseVisualStyleBackColor = true;
-            // 
             // btnChangeRoom
             // 
             this.btnChangeRoom.AutoRoundedCorners = true;
@@ -240,6 +226,7 @@
             this.btnChangeRoom.Size = new System.Drawing.Size(318, 45);
             this.btnChangeRoom.TabIndex = 14;
             this.btnChangeRoom.Text = "Đổi phòng";
+            this.btnChangeRoom.Click += new System.EventHandler(this.btnChangeRoom_Click);
             // 
             // btnCreateReservation
             // 
@@ -276,15 +263,6 @@
             this.btnCheckout.TabIndex = 16;
             this.btnCheckout.Text = "Thanh toán";
             this.btnCheckout.Click += new System.EventHandler(this.btnCheckout_Click);
-            // 
-            // tpReservationInfo
-            // 
-            this.tpReservationInfo.Location = new System.Drawing.Point(4, 39);
-            this.tpReservationInfo.Name = "tpReservationInfo";
-            this.tpReservationInfo.Size = new System.Drawing.Size(617, 346);
-            this.tpReservationInfo.TabIndex = 2;
-            this.tpReservationInfo.Text = "Thông tin đặt phòng";
-            this.tpReservationInfo.UseVisualStyleBackColor = true;
             // 
             // UC_Room
             // 
@@ -324,7 +302,5 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.TabPage tpRoomThings;
-        private System.Windows.Forms.TabPage tpReservationInfo;
     }
 }

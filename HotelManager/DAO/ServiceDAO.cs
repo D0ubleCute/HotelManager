@@ -85,13 +85,30 @@ namespace HotelManager.DAO
             return serviceList;
         }
 
-        public static bool InsertService(string hoTen, DateTime ngaySinh, string diaChi, string sdt, string cmnd)
+        public static bool InsertAlreadyService(string idCategory, string idService, string nameService, int priceService)
         {
             using (HotelDataContext db = new HotelDataContext())
             {
                 try
                 {
-                    db.USP_InsertStaff(hoTen, ngaySinh, diaChi, sdt, cmnd);
+                    db.USP_InsertAlreadyService(idCategory, idService, nameService, priceService);
+                    return true;
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show(e.Message);
+                    return false;
+                }
+            }
+        }
+
+        public static bool InsertNewService(string idCategory, string nameCategory, string idService, string nameService, int priceService)
+        {
+            using (HotelDataContext db = new HotelDataContext())
+            {
+                try
+                {
+                    db.USP_InsertNewService(idCategory, nameCategory, idService, nameService, priceService);
                     return true;
                 }
                 catch (Exception e)

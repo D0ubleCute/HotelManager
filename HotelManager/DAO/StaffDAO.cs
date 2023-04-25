@@ -5,6 +5,7 @@ using System.Drawing;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -15,7 +16,9 @@ namespace HotelManager.DAO
 {
         public class StaffDAO
         {
-            public static List<Staff> GetStaff()
+            
+
+        public static List<Staff> GetStaff()
             {
                 List<Staff> staffList = new List<Staff>();
 
@@ -124,13 +127,13 @@ namespace HotelManager.DAO
             }
 
 
-            public static bool InsertStaff(string hoTen, DateTime ngaySinh, string diaChi, string sdt, string cmnd)
+            public static bool InsertStaff(string hoTen, DateTime ngaySinh, string diaChi, string sdt, string cmnd, string pass, int count)
                 {
                     using (HotelDataContext db = new HotelDataContext())
                     {
                         try
                         {
-                            db.USP_InsertStaff(hoTen, ngaySinh, diaChi, sdt, cmnd);
+                            db.USP_InsertStaff(hoTen, ngaySinh, diaChi, sdt, cmnd, pass, count);
                             return true;
                         }
                         catch (Exception e)

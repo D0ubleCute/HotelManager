@@ -27,6 +27,8 @@ namespace HotelManager.NhanVien
         public CreateReservation(string roomNum)
         {
             InitializeComponent();
+            ColorTranslator.FromHtml("#C9D9EB");
+
             lbRoomNum.Text = roomNum;
 
             cbbAccomodation.DataSource = new Dictionary<short, string>()
@@ -64,8 +66,9 @@ namespace HotelManager.NhanVien
             
             if(accoType == 1)
             {
-                checkOutDate = DateTime.Now;
-            } else if (accoType == 2)
+                checkOutDate = DateTime.Now.AddHours(1);
+            }
+            else if (accoType == 2)
             {
                 TimeSpan ts1 = new TimeSpan(22, 00, 00);
                 checkInDate = checkInDate.Date + ts1;

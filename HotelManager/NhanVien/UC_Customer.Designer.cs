@@ -41,10 +41,10 @@
             this.txtCustomerPhone = new Guna.UI2.WinForms.Guna2TextBox();
             this.txtCustomerID = new Guna.UI2.WinForms.Guna2TextBox();
             this.tpCustomerInfo = new System.Windows.Forms.TabPage();
+            this.txtCustomerIDNum = new Guna.UI2.WinForms.Guna2TextBox();
             this.tabKhachHang = new Guna.UI2.WinForms.Guna2TabControl();
             this.guna2Panel1 = new Guna.UI2.WinForms.Guna2Panel();
             this.dataGVCustomer = new System.Windows.Forms.DataGridView();
-            this.txtCustomerIDNum = new Guna.UI2.WinForms.Guna2TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGVReceipt)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             this.tpReceiptList.SuspendLayout();
@@ -194,6 +194,7 @@
             this.btnAddCustomer.Size = new System.Drawing.Size(215, 37);
             this.btnAddCustomer.TabIndex = 7;
             this.btnAddCustomer.Text = "Thêm KH mới";
+            this.btnAddCustomer.Click += new System.EventHandler(this.btnAddCustomer_Click);
             // 
             // mtxtCustomerDob
             // 
@@ -269,6 +270,27 @@
             this.tpCustomerInfo.Text = "Thông tin khách hàng";
             this.tpCustomerInfo.UseVisualStyleBackColor = true;
             // 
+            // txtCustomerIDNum
+            // 
+            this.txtCustomerIDNum.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.txtCustomerIDNum.DefaultText = "";
+            this.txtCustomerIDNum.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
+            this.txtCustomerIDNum.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
+            this.txtCustomerIDNum.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.txtCustomerIDNum.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.txtCustomerIDNum.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.txtCustomerIDNum.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.txtCustomerIDNum.ForeColor = System.Drawing.Color.Blue;
+            this.txtCustomerIDNum.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.txtCustomerIDNum.Location = new System.Drawing.Point(5, 67);
+            this.txtCustomerIDNum.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.txtCustomerIDNum.Name = "txtCustomerIDNum";
+            this.txtCustomerIDNum.PasswordChar = '\0';
+            this.txtCustomerIDNum.PlaceholderText = "";
+            this.txtCustomerIDNum.SelectedText = "";
+            this.txtCustomerIDNum.Size = new System.Drawing.Size(445, 39);
+            this.txtCustomerIDNum.TabIndex = 12;
+            // 
             // tabKhachHang
             // 
             this.tabKhachHang.Alignment = System.Windows.Forms.TabAlignment.Right;
@@ -332,27 +354,6 @@
             this.dataGVCustomer.Size = new System.Drawing.Size(1166, 536);
             this.dataGVCustomer.TabIndex = 0;
             this.dataGVCustomer.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGVCustomer_CellClick);
-            // 
-            // txtCustomerIDNum
-            // 
-            this.txtCustomerIDNum.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.txtCustomerIDNum.DefaultText = "";
-            this.txtCustomerIDNum.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
-            this.txtCustomerIDNum.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
-            this.txtCustomerIDNum.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.txtCustomerIDNum.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.txtCustomerIDNum.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.txtCustomerIDNum.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.txtCustomerIDNum.ForeColor = System.Drawing.Color.Blue;
-            this.txtCustomerIDNum.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.txtCustomerIDNum.Location = new System.Drawing.Point(5, 67);
-            this.txtCustomerIDNum.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
-            this.txtCustomerIDNum.Name = "txtCustomerIDNum";
-            this.txtCustomerIDNum.PasswordChar = '\0';
-            this.txtCustomerIDNum.PlaceholderText = "";
-            this.txtCustomerIDNum.SelectedText = "";
-            this.txtCustomerIDNum.Size = new System.Drawing.Size(445, 39);
-            this.txtCustomerIDNum.TabIndex = 12;
             // 
             // UC_Customer
             // 

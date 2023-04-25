@@ -85,11 +85,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Admin\BUS_SendMail.cs" />
+    <Compile Include="Admin\CreateService.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Admin\CreateService.Designer.cs">
+      <DependentUpon>CreateService.cs</DependentUpon>
+    </Compile>
     <Compile Include="Admin\InsertNewRoomForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Admin\InsertNewRoomForm.Designer.cs">
       <DependentUpon>InsertNewRoomForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\InsertRoomFacility.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Admin\InsertRoomFacility.Designer.cs">
+      <DependentUpon>InsertRoomFacility.cs</DependentUpon>
     </Compile>
     <Compile Include="Admin\InsertStaffForm.cs">
       <SubType>Form</SubType>
@@ -103,22 +116,34 @@
     <Compile Include="Admin\QuanLy.Designer.cs">
       <DependentUpon>QuanLy.cs</DependentUpon>
     </Compile>
+    <Compile Include="Admin\SendMail.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Admin\SendMail.Designer.cs">
+      <DependentUpon>SendMail.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controller\AccountController.cs" />
     <Compile Include="Controller\CustomerController.cs" />
     <Compile Include="Controller\ReservationController.cs" />
     <Compile Include="Controller\RevenueController.cs" />
     <Compile Include="Controller\RoomController.cs" />
+    <Compile Include="Controller\RoomFacilityController.cs" />
+    <Compile Include="Controller\RoomThingController.cs" />
     <Compile Include="Controller\ServiceController.cs" />
     <Compile Include="Controller\ServiceReservationByRoomController.cs" />
     <Compile Include="Controller\StaffController.cs" />
+    <Compile Include="Controller\VatTuController.cs" />
     <Compile Include="DAO\AccountDAO.cs" />
     <Compile Include="DAO\CustomerDAO.cs" />
     <Compile Include="DAO\ReservationDAO.cs" />
     <Compile Include="DAO\RevenueDAO.cs" />
     <Compile Include="DAO\RoomDAO.cs" />
+    <Compile Include="DAO\RoomFacilityDAO.cs" />
+    <Compile Include="DAO\RoomThingDAO.cs" />
     <Compile Include="DAO\ServiceDAO.cs" />
     <Compile Include="DAO\ServiceReservationByRoomDAO.cs" />
     <Compile Include="DAO\StaffDAO.cs" />
+    <Compile Include="DAO\VatTuDAO.cs" />
     <Compile Include="Helper\SendMail.cs" />
     <Compile Include="Helper\Support.cs" />
     <Compile Include="Helper\Validation.cs" />
@@ -141,6 +166,24 @@
     </Compile>
     <Compile Include="NhanVien\CreateReservation.Designer.cs">
       <DependentUpon>CreateReservation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NhanVien\CreateReservationForChangingRoom.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NhanVien\CreateReservationForChangingRoom.Designer.cs">
+      <DependentUpon>CreateReservationForChangingRoom.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NhanVien\InsertNewCustomer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NhanVien\InsertNewCustomer.Designer.cs">
+      <DependentUpon>InsertNewCustomer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NhanVien\INVOICE.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NhanVien\INVOICE.Designer.cs">
+      <DependentUpon>INVOICE.cs</DependentUpon>
     </Compile>
     <Compile Include="NhanVien\NV.cs">
       <SubType>Form</SubType>
@@ -186,8 +229,14 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Admin\CreateService.resx">
+      <DependentUpon>CreateService.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Admin\InsertNewRoomForm.resx">
       <DependentUpon>InsertNewRoomForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Admin\InsertRoomFacility.resx">
+      <DependentUpon>InsertRoomFacility.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Admin\InsertStaffForm.resx">
       <DependentUpon>InsertStaffForm.cs</DependentUpon>
@@ -195,11 +244,23 @@
     <EmbeddedResource Include="Admin\QuanLy.resx">
       <DependentUpon>QuanLy.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Admin\SendMail.resx">
+      <DependentUpon>SendMail.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Login\Login.resx">
       <DependentUpon>Login.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="NhanVien\CreateReservation.resx">
       <DependentUpon>CreateReservation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NhanVien\CreateReservationForChangingRoom.resx">
+      <DependentUpon>CreateReservationForChangingRoom.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NhanVien\InsertNewCustomer.resx">
+      <DependentUpon>InsertNewCustomer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NhanVien\INVOICE.resx">
+      <DependentUpon>INVOICE.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="NhanVien\NV.resx">
       <DependentUpon>NV.cs</DependentUpon>
@@ -261,6 +322,7 @@
     <None Include="Resources\quanlynhansu.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\Pulse-1s-200px.gif" />
     <None Include="Resources\back.png" />
     <None Include="Resources\logout2.jpg" />
     <None Include="Resources\logout.png" />

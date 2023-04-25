@@ -21,14 +21,24 @@ namespace HotelManager.Controller
             return RoomDAO.loadRoomByRoomNum(roomNum); ;
         }
 
+        public static List<Room> LoadUnoccupiedRoom()
+        {
+            return RoomDAO.LoadUnoccupiedRoom();
+        }
+
+        public static List<Room> LoadFixingRoom()
+        {
+            return RoomDAO.LoadFixingRoom();
+        }
+
         public static List<RoomFacility> getRoomFacility(int roomNum)
         {
-            return RoomDAO.getRoomFacility(roomNum); 
+            return RoomFacilityDAO.getRoomFacility(roomNum); 
         }
 
         public static string loadRoomFacility(int roomNum)
         {
-            return RoomDAO.loadRoomFacility(roomNum);   
+            return RoomFacilityDAO.loadRoomFacility(roomNum);   
         }
 
         public static bool InsertRoom(short roomNum, string roomName, string roomImage, short idType, string typeName, string idRateByType, short area)

@@ -115,6 +115,7 @@
             this.btnChangePassword.Size = new System.Drawing.Size(215, 45);
             this.btnChangePassword.TabIndex = 56;
             this.btnChangePassword.Text = "Đổi mật khẩu";
+            this.btnChangePassword.Click += new System.EventHandler(this.btnChangePassword_Click);
             // 
             // txtOldPassword
             // 

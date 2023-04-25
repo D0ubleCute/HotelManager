@@ -10,7 +10,7 @@ namespace HotelManager.Helper
 {
     public class Support
     {
-        public string GetRandomPassword()
+        public static string GetRandomPassword()
         {
             Random r = new Random();
             StringBuilder builder = new StringBuilder();
@@ -20,7 +20,7 @@ namespace HotelManager.Helper
             return builder.ToString();
         }
 
-        private string RandomString(int size, bool lowerCase)
+        private static string RandomString(int size, bool lowerCase)
         {
             StringBuilder builder = new StringBuilder();
             Random r = new Random();

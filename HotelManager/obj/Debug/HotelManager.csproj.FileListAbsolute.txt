@@ -23,3 +23,9 @@ D:\SUBJECTS\Môn CNPM\HotelManager\HotelManager\obj\Debug\HotelManager.NhanVien.
 D:\SUBJECTS\Môn CNPM\HotelManager\HotelManager\obj\Debug\HotelManager.NhanVien.UC_Facility.resources
 D:\SUBJECTS\Môn CNPM\HotelManager\HotelManager\obj\Debug\HotelManager.NhanVien.UC_Service.resources
 D:\SUBJECTS\Môn CNPM\HotelManager\HotelManager\obj\Debug\HotelManager.Admin.InsertNewRoomForm.resources
+D:\SUBJECTS\Môn CNPM\HotelManager\HotelManager\obj\Debug\HotelManager.NhanVien.CreateReservationForChangingRoom.resources
+D:\SUBJECTS\Môn CNPM\HotelManager\HotelManager\obj\Debug\HotelManager.Admin.InsertRoomFacility.resources
+D:\SUBJECTS\Môn CNPM\HotelManager\HotelManager\obj\Debug\HotelManager.Admin.CreateService.resources
+D:\SUBJECTS\Môn CNPM\HotelManager\HotelManager\obj\Debug\HotelManager.Admin.SendMail.resources
+D:\SUBJECTS\Môn CNPM\HotelManager\HotelManager\obj\Debug\HotelManager.NhanVien.InsertNewCustomer.resources
+D:\SUBJECTS\Môn CNPM\HotelManager\HotelManager\obj\Debug\HotelManager.NhanVien.INVOICE.resources
